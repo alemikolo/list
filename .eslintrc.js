@@ -1,6 +1,7 @@
 module.exports = {
   "extends": "airbnb",
   "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "object-curly-newline": ["error", {
       "ObjectExpression": {
         "multiline": true,
@@ -19,5 +20,8 @@ module.exports = {
     ],
   },
   "globals": {
+    "document": false,
+    "window": false,
+    "navigator": false,
   },
 };

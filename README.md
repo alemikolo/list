@@ -1,5 +1,4 @@
 # Shopping List
-This is my a personal website/online CV.
 
 ## Version
 0.0.1. - 2018.11.22
