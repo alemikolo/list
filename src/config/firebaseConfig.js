@@ -5,6 +5,7 @@ import privateConfig from './privateConfig';
 
 const config = { ...privateConfig };
 firebase.initializeApp(config);
-firebase.firestore().settings({ timestampsInSnapshots: true });
+const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true });
 
-export default firebase;
+export default db;
