@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import ShoppingList from './components/ShoppingList/ShoppingList';
+import ShoppingList from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<ShoppingList />, document.getElementById('root'));
