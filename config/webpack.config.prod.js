@@ -307,6 +307,10 @@ module.exports = {
                     },
                   },
                 ],
+                [
+                  require.resolve('babel-plugin-jsx-remove-data-test-id'),
+                  { attributes: 'data-test-id' },
+                ],
               ],
               cacheDirectory: true,
               // Save disk space when time isn't as important
