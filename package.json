@@ -7,7 +7,6 @@
     "@svgr/webpack": "2.4.1",
     "ajv": "^6.6.1",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
     "babel-loader": "8.0.4",
     "babel-plugin-jsx-remove-data-test-id": "^1.2.1",
@@ -111,10 +110,11 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "^9.0.0",
     "check-prop-types": "^1.1.2",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
-    "eslint": "^5.6.0",
+    "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^3.0.5",
     "eslint-loader": "^2.1.1",

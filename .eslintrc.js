@@ -1,15 +1,19 @@
 module.exports = {
+  "extends": "airbnb",
   "env": {
     "jest": true,
     "browser": true,
     "node": true,
   },
-  "extends": "airbnb",
+  "parser": "babel-eslint",
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "**/tests/*.js"],
     },
     ],
+    "jsx-quotes": "off",
+    "react/destructuring-assignment": "off",
+    "react/button-has-type": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "object-curly-newline": ["error", {
       "ObjectExpression": {
@@ -23,7 +27,7 @@ module.exports = {
       "allowSamePrecedence": true,
     }
     ],
-    "max-len": ["error", {
+    "max-len": ["warn", {
       "ignoreComments": true,
     },
     ],
