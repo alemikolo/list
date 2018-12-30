@@ -1,0 +1,78 @@
+@mixin small-screens(){
+  @media only screen and (min-width: 320px) {
+    @content;
+  }
+}
+
+@mixin medium-screens(){
+  @media only screen and (min-width: 600px) {
+    @content;
+  }
+}
+
+@mixin normal-screens(){
+  @media only screen and (min-width: 900px) {
+    @content;
+  }
+}
+
+@mixin large-screens(){
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin tile-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin tile {
+  position: relative;
+  color: $base-font-color;
+  background-color: $base-background-color;
+  width: 100%;
+  margin: 0 0 0.5rem 0;
+  @include shadow();
+  @include medium-screens() {
+    width: col-width(2);
+    &:nth-child(odd) {
+      margin-right: $base-distance;
+    }
+  }
+  @include normal-screens() {
+    width: col-width(3);
+    margin-right: $base-distance;
+    &:nth-child(3n+3) {
+      margin-right: 0;
+    }
+  }
+  @include large-screens() {
+    width: col-width(4);
+    &:nth-child(3n+3) {
+      margin-right: $base-distance;
+    }
+    &:nth-child(4n+4) {
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.1);
+  } @else if $level == 2 {
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.3);
+  } @else if $level == 3 {
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.5);
+  } @else if $level == 4 {
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7);
+  } @else {
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.9);
+  }
+}
+
+@mixin margin($size: 1) {
+  padding: calc(($size * $base-distance));
+}

@@ -1,6 +1,22 @@
 // === COLORS ===
-$base-color: #045ba8;
-$body-background: #f7f7f7;
+$base-color: #19469e;
+$base-background-color: #fff;
+$base-font-color: #000;
+$body-background-color: #f7f7f7;
+
+// === LISTS COLORS ===
+$list-pink: #ff00ff;
+$list-purple: #a008c2;
+$list-navy: $base-color;
+$list-blue: #0c8ef2;
+$list-green: #00c914;
+$list-lime: #6aff00;
+$list-yellow: #ffff00;
+$list-gold: #ffd700;
+$list-orange: #ff9100;
+$list-red: #ff0000;
+$list-brown: #85501f;
+$list-grey: #808080;
 
 // === FONTS ===
 $text-font: "Roboto", sans-serif;
@@ -8,3 +24,6 @@ $text-size: 20px;
 $text-line: 1;
 $text-light: 300;
 $text-bold: 500;
+
+// === POSITIONING ===
+$base-distance: 1.5%;

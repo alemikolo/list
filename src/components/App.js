@@ -3,13 +3,13 @@ import firebase from 'firebase/app';
 import db from '../config/firebaseConfig';
 import Toolbar from './Toolbar/Toolbar';
 import ShoppingLists from './ShoppingLists/ShoppingLists';
+import classes from './App.module.scss';
 
 class ShoppingList extends Component {
   state = {
     shoppingLists: [
       {
         name: 'codzienne',
-        color: 'red',
         bought: 5,
         total: 13,
         type: 'complex',
@@ -17,7 +17,7 @@ class ShoppingList extends Component {
       },
       {
         name: 'warzywa',
-        color: 'blue',
+        color: 'Blue',
         bought: 2,
         total: 14,
         type: 'simple',
@@ -25,7 +25,7 @@ class ShoppingList extends Component {
       },
       {
         name: 'chemia',
-        color: 'green',
+        color: 'Green',
         bought: 7,
         total: 8,
         type: 'simple',
@@ -33,9 +33,41 @@ class ShoppingList extends Component {
       },
       {
         name: 'prezenty',
-        color: 'orange',
+        color: 'Orange',
         bought: 1,
         total: 4,
+        type: 'simple',
+        shared: true,
+      },
+      {
+        name: 'agd',
+        color: 'Pink',
+        bought: 3,
+        total: 6,
+        type: 'simple',
+        shared: true,
+      },
+      {
+        name: 'rtv',
+        color: 'Red',
+        bought: 1,
+        total: 4,
+        type: 'simple',
+        shared: true,
+      },
+      {
+        name: 'ksiazki',
+        color: 'Purple',
+        bought: 3,
+        total: 4,
+        type: 'simple',
+        shared: true,
+      },
+      {
+        name: 'muza',
+        color: 'Lime',
+        bought: 7,
+        total: 7,
         type: 'simple',
         shared: true,
       },
@@ -95,9 +127,11 @@ class ShoppingList extends Component {
     return (
       <React.Fragment>
         <Toolbar />
-        <ShoppingLists
-          shoppingLists={this.state.shoppingLists}
-        />
+        <div className={classes.AppContainer}>
+          <ShoppingLists
+            shoppingLists={this.state.shoppingLists}
+          />
+        </div>
       </React.Fragment>
     );
   }
