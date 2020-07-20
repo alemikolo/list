@@ -1,8 +1,0 @@
-@import 'partials';
-
-.AppContainer {
-  padding: 0.5rem;
-  @include medium-screens() {
-    padding: $base-distance;
-  }
-}

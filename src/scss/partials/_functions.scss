@@ -1,3 +1,0 @@
-@function col-width($columns: 2, $gap: 1.5%, $width: 100%) {
-  @return ($width - $gap * ($columns - 1)) / $columns;
-}
