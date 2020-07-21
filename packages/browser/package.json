@@ -1,0 +1,20 @@
+{
+  "name": "list-browser",
+  "version": "0.1.0",
+  "description": "List - Browser",
+  "author": {
+    "name": "Aleksander Fret",
+    "email": "olekfret80@gmail.com",
+    "url": "https://github.com/alemikolo/"
+  },
+  "main": "src/app/index.ts",
+  "homepage": "https://github.com/alemikolo/list#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alemikolo/list"
+  },
+  "bugs": {
+    "url": "https://github.com/alemikolo/list/issues"
+  },
+  "license": "MIT"
+}

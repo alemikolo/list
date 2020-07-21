@@ -1,0 +1,20 @@
+{
+  "name": "list-server",
+  "description": "List - Server",
+  "author": {
+    "name": "Aleksander Fret",
+    "email": "olekfret80@gmail.com",
+    "url": "https://github.com/alemikolo/"
+  },
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "homepage": "https://github.com/alemikolo/list#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alemikolo/list"
+  },
+  "bugs": {
+    "url": "https://github.com/alemikolo/list/issues"
+  },
+  "license": "MIT"
+}
