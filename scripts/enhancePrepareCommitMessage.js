@@ -2,30 +2,32 @@
 const fs = require("fs");
 const path = require("path");
 
-try {
-  console.info("start improving git hooks...");
+const enhanceGitHook = () => {
+  try {
+    console.info("start improving git hooks...");
 
-  const defaultHookPath = path.resolve(
-    __dirname,
-    "../.git/hooks/prepare-commit-msg"
-  );
+    const defaultHookPath = path.resolve(".git/hooks/prepare-commit-msg");
 
-  const newHookPath = path.resolve(__dirname, "./prepareCommitMessage.js");
+    console.log(defaultHookPath);
 
-  const newHookContent = fs
-    .readFileSync(newHookPath, "utf8")
-    .replace("/* eslint-disable */", "#!/usr/bin/env node");
+    const newHookPath = path.resolve("scripts/prepareCommitMessage.js");
 
-  const defaultHookContent = fs.readFileSync(defaultHookPath, "utf8");
+    const newHookContent = fs
+      .readFileSync(newHookPath, "utf8")
+      .replace("/* eslint-disable */", "#!/usr/bin/env node");
 
-  if (defaultHookContent.includes(newHookContent)) {
-    console.log("Already improved");
+    const defaultHookContent = fs.readFileSync(defaultHookPath, "utf8");
 
-    return;
+    if (defaultHookContent.includes(newHookContent)) {
+      return console.log("Already improved");
+    }
+
+    fs.writeFileSync(defaultHookPath, newHookContent, "utf8");
+
+    return console.info("git hooks improved");
+  } catch (error) {
+    console.error("Updating git hook failed... ", error);
   }
+};
 
-  fs.writeFileSync(defaultHookPath, newHookContent, "utf8");
-  console.info("git hooks improved");
-} catch (error) {
-  console.error("Updating git hook failed... ", error);
-}
+enhanceGitHook();

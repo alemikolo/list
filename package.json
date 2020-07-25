@@ -19,7 +19,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "hooks": "node scripts/enhancePrepareCommitMessage.js",
-    "postinstall": "npm-run-all run bootstrap hooks",
+    "postinstall": "npm-run-all bootstrap hooks",
     "reset": "lerna clean --yes && npm ci"
   },
   "browserslist": [
