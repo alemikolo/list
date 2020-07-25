@@ -4,17 +4,17 @@
   "author": {
     "name": "Aleksander Fret",
     "email": "olekfret80@gmail.com",
-    "url": "https://github.com/alemikolo/"
+    "url": "https://github.com/aleksanderfret/"
   },
   "version": "0.1.0",
   "main": "src/index.ts",
-  "homepage": "https://github.com/alemikolo/list#readme",
+  "homepage": "https://github.com/aleksanderfret/list#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alemikolo/list"
+    "url": "https://github.com/aleksanderfret/list"
   },
   "bugs": {
-    "url": "https://github.com/alemikolo/list/issues"
+    "url": "https://github.com/aleksanderfret/list/issues"
   },
   "license": "MIT"
 }
