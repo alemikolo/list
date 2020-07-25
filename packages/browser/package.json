@@ -23,6 +23,17 @@
     "react-dom": "16.13.1",
     "ts-polyfill": "3.8.2"
   },
+  "scripts": {
+    "build": "webpack --progress --config ./webpack.config.prod.ts",
+    "check": "npm-run-all lint format stylelint",
+    "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
+    "lint:fix": "eslint ./ --ext \".js,.jsx,.ts,.tsx\" --max-warnings=0 --fix",
+    "start": "webpack-dev-server --open --config ./webpack.config.dev.ts",
+    "stylelint": "stylelint src/**/*.scss --cache",
+    "stylelint:fix": "stylelint src/**/*.scss --cache --fix"
+  },
   "devDependencies": {
     "@types/autoprefixer": "9.7.2",
     "@types/mini-css-extract-plugin": "0.9.1",
