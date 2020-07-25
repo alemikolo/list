@@ -1,0 +1,10 @@
+@use 'partials' as p;
+
+body {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: p.$fontLight;
+  font-size: p.$fontM;
+  font-family: p.$fontFamily, sans-serif;
+  line-height: p.$fontLine;
+}
