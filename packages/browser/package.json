@@ -25,11 +25,13 @@
   },
   "scripts": {
     "build": "webpack --progress --config ./webpack.config.prod.ts",
-    "check": "npm-run-all lint format stylelint",
+    "check": "npm-run-all lint format stylelint compile",
+    "compile": "tsc",
     "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
     "lint:fix": "eslint ./ --ext \".js,.jsx,.ts,.tsx\" --max-warnings=0 --fix",
+    "pre-commit": "lint-staged",
     "start": "webpack-dev-server --open --config ./webpack.config.dev.ts",
     "stylelint": "stylelint src/**/*.scss --cache",
     "stylelint:fix": "stylelint src/**/*.scss --cache --fix"
@@ -90,17 +92,14 @@
   ],
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,scss,css,md}, !*.min.js": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}, !*.min.js": [
       "eslint -c .eslintrc --fix",
-      "echo test",
-      "git add"
+      "echo test"
     ],
     "**/*.scss": [
-      "stylelint --syntax scss",
-      "git add"
+      "stylelint --syntax scss"
     ]
   }
 }
