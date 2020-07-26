@@ -3,13 +3,12 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "importsNotUsedAsValues": "preserve",
-    "jsx": "react",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -30,15 +29,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "outDir": "../../dist/public",
-    "preserveConstEnums": true,
+    "noImplicitThis": true,
+    "outDir": "../../dist",
     "paths": {
       "*": ["src/*"]
     },
     "pretty": true,
     "removeComments": true,
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
@@ -46,5 +43,5 @@
     "target": "es2015"
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["./src/**/*.ts"]
 }
