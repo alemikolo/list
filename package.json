@@ -18,9 +18,21 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "check": "lerna run check",
+    "compile": "lerna run compile",
+    "create": "lerna create",
+    "format": "lerna run format",
+    "format:fix": "lerna run format:fix",
     "hooks": "node scripts/enhancePrepareCommitMessage.js",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix",
     "postinstall": "npm-run-all bootstrap hooks",
-    "reset": "lerna clean --yes && npm ci"
+    "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
+    "reset": "lerna clean --yes && npm ci",
+    "start": "lerna run start",
+    "stylelint": "lerna run stylelint",
+    "stylelint:fix": "lerna run stylelint:fix"
   },
   "browserslist": [
     ">0.2%",
@@ -35,7 +47,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run pre-commit --concurrency 1 --stream ",
+      "pre-commit": "npm run pre-commit",
       "pre-push": "npm run check"
     }
   }
