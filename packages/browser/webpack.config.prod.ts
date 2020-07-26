@@ -14,11 +14,11 @@ const config: WebpackConfiguration = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../../dist/public'),
-    publicPath: '/',
+    publicPath: '/'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
   },
   module: {
     rules: [
@@ -28,9 +28,9 @@ const config: WebpackConfiguration = {
         use: {
           loader: 'ts-loader',
           options: {
-            configFile: 'tsconfig.json',
-          },
-        },
+            configFile: 'tsconfig.json'
+          }
+        }
       },
       {
         test: /\.s?css$/,
@@ -41,8 +41,8 @@ const config: WebpackConfiguration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer],
-            },
+              plugins: [autoprefixer]
+            }
           },
           {
             loader: 'sass-loader',
@@ -51,31 +51,31 @@ const config: WebpackConfiguration = {
               implementation: require('sass'),
               sassOptions: {
                 indentWidth: 2,
-                includePaths: ['./src/app/scss'],
-              },
-            },
-          },
-        ],
-      },
-    ],
+                includePaths: ['./src/app/scss']
+              }
+            }
+          }
+        ]
+      }
+    ]
   },
   optimization: {
     minimizer: [
       new TerserPlugin({
         cache: true,
-        parallel: true,
+        parallel: true
       }),
-      new OptimizeCssAssetsPlugin(),
-    ],
+      new OptimizeCssAssetsPlugin()
+    ]
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: true }),
     new ForkTsCheckerWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style.[hash].css',
+      filename: 'style.[hash].css'
     }),
-    new HtmlWebPackPlugin({ template: path.resolve('public/index.html') }),
-  ],
+    new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
+  ]
 };
 
 export default config;

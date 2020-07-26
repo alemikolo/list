@@ -91,10 +91,10 @@
     "not op_mini all"
   ],
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,scss,css,md}, !*.min.js": [
+    "*.{ts,tsx,js,jsx,json,scss,css,md}": [
       "prettier --write"
     ],
-    "*.{js,jsx,ts,tsx}, !*.min.js": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint -c .eslintrc --fix",
       "echo test"
     ],

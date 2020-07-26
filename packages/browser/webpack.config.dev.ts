@@ -17,11 +17,11 @@ const config: IConfiguration = {
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '../../dist/public'),
-    publicPath: '/',
+    publicPath: '/'
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
   },
   module: {
     rules: [
@@ -31,9 +31,9 @@ const config: IConfiguration = {
         use: {
           loader: 'ts-loader',
           options: {
-            configFile: 'tsconfig.json',
-          },
-        },
+            configFile: 'tsconfig.json'
+          }
+        }
       },
       {
         test: /\.s?css$/,
@@ -44,8 +44,8 @@ const config: IConfiguration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer],
-            },
+              plugins: [autoprefixer]
+            }
           },
           {
             loader: 'sass-loader',
@@ -54,13 +54,13 @@ const config: IConfiguration = {
               implementation: require('sass'),
               sassOptions: {
                 indentWidth: 2,
-                includePaths: ['./src/app/scss'],
-              },
-            },
-          },
-        ],
-      },
-    ],
+                includePaths: ['./src/app/scss']
+              }
+            }
+          }
+        ]
+      }
+    ]
   },
   devServer: {
     port: 4000,
@@ -69,18 +69,18 @@ const config: IConfiguration = {
     hot: true,
     disableHostCheck: true,
     proxy: {
-      '/api': 'http://localhost:8080',
+      '/api': 'http://localhost:8080'
     },
     watchOptions: {
-      ignored: /node_modules/,
+      ignored: /node_modules/
     },
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: true }),
-    new HtmlWebPackPlugin({ template: path.resolve('public/index.html') }),
-  ],
+    new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
+  ]
 };
 
 export default config;
