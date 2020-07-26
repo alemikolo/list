@@ -26,10 +26,12 @@
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
     "lint:fix": "eslint ./ --ext \".js,.jsx,.ts,.tsx\" --max-warnings=0 --fix",
-    "pre-commit": "lint-staged",
+    "pre-commit": "lint-staged && npm run test",
+    "pre-push": "npm-run-all check test",
     "start": "webpack-dev-server --open --config ./webpack.config.dev.ts",
     "stylelint": "stylelint src/**/*.scss --cache",
-    "stylelint:fix": "stylelint src/**/*.scss --cache --fix"
+    "stylelint:fix": "stylelint src/**/*.scss --cache --fix",
+    "test": "echo 'No tests Found!'"
   },
   "dependencies": {
     "react": "16.13.1",

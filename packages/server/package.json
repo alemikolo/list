@@ -18,6 +18,19 @@
   "bugs": {
     "url": "https://github.com/aleksanderfret/list/issues"
   },
+  "scripts": {
+    "build": "tsc --build tsconfig.prod.json",
+    "check": "npm-run-all lint format test compile",
+    "compile": "tsc -p tsconfig.prod.json",
+    "format": "prettier --check \"src/**/*.{js,ts}\"",
+    "format:fix": "prettier --write \"src/**/*.{js,ts}\"",
+    "lint": "eslint . --ext \".js,.ts\"",
+    "lint:fix": "eslint ./ --ext \".js,.ts\" --max-warnings=0 --fix",
+    "pre-commit": "lint-staged && npm run test",
+    "pre-push": "npm-run-all check test",
+    "start": "ts-node-dev --project ./tsconfig.json --respawn --transpileOnly ./src/index.ts",
+    "test": "echo 'No tests Found!'"
+  },
   "dependencies": {
     "body-parser": "1.19.0",
     "cors": "2.8.5",
@@ -41,10 +54,10 @@
     "typescript": "3.9.7"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,md}": [
+    "*.{ts,js,json,md}": [
       "prettier --write"
     ],
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,ts}": [
       "eslint -c .eslintrc --fix",
       "echo test"
     ]

@@ -29,10 +29,12 @@
     "lint:fix": "lerna run lint:fix",
     "postinstall": "npm-run-all bootstrap hooks",
     "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
+    "pre-push": "lerna run pre-push --concurrency 1 --stream",
     "reset": "lerna clean --yes && npm ci",
     "start": "lerna run start",
     "stylelint": "lerna run stylelint",
-    "stylelint:fix": "lerna run stylelint:fix"
+    "stylelint:fix": "lerna run stylelint:fix",
+    "test": "lerna run test"
   },
   "browserslist": [
     ">0.2%",
@@ -48,7 +50,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run pre-commit",
-      "pre-push": "npm run check"
+      "pre-push": "npm run pre-push"
     }
   }
 }
