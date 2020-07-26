@@ -3,7 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -30,9 +30,10 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "noUnusedLocals": true,
     "outDir": "../../dist",
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*", "src/modules/*"]
     },
     "pretty": true,
     "removeComments": true,

@@ -28,6 +28,10 @@
         "selector": "interface",
         "format": ["PascalCase"],
         "custom": { "regex": "^I[A-Z]", "match": true }
+      },
+      {
+        "selector": "enumMember",
+        "format": ["UPPER_CASE"]
       }
     ],
     "@typescript-eslint/ban-types": 0,
@@ -114,8 +118,11 @@
     "space-infix-ops": "error"
   },
   "settings": {
-    "react": {
-      "version": "detect"
+    "import/resolver": {
+      "node": {
+        "paths": ["src", "src/modules"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   }
 }
