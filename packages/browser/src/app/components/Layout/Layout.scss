@@ -1,0 +1,11 @@
+@use 'partials' as p;
+
+.layout {
+  h1 {
+    color: p.lighten(p.$themeBlue, 50);
+
+    @include p.breakpoint(p.$screenL) {
+      color: p.darken(p.$themeBlue, 50);
+    }
+  }
+}

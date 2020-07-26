@@ -1,0 +1,142 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:import/typescript"
+  ],
+  "globals": {
+    "document": false,
+    "window": false
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "typescript": true,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "import",
+    "jsx-a11y"
+  ],
+  "root": true,
+  "rules": {
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": { "regex": "^I[A-Z]", "match": true }
+      }
+    ],
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-unused-vars": [2, { "ignoreRestSiblings": true }],
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "array-bracket-spacing": ["error", "never"],
+    "arrow-parens": ["error", "as-needed"],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "block-spacing": ["warn"],
+    "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+    "comma-dangle": ["warn", "never"],
+    "comma-spacing": ["warn"],
+    "computed-property-spacing": ["error", "never"],
+    "eqeqeq": ["error", "smart"],
+    "func-call-spacing": ["error", "never"],
+    "func-names": ["error", "never"],
+    "import/default": "error",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/first": "error",
+    "import/named": "error",
+    "import/namespace": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/no-cycle": "error",
+    "import/no-extraneous-dependencies": ["error"],
+    "import/no-named-default": "error",
+    "import/no-self-import": "error",
+    "import/no-unresolved": "error",
+    "import/no-useless-path-segments": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"]
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "indent": ["error", 2],
+    "key-spacing": "error",
+    "keyword-spacing": ["error", { "before": true, "after": true }],
+    "newline-before-return": ["error"],
+    "no-console": [2, { "allow": ["warn", "error"] }],
+    "no-debugger": ["warn"],
+    "no-else-return": "error",
+    "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+    "no-multi-spaces": ["error", { "ignoreEOLComments": false }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-plusplus": "error",
+    "no-unused-vars": [
+      "warn",
+      { "vars": "local", "args": "none", "ignoreRestSiblings": true }
+    ],
+    "no-use-before-define": "error",
+    "no-var": "error",
+    "object-curly-spacing": ["error", "always"],
+    "prefer-arrow-callback": "error",
+    "prefer-const": ["error", { "destructuring": "all" }],
+    "prefer-destructuring": "error",
+    "quote-props": ["error", "as-needed"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "semi": ["warn", "always"],
+    "space-before-blocks": "error",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "space-in-parens": ["error", "never"],
+    "space-infix-ops": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

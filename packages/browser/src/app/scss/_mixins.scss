@@ -1,0 +1,15 @@
+@mixin breakpoint($width) {
+  @media only screen and (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin const-size($width, $height: $width) {
+  width: $width;
+  max-width: $width;
+  min-width: $width;
+  height: $height;
+  max-height: $height;
+  min-height: $height;
+  flex-shrink: 0;
+}

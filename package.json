@@ -2,10 +2,53 @@
   "name": "list",
   "version": "0.1.0",
   "private": false,
+  "license": "MIT",
+  "author": {
+    "name": "Aleksander Fret",
+    "email": "olekfret80@gmail.com",
+    "url": "https://github.com/aleksanderfret/"
+  },
+  "homepage": "https://github.com/aleksanderfret/list#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aleksanderfret/list"
+  },
+  "bugs": {
+    "url": "https://github.com/aleksanderfret/list/issues"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "check": "lerna run check",
+    "compile": "lerna run compile",
+    "create": "lerna create",
+    "format": "lerna run format",
+    "format:fix": "lerna run format:fix",
+    "hooks": "node scripts/enhancePrepareCommitMessage.js",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix",
+    "postinstall": "npm-run-all bootstrap hooks",
+    "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
+    "reset": "lerna clean --yes && npm ci",
+    "start": "lerna run start",
+    "stylelint": "lerna run stylelint",
+    "stylelint:fix": "lerna run stylelint:fix"
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 10",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "4.2.5",
+    "lerna": "3.22.1",
+    "npm-run-all": "4.1.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit",
+      "pre-push": "npm run check"
+    }
+  }
 }
