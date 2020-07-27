@@ -2,13 +2,14 @@
   "name": "list-browser",
   "version": "0.1.0",
   "description": "List - Browser",
+  "license": "MIT",
   "type": "module",
+  "main": "src/index.tsx",
   "author": {
     "name": "Aleksander Fret",
     "email": "olekfret80@gmail.com",
     "url": "https://github.com/aleksanderfret/"
   },
-  "main": "src/index.tsx",
   "homepage": "https://github.com/aleksanderfret/list#readme",
   "repository": {
     "type": "git",
@@ -16,12 +17,6 @@
   },
   "bugs": {
     "url": "https://github.com/aleksanderfret/list/issues"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "ts-polyfill": "3.8.2"
   },
   "scripts": {
     "build": "webpack --progress --config ./webpack.config.prod.ts",
@@ -31,10 +26,17 @@
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
     "lint:fix": "eslint ./ --ext \".js,.jsx,.ts,.tsx\" --max-warnings=0 --fix",
-    "pre-commit": "lint-staged",
+    "pre-commit": "lint-staged && npm run test",
+    "pre-push": "npm-run-all check test",
     "start": "webpack-dev-server --open --config ./webpack.config.dev.ts",
     "stylelint": "stylelint src/**/*.scss --cache",
-    "stylelint:fix": "stylelint src/**/*.scss --cache --fix"
+    "stylelint:fix": "stylelint src/**/*.scss --cache --fix",
+    "test": "echo 'No tests Found!'"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "ts-polyfill": "3.8.2"
   },
   "devDependencies": {
     "@types/autoprefixer": "9.7.2",

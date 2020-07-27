@@ -9,7 +9,6 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "importsNotUsedAsValues": "preserve",
-    "jsx": "react",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -30,15 +29,16 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "../../dist/public",
-    "preserveConstEnums": true,
+    "outDir": "../../dist",
     "paths": {
-      "*": ["src/*"]
+      "@app/*": ["src/app/*"],
+      "@modules/*": ["src/modules/*"],
+      "@shared/*": ["src/shared/*"]
     },
     "pretty": true,
     "removeComments": true,
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
@@ -46,5 +46,5 @@
     "target": "es2015"
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["./src/**/*.ts"]
 }

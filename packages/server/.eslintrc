@@ -1,6 +1,6 @@
 {
   "env": {
-    "browser": true,
+    "node": true,
     "es6": true
   },
   "extends": [
@@ -8,13 +8,8 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
     "plugin:import/typescript"
   ],
-  "globals": {
-    "document": false,
-    "window": false
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "typescript": true,
@@ -24,13 +19,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "@typescript-eslint",
-    "import",
-    "jsx-a11y"
-  ],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "root": true,
   "rules": {
     "@typescript-eslint/naming-convention": [
@@ -38,6 +27,10 @@
       {
         "selector": "interface",
         "format": ["PascalCase"]
+      },
+      {
+        "selector": "enumMember",
+        "format": ["UPPER_CASE"]
       }
     ],
     "@typescript-eslint/ban-types": 0,
@@ -45,9 +38,6 @@
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-unused-vars": [2, { "ignoreRestSiblings": true }],
-    "react/prop-types": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "array-bracket-spacing": ["error", "never"],
     "arrow-parens": ["error", "as-needed"],
     "arrow-spacing": ["error", { "before": true, "after": true }],
@@ -65,9 +55,7 @@
       "ignorePackages",
       {
         "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
+        "ts": "never"
       }
     ],
     "import/first": "error",
@@ -96,7 +84,7 @@
     "key-spacing": "error",
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "newline-before-return": ["error"],
-    "no-console": [2, { "allow": ["warn", "error"] }],
+    "no-console": [2, { "allow": ["info", "error"] }],
     "no-debugger": ["warn"],
     "no-else-return": "error",
     "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
@@ -115,11 +103,6 @@
     "prefer-destructuring": "error",
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
-    "react/forbid-prop-types": 0,
-    "react/jsx-filename-extension": [
-      "error",
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ],
     "semi": ["warn", "always"],
     "space-before-blocks": "error",
     "space-before-function-paren": [
@@ -134,8 +117,15 @@
     "space-infix-ops": "error"
   },
   "settings": {
-    "react": {
-      "version": "detect"
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@app", "./src/app"],
+          ["@modules", "./src/modules"],
+          ["@shared", "./src/shared"]
+        ],
+        "extensions": [".ts", ".js", ".json"]
+      }
     }
   }
 }
