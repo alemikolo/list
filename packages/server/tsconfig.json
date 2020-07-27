@@ -33,7 +33,9 @@
     "noUnusedLocals": true,
     "outDir": "../../dist",
     "paths": {
-      "*": ["src/*", "src/modules/*"]
+      "@app/*": ["src/app/*"],
+      "@modules/*": ["src/modules/*"],
+      "@shared/*": ["src/shared/*"]
     },
     "pretty": true,
     "removeComments": true,
