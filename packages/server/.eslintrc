@@ -121,6 +121,7 @@
       "alias": {
         "map": [
           ["@app", "./src/app"],
+          ["@db", "./src/db"],
           ["@modules", "./src/modules"],
           ["@shared", "./src/shared"]
         ],
