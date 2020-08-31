@@ -22,13 +22,13 @@
     "build": "tsc --build tsconfig.prod.json",
     "check": "npm-run-all lint format test compile",
     "compile": "tsc -p tsconfig.prod.json",
+    "dev": "ts-node-dev --project ./tsconfig.json --watch --respawn --transpile-only ./src/index.ts",
     "format": "prettier --check \"src/**/*.{js,ts}\"",
     "format:fix": "prettier --write \"src/**/*.{js,ts}\"",
     "lint": "eslint . --ext \".js,.ts\"",
     "lint:fix": "eslint ./ --ext \".js,.ts\" --max-warnings=0 --fix",
     "pre-commit": "lint-staged && npm run test",
     "pre-push": "npm-run-all check test",
-    "start": "ts-node-dev --project ./tsconfig.json --watch --respawn --transpile-only ./src/index.ts",
     "test": "echo 'No tests Found!'"
   },
   "dependencies": {

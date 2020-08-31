@@ -69,7 +69,7 @@ const config: IConfiguration = {
     hot: true,
     disableHostCheck: true,
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'http://localhost:5000'
     },
     watchOptions: {
       ignored: /node_modules/

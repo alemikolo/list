@@ -22,6 +22,7 @@
     "check": "lerna run check",
     "compile": "lerna run compile",
     "create": "lerna create",
+    "dev": "lerna run dev --stream",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",
     "hooks": "node scripts/enhancePrepareCommitMessage.js",
@@ -31,7 +32,6 @@
     "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
     "pre-push": "lerna run pre-push --concurrency 1 --stream",
     "reset": "lerna clean --yes && npm ci",
-    "start": "lerna run start",
     "stylelint": "lerna run stylelint",
     "stylelint:fix": "lerna run stylelint:fix",
     "test": "lerna run test"
