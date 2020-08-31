@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Settings as SettingsModel } from './types';
+import Activity from '@modules/activity/activity.entity';
 
 @Entity()
-export default class Settings implements SettingsModel {
+export default class Settings {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -12,4 +13,7 @@ export default class Settings implements SettingsModel {
 
   @Column({ length: 64, nullable: true, type: 'varchar' })
   theme!: string;
+
+  @OneToMany(() => Activity, activity => activity.settings)
+  change!: Activity[];
 }
