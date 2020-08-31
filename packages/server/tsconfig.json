@@ -34,6 +34,7 @@
     "outDir": "../../dist",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@db/*": ["src/db/*"],
       "@modules/*": ["src/modules/*"],
       "@shared/*": ["src/shared/*"]
     },
