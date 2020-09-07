@@ -44,7 +44,9 @@ const config: IConfiguration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer]
+              postcssOptions: {
+                plugins: [autoprefixer]
+              }
             }
           },
           {
