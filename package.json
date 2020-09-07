@@ -17,6 +17,7 @@
     "url": "https://github.com/aleksanderfret/list/issues"
   },
   "scripts": {
+    "audit": "node scripts/runInDirs.js audit",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "check": "lerna run check",
@@ -28,6 +29,7 @@
     "hooks": "node scripts/enhancePrepareCommitMessage.js",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
+    "outdated": "node scripts/runInDirs.js outdated",
     "postinstall": "npm-run-all bootstrap hooks",
     "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
     "pre-push": "lerna run pre-push --concurrency 1 --stream",
