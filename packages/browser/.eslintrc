@@ -107,7 +107,8 @@
       "warn",
       { "vars": "local", "args": "none", "ignoreRestSiblings": true }
     ],
-    "no-use-before-define": "error",
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": ["error"],
     "no-var": "error",
     "object-curly-spacing": ["error", "always"],
     "prefer-arrow-callback": "error",
@@ -120,6 +121,8 @@
       "error",
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
     "semi": ["warn", "always"],
     "space-before-blocks": "error",
     "space-before-function-paren": [
