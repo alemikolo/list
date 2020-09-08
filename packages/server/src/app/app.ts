@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application, Router } from 'express';
 import path from 'path';
 
+import apolloServer from '@app/apollo';
 import { Routes } from '@shared/types';
 import listRoutes from '@modules/list/routes';
 
@@ -27,6 +28,8 @@ const startApp = (app: Application): Application => {
   app.use(bodyParser.urlencoded({ extended: false }));
 
   app.use(useRoutes([...listRoutes]));
+
+  apolloServer.applyMiddleware({ app });
 
   app.use('*', (_, res) => res.sendFile(path.resolve('public/index.html')));
 
