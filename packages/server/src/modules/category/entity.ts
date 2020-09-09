@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Activity from '@modules/activity/activity.entity';
-import User from '@modules/user/user.entity';
-import Item from '@modules/item/item.entity';
+import Activity from '@modules/activity/entity';
+import User from '@modules/user/entity';
+import Item from '@modules/item/entity';
 import { Icon } from '@shared/types';
 
 @Entity()
@@ -40,9 +40,9 @@ export default class Category extends BaseEntity {
   @OneToMany(() => Item, item => item.category)
   items!: Item[];
 
-  @ManyToOne(() => User, user => user.itemsCreator, { nullable: false })
+  @ManyToOne(() => User, user => user.categoryCreator, { nullable: false })
   creator!: User;
 
-  @ManyToOne(() => User, user => user.itemsModifier, { nullable: false })
+  @ManyToOne(() => User, user => user.categoryModifier, { nullable: false })
   modifier!: User;
 }

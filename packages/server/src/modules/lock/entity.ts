@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Item from '@modules/item/item.entity';
-import List from '@modules/list/list.entity';
-import User from '@modules/user/user.entity';
+import Item from '@modules/item/entity';
+import List from '@modules/list/entity';
+import User from '@modules/user/entity';
 
 @Entity()
 export default class Lock extends BaseEntity {

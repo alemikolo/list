@@ -10,10 +10,10 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Activity from '@modules/activity/activity.entity';
-import Item from '@modules/item/item.entity';
-import Lock from '@modules/lock/lock.entity';
-import User from '@modules/user/user.entity';
+import Activity from '@modules/activity/entity';
+import Item from '@modules/item/entity';
+import Lock from '@modules/lock/entity';
+import User from '@modules/user/entity';
 import { Status, Type } from '@shared/types';
 
 @Entity()

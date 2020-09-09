@@ -8,12 +8,12 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Activity from '@modules/activity/activity.entity';
-import User from '@modules/user/user.entity';
-import List from '@modules/list/list.entity';
-import Lock from '@modules/lock/lock.entity';
+import Activity from '@modules/activity/entity';
+import Category from '@modules/category/entity';
+import List from '@modules/list/entity';
+import Lock from '@modules/lock/entity';
+import User from '@modules/user/entity';
 import { Priority, Status } from '@shared/types';
-import Category from '@modules/category/category.entity';
 
 @Entity()
 export default class Item extends BaseEntity {

@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Activity from '@modules/activity/activity.entity';
+import Activity from '@modules/activity/entity';
 
 @Entity()
 export default class Settings extends BaseEntity {

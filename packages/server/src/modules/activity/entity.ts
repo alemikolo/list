@@ -7,11 +7,11 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Category from '@modules/category/category.entity';
-import Item from '@modules/item/item.entity';
-import List from '@modules/list/list.entity';
-import Settings from '@modules/settings/settings.entity';
-import User from '@modules/user/user.entity';
+import Category from '@modules/category/entity';
+import Item from '@modules/item/entity';
+import List from '@modules/list/entity';
+import Settings from '@modules/settings/entity';
+import User from '@modules/user/entity';
 
 @Entity()
 export default class Activity extends BaseEntity {

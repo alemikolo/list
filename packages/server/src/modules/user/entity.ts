@@ -11,11 +11,12 @@ import {
   PrimaryGeneratedColumn
 } from 'typeorm';
 
-import Activity from '@modules/activity/activity.entity';
-import Item from '@modules/item/item.entity';
-import List from '@modules/list/list.entity';
-import Lock from '@modules/lock/lock.entity';
-import Settings from '@modules/settings/settings.entity';
+import Activity from '@modules/activity/entity';
+import Category from '@modules/category/entity';
+import Item from '@modules/item/entity';
+import List from '@modules/list/entity';
+import Lock from '@modules/lock/entity';
+import Settings from '@modules/settings/entity';
 import { AccountStatus } from '@shared/types';
 
 @Entity()
@@ -58,11 +59,17 @@ export default class User extends BaseEntity {
   @JoinColumn()
   settings!: Settings;
 
+  @OneToMany(() => Category, category => category.creator)
+  categoryCreator!: Category[];
+
+  @OneToMany(() => Category, category => category.modifier)
+  categoryModifier!: Category[];
+
   @OneToMany(() => Item, item => item.creator)
-  itemsCreator!: Item[];
+  itemsModifier!: Item[];
 
   @OneToMany(() => Item, item => item.modifier)
-  itemsModifier!: Item[];
+  itemsCreator!: Item[];
 
   @OneToMany(() => List, list => list.creator)
   listsCreator!: List[];
