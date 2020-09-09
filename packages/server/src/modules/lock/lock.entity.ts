@@ -1,12 +1,18 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 
 import Item from '@modules/item/item.entity';
 import List from '@modules/list/list.entity';
 import User from '@modules/user/user.entity';
 
 @Entity()
-export default class Lock {
+export default class Lock extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

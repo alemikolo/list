@@ -1,5 +1,11 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 
 import Category from '@modules/category/category.entity';
 import Item from '@modules/item/item.entity';
@@ -8,7 +14,7 @@ import Settings from '@modules/settings/settings.entity';
 import User from '@modules/user/user.entity';
 
 @Entity()
-export default class Activity {
+export default class Activity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

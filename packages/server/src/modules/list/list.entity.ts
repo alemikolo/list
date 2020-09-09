@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinTable,
@@ -16,7 +17,7 @@ import User from '@modules/user/user.entity';
 import { Status, Type } from '@shared/types';
 
 @Entity()
-export default class List {
+export default class List extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

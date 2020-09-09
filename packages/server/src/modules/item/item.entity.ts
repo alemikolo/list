@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import {
+  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -15,7 +16,7 @@ import { Priority, Status } from '@shared/types';
 import Category from '@modules/category/category.entity';
 
 @Entity()
-export default class Item {
+export default class Item extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

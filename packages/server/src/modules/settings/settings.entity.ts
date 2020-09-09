@@ -1,10 +1,16 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 
 import Activity from '@modules/activity/activity.entity';
 
 @Entity()
-export default class Settings {
+export default class Settings extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

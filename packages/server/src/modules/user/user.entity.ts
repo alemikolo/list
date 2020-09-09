@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -18,7 +19,7 @@ import Settings from '@modules/settings/settings.entity';
 import { AccountStatus } from '@shared/types';
 
 @Entity()
-export default class User {
+export default class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
