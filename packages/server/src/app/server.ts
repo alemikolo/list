@@ -1,15 +1,13 @@
 import http from 'http';
+import express from 'express';
 
-import app from './app';
-import { connectDB, disconnectDB } from '@db/db';
+import startApp from './app';
 import environment from '../environment';
 
 const { PORT } = environment;
 
-const runServer = async () => {
-  await connectDB();
-
-  await disconnectDB();
+const startServer = async () => {
+  const app = await startApp(express());
 
   const server = http.createServer(app);
 
@@ -18,4 +16,4 @@ const runServer = async () => {
   console.info(`List server is running on port ${PORT}`);
 };
 
-export default runServer;
+export default startServer;

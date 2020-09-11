@@ -1,21 +1,20 @@
 import { ApolloServer } from 'apollo-server-express';
+import { buildSchema } from 'type-graphql';
 
 import environment from '../environment';
+import { UserResolver } from '@modules/user/resolver';
 
 const { NODE_ENV } = environment;
 
-const apolloServer = new ApolloServer({
-  playground: NODE_ENV === 'development',
-  typeDefs: `
-  type Query {
-    hello: String!
-  }
-  `,
-  resolvers: {
-    Query: {
-      hello: () => 'hello world'
-    }
-  }
-});
+export const startApollo = async (): Promise<ApolloServer> => {
+  const schema = await buildSchema({
+    resolvers: [UserResolver]
+  });
 
-export default apolloServer;
+  const server = new ApolloServer({
+    playground: NODE_ENV === 'development',
+    schema
+  });
+
+  return server;
+};

@@ -1,13 +1,14 @@
 import * as dotenv from 'dotenv';
 import 'module-alias/register';
+import 'reflect-metadata';
 
 dotenv.config();
 
 // eslint-disable-next-line import/first
-import runServer from '@app/server';
+import startServer from '@app/server';
 
 try {
-  runServer();
+  startServer();
 } catch (error) {
   console.error('Something went terribly wrong', error);
 }

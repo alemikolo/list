@@ -3,7 +3,8 @@ import { RequestHandler } from 'express';
 export enum AccountStatus {
   ACTIVE = 'active',
   DELETED = 'deleted',
-  INVITED = 'invited'
+  INVITED = 'invited',
+  REGISTERED = 'registered'
 }
 
 export enum Icon {
