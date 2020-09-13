@@ -6,35 +6,39 @@ import {
   JoinTable,
   ManyToMany,
   OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn
+  OneToOne
 } from 'typeorm';
+import { ObjectType, Field } from 'type-graphql';
 
-import Activity from '@modules/activity/activity.entity';
-import Item from '@modules/item/item.entity';
-import List from '@modules/list/list.entity';
-import Lock from '@modules/lock/lock.entity';
-import Settings from '@modules/settings/settings.entity';
+import BaseEntity from '@db/baseEntity';
+import Activity from '@modules/activity/entity';
+import Category from '@modules/category/entity';
+import Item from '@modules/item/entity';
+import List from '@modules/list/entity';
+import Lock from '@modules/lock/entity';
+import Settings from '@modules/settings/entity';
 import { AccountStatus } from '@shared/types';
 
+@ObjectType()
 @Entity()
-export default class User {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
-  @Column({ nullable: false, type: 'timestamp' })
+export default class User extends BaseEntity {
+  @Field()
+  @Column({ nullable: true, type: 'timestamptz' })
   activeAt!: Date;
 
+  @Field()
   @Column({ length: 256, nullable: true, type: 'varchar' })
   avatarUrl!: string;
 
+  @Field()
   @Column({ length: 100, nullable: false, type: 'varchar', unique: true })
   email!: string;
 
   @Column({ length: 128, nullable: true, type: 'varchar', unique: true })
   hashedEmail!: string;
 
-  @Column({ length: 50, nullable: false, type: 'varchar' })
+  @Field()
+  @Column({ length: 50, nullable: true, type: 'varchar' })
   name!: string;
 
   @Column({ length: 128, nullable: true, type: 'varchar' })
@@ -43,6 +47,7 @@ export default class User {
   @Column({ length: 50, nullable: true, type: 'varchar' })
   provider!: string;
 
+  @Field(() => AccountStatus)
   @Column({
     default: AccountStatus.ACTIVE,
     enum: AccountStatus,
@@ -51,45 +56,65 @@ export default class User {
   })
   status!: AccountStatus;
 
+  @Field(() => Settings)
   @OneToOne(() => Settings, {
     nullable: true
   })
   @JoinColumn()
   settings!: Settings;
 
-  @OneToMany(() => Item, item => item.creator)
-  itemsCreator!: Item[];
+  @Field(() => Category)
+  @OneToMany(() => Category, category => category.creator)
+  categoryCreator!: Category[];
 
-  @OneToMany(() => Item, item => item.modifier)
+  @Field(() => Category)
+  @OneToMany(() => Category, category => category.modifier)
+  categoryModifier!: Category[];
+
+  @Field(() => Item)
+  @OneToMany(() => Item, item => item.creator)
   itemsModifier!: Item[];
 
+  @Field(() => Item)
+  @OneToMany(() => Item, item => item.modifier)
+  itemsCreator!: Item[];
+
+  @Field(() => List)
   @OneToMany(() => List, list => list.creator)
   listsCreator!: List[];
 
+  @Field(() => List)
   @OneToMany(() => List, list => list.modifier)
   listsModifier!: List[];
 
+  @Field(() => Lock)
   @OneToMany(() => Lock, lock => lock.user)
   locks!: Lock[];
 
+  @Field(() => Activity)
   @OneToMany(() => Activity, activity => activity.user)
   change!: Activity[];
 
+  @Field(() => Activity)
   @OneToMany(() => Activity, activity => activity.performer)
   activity!: Activity[];
 
+  @Field(() => List)
   @ManyToMany(() => List, list => list.isFavorite)
   @JoinTable()
   favorites!: List[];
 
+  @Field(() => List)
   @ManyToMany(() => List, list => list.owners)
   @JoinTable()
   owner!: List[];
 
+  @Field(() => List)
   @ManyToMany(() => List, list => list.editors)
   @JoinTable()
   editor!: List[];
 
+  @Field(() => List)
   @ManyToMany(() => List, list => list.viewers)
   @JoinTable()
   viewer!: List[];

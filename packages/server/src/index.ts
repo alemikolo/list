@@ -1,26 +1,14 @@
-import http from 'http';
+import * as dotenv from 'dotenv';
 import 'module-alias/register';
+import 'reflect-metadata';
 
-import app from '@app/app';
-import { connectDB, disconnectDB } from '@db/db';
-import environment from './environment';
+dotenv.config();
 
-const { PORT } = environment;
-
-const runServer = async (port: Number) => {
-  await connectDB();
-
-  await disconnectDB();
-
-  const server = http.createServer(app);
-
-  server.listen(port);
-
-  console.info(`List server is running on port ${PORT}`);
-};
+// eslint-disable-next-line import/first
+import startServer from '@app/server';
 
 try {
-  runServer(Number(PORT));
+  startServer();
 } catch (error) {
   console.error('Something went terribly wrong', error);
 }

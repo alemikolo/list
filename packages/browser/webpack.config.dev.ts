@@ -52,12 +52,12 @@ const config: IConfiguration = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
               implementation: require('sass'),
               sassOptions: {
                 indentWidth: 2,
                 includePaths: ['./src/app/scss']
-              }
+              },
+              sourceMap: true
             }
           }
         ]

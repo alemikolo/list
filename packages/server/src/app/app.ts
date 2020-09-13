@@ -1,8 +1,9 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express, { Application, Router } from 'express';
+import { Application, Router } from 'express';
 import path from 'path';
 
+import { startApollo } from '@app/apollo';
 import { Routes } from '@shared/types';
 import listRoutes from '@modules/list/routes';
 
@@ -21,16 +22,20 @@ const createRouter: RouterCreator = (router: Router): RoutesCreator => (
 
 const useRoutes = createRouter(Router());
 
-const startApp = (app: Application): Application => {
+const startApp = async (app: Application): Promise<Application> => {
   app.use(cors({ credentials: true, origin: true }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
   app.use(useRoutes([...listRoutes]));
 
+  const apollo = await startApollo();
+
+  apollo.applyMiddleware({ app });
+
   app.use('*', (_, res) => res.sendFile(path.resolve('public/index.html')));
 
   return app;
 };
 
-export default startApp(express());
+export default startApp;

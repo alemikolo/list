@@ -1,4 +1,4 @@
-const { NODE_ENV, PORT = 5000 } = process.env;
+const { NODE_ENV, PORT } = process.env;
 
 const environment = {
   NODE_ENV,
