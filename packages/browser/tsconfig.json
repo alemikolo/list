@@ -32,10 +32,10 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "outDir": "../../dist/public",
-    "preserveConstEnums": true,
     "paths": {
       "*": ["src/*"]
     },
+    "preserveConstEnums": true,
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
@@ -43,7 +43,7 @@
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "es2015"
+    "target": "ES6"
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
