@@ -1,5 +1,7 @@
 import { RequestHandler } from 'express';
 
+import { registerEnumTypes } from '@shared/utils';
+
 export enum AccountStatus {
   ACTIVE = 'active',
   DELETED = 'deleted',
@@ -48,3 +50,11 @@ export interface Route {
 }
 
 export type Routes = Array<Route>;
+
+registerEnumTypes([
+  [AccountStatus, 'AccountStatus'],
+  [Icon, 'Icon'],
+  [Priority, 'Priority'],
+  [Status, 'Status'],
+  [Type, 'Type']
+]);
