@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 
 import { registerEnumTypes } from '@shared/utils';
 
@@ -50,6 +50,11 @@ export interface Route {
 }
 
 export type Routes = Array<Route>;
+
+export interface Context {
+  req: Request;
+  res: Response;
+}
 
 registerEnumTypes([
   [AccountStatus, 'AccountStatus'],

@@ -12,6 +12,7 @@ export const startApollo = async (): Promise<ApolloServer> => {
   });
 
   const server = new ApolloServer({
+    context: ({ req, res }) => ({ req, res }),
     playground: NODE_ENV === 'development',
     schema
   });
