@@ -15,6 +15,7 @@ export interface JwtPayload {
   iat: number;
   jwtid: string;
   userId: string;
+  tokenVersion?: number;
 }
 
 export interface UserContext {

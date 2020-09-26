@@ -8,11 +8,18 @@ import {
   Resolver,
   UseMiddleware
 } from 'type-graphql';
+import { getManager } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
 
 import { connectDB, disconnectDB } from '@db/db';
-import { AccountStatus, Context } from '@shared/types';
-import { isAuth, signAccessToken, signRefreshToken } from './auth';
+import { AccountStatus } from '@shared/enums';
+import { Context } from '@shared/types';
+import {
+  isAuth,
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken
+} from './auth';
 import User from './entity';
 
 @ObjectType()
@@ -39,6 +46,32 @@ export class UserResolver {
     return User.find();
   }
 
+  @Mutation(() => Boolean)
+  async forgotPassword(@Arg('email') email: string): Promise<Boolean> {
+    try {
+      await connectDB();
+
+      await getManager().increment(User, { email }, 'tokenVersion', 1);
+
+      await disconnectDB();
+
+      // send email with link
+    } catch (error) {
+      console.error(error);
+
+      return false;
+    }
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async logout(@Ctx() { res }: Context) {
+    res.clearCookie('refreshToken');
+
+    return true;
+  }
+
   @Mutation(() => LoginResponse)
   async login(
     @Arg('email') email: string,
@@ -61,13 +94,12 @@ export class UserResolver {
       throw new Error('bad pass');
     }
 
-    res.cookie('jid', signRefreshToken(user.id), {
-      httpOnly: true,
-      sameSite: true
-    });
+    const { id, tokenVersion } = user;
+
+    sendRefreshToken(res, createRefreshToken(id, tokenVersion));
 
     return {
-      accessToken: signAccessToken(user.id)
+      accessToken: createAccessToken(id)
     };
   }
 
