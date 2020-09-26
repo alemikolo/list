@@ -5,13 +5,14 @@ import {
   Mutation,
   ObjectType,
   Query,
-  Resolver
+  Resolver,
+  UseMiddleware
 } from 'type-graphql';
 import { compare, hash } from 'bcryptjs';
 
 import { connectDB, disconnectDB } from '@db/db';
 import { AccountStatus, Context } from '@shared/types';
-import { signAccessToken, signRefreshToken } from './auth';
+import { isAuth, signAccessToken, signRefreshToken } from './auth';
 import User from './entity';
 
 @ObjectType()
@@ -25,6 +26,12 @@ export class UserResolver {
   @Query(() => String)
   hello() {
     return 'hi!';
+  }
+
+  @UseMiddleware(isAuth)
+  @Query(() => String)
+  bye(@Ctx() { user }: Context) {
+    return `Your user id is ${user?.userId}.`;
   }
 
   @Query(() => [User])

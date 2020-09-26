@@ -51,9 +51,21 @@ export interface Route {
 
 export type Routes = Array<Route>;
 
+export interface JwtPayload {
+  exp: number;
+  iat: number;
+  jwtid: string;
+  userId: string;
+}
+
+export interface UserContext {
+  userId: string;
+}
+
 export interface Context {
   req: Request;
   res: Response;
+  user?: UserContext;
 }
 
 registerEnumTypes([
