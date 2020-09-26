@@ -17,7 +17,7 @@ import Item from '@modules/item/entity';
 import List from '@modules/list/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
-import { AccountStatus } from '@shared/types';
+import { AccountStatus } from '@shared/enums';
 
 @ObjectType()
 @Entity()

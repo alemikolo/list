@@ -14,7 +14,7 @@ import Activity from '@modules/activity/entity';
 import Item from '@modules/item/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
-import { Status, Type } from '@shared/types';
+import { Status, Type } from '@shared/enums';
 
 @ObjectType()
 @Entity()
