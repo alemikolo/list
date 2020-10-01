@@ -1,7 +1,7 @@
 {
-  "name": "list-server",
+  "name": "errand-list-server",
   "version": "0.1.0",
-  "description": "List - Server",
+  "description": "Errand List - Server",
   "license": "MIT",
   "type": "module",
   "main": "src/index.ts",
@@ -10,13 +10,13 @@
     "email": "olekfret80@gmail.com",
     "url": "https://github.com/aleksanderfret/"
   },
-  "homepage": "https://github.com/aleksanderfret/list#readme",
+  "homepage": "https://github.com/aleksanderfret/errand-list#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleksanderfret/list"
+    "url": "https://github.com/aleksanderfret/errand-list"
   },
   "bugs": {
-    "url": "https://github.com/aleksanderfret/list/issues"
+    "url": "https://github.com/aleksanderfret/errand-list/issues"
   },
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
@@ -32,7 +32,7 @@
     "test": "echo 'No tests Found!'"
   },
   "dependencies": {
-    "apollo-server-express": "2.17.0",
+    "apollo-server-express": "2.18.1",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "cookie-parser": "1.4.5",
@@ -44,7 +44,7 @@
     "pg": "8.3.3",
     "reflect-metadata": "0.1.13",
     "type-graphql": "1.0.0",
-    "typeorm": "0.2.26"
+    "typeorm": "0.2.28"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
@@ -54,20 +54,20 @@
     "@types/express": "4.17.8",
     "@types/graphql": "14.5.0",
     "@types/jsonwebtoken": "8.5.0",
-    "@types/node": "14.10.2",
-    "@typescript-eslint/eslint-plugin": "4.1.1",
-    "@typescript-eslint/parser": "4.1.1",
-    "eslint": "7.9.0",
-    "eslint-config-prettier": "6.11.0",
+    "@types/node": "14.11.2",
+    "@typescript-eslint/eslint-plugin": "4.3.0",
+    "@typescript-eslint/parser": "4.3.0",
+    "eslint": "7.10.0",
+    "eslint-config-prettier": "6.12.0",
     "eslint-import-resolver-alias": "1.1.2",
-    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.1.4",
     "lint-staged": "10.4.0",
     "module-alias": "2.2.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.1.2",
-    "ts-node-dev": "1.0.0-pre.62",
-    "typescript": "4.0.2"
+    "ts-node-dev": "1.0.0-pre.63",
+    "typescript": "4.0.3"
   },
   "_moduleAliases": {
     "@app": "src/app",
