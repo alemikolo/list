@@ -1,7 +1,7 @@
 {
-  "name": "list-server",
+  "name": "errand-list-server",
   "version": "0.1.0",
-  "description": "List - Server",
+  "description": "Errand List - Server",
   "license": "MIT",
   "type": "module",
   "main": "src/index.ts",
@@ -10,13 +10,13 @@
     "email": "olekfret80@gmail.com",
     "url": "https://github.com/aleksanderfret/"
   },
-  "homepage": "https://github.com/aleksanderfret/list#readme",
+  "homepage": "https://github.com/aleksanderfret/errand-list#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleksanderfret/list"
+    "url": "https://github.com/aleksanderfret/errand-list"
   },
   "bugs": {
-    "url": "https://github.com/aleksanderfret/list/issues"
+    "url": "https://github.com/aleksanderfret/errand-list/issues"
   },
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
