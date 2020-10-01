@@ -1,1 +1,1 @@
-# List - Browser package
+# Errand List - Browser package

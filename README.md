@@ -1,4 +1,4 @@
-# List
+# Errand list
 
 ## Version
 
