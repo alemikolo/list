@@ -1,7 +1,7 @@
 {
-  "name": "errand-list-browser",
+  "name": "handle-it-browser",
   "version": "0.1.0",
-  "description": "Errand List - Browser",
+  "description": "Handle It - Browser",
   "license": "MIT",
   "type": "module",
   "main": "src/index.tsx",
@@ -10,13 +10,13 @@
     "email": "olekfret80@gmail.com",
     "url": "https://github.com/aleksanderfret/"
   },
-  "homepage": "https://github.com/aleksanderfret/errand-list#readme",
+  "homepage": "https://github.com/aleksanderfret/handle-it#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleksanderfret/errand-list"
+    "url": "https://github.com/aleksanderfret/handle-it"
   },
   "bugs": {
-    "url": "https://github.com/aleksanderfret/errand-list/issues"
+    "url": "https://github.com/aleksanderfret/handle-it/issues"
   },
   "scripts": {
     "build": "webpack --progress --config ./webpack.config.prod.ts",
