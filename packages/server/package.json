@@ -1,7 +1,7 @@
 {
-  "name": "errand-list-server",
+  "name": "handle-it-server",
   "version": "0.1.0",
-  "description": "Errand List - Server",
+  "description": "Handle It - Server",
   "license": "MIT",
   "type": "module",
   "main": "src/index.ts",
@@ -10,13 +10,13 @@
     "email": "olekfret80@gmail.com",
     "url": "https://github.com/aleksanderfret/"
   },
-  "homepage": "https://github.com/aleksanderfret/errand-list#readme",
+  "homepage": "https://github.com/aleksanderfret/handle-it#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aleksanderfret/errand-list"
+    "url": "https://github.com/aleksanderfret/handle-it"
   },
   "bugs": {
-    "url": "https://github.com/aleksanderfret/errand-list/issues"
+    "url": "https://github.com/aleksanderfret/handle-it/issues"
   },
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
