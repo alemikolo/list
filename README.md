@@ -1,4 +1,6 @@
-# Errand list
+# handle it
+
+![handle it](./docs/img/handle-it.png)
 
 ## Version
 
