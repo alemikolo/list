@@ -1,6 +1,7 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
+import Dotenv from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -71,6 +72,7 @@ const config: WebpackConfiguration = {
     ]
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin({ verbose: true }),
     new ForkTsCheckerWebpackPlugin(),
     new MiniCssExtractPlugin({

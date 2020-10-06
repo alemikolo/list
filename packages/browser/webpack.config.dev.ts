@@ -1,7 +1,8 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import HtmlWebPackPlugin from 'html-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
@@ -71,7 +72,8 @@ const config: IConfiguration = {
     hot: true,
     disableHostCheck: true,
     proxy: {
-      '/api': 'http://localhost:5000'
+      '/api': 'http://localhost:5000',
+      '/graphql': 'http://localhost:5000/graphql'
     },
     watchOptions: {
       ignored: /node_modules/
@@ -79,6 +81,7 @@ const config: IConfiguration = {
     historyApiFallback: true
   },
   plugins: [
+    new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: true }),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
