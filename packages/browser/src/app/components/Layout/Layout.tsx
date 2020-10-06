@@ -10,13 +10,14 @@ const getEvents = (): void => {
     .catch(err => console.log(err));
 };
 
-const Layout: FC = () => (
+const Layout: FC = ({ children }) => (
   <div className="layout">
     <h1>List App</h1>
     <p>Create your own list ęóąśłżźćń</p>
     <button type="button" onClick={getEvents}>
       server test
     </button>
+    {children}
   </div>
 );
 
