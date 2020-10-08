@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
-import { gql, useQuery } from '@apollo/client';
 
 import Layout from './components/Layout';
+import { useHelloQuery } from './model/hello';
 
 const App: FC = () => {
-  const query = gql`
-    {
-      hello
-    }
-  `;
-  const { loading, error, data } = useQuery(query);
+  const { loading, error, data } = useHelloQuery();
 
-  if (loading) {
+  if (loading || !data) {
     return <div>loading...</div>;
   }
 

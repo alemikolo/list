@@ -1,0 +1,28 @@
+{
+  "overwrite": true,
+  "schema": "http://localhost:5000/graphql",
+  "documents": "src/**/*.graphql",
+  "generates": {
+    "src/shared/model/types.ts": ["typescript"],
+    "src/": {
+      "preset": "near-operation-file",
+      "presetConfig": {
+        "extension": ".tsx",
+        "baseTypesPath": "shared/model/types.ts"
+      },
+      "plugins": [
+        "typescript",
+        "typescript-operations",
+        "typescript-react-apollo"
+      ]
+    }
+  },
+  "hooks": {
+    "afterOneFileWrite": ["prettier --write", "eslint --fix"]
+  },
+  "config": {
+    "withHOC": false,
+    "withComponent": false,
+    "withHooks": true
+  }
+}
