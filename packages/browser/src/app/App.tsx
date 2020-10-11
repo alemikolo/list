@@ -1,20 +1,28 @@
 import React, { FC } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Dashboard from '../modules/dashboard';
 import Layout from './components/Layout';
-import { useHelloQuery } from './model/hello';
+import SignIn from '../modules/user/SignIn';
+import SignUp from '../modules/user/SignUp';
+import Path from '../routes/enums';
 
 const App: FC = () => {
-  const { loading, error, data } = useHelloQuery();
-
-  if (loading || !data) {
-    return <div>loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
-  return <Layout>{data.hello}</Layout>;
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route component={SignIn} exact path={Path.SignIn} />
+          <Route component={SignUp} exact path={Path.SignUp} />
+          <Route
+            component={Dashboard}
+            exact
+            path={[Path.Dashboard, Path.Home]}
+          />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
+  );
 };
 
 export default App;

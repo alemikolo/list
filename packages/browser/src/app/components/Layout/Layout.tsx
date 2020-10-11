@@ -1,6 +1,12 @@
 /* eslint-disable no-console */
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
+import {
+  createDashboardRoute,
+  createSignInRoute,
+  createSignUpRoute
+} from '../../../routes';
 import './Layout.scss';
 
 const getEvents = (): void => {
@@ -12,12 +18,21 @@ const getEvents = (): void => {
 
 const Layout: FC = ({ children }) => (
   <div className="layout">
-    <h1>List App</h1>
-    <p>Create your own list ęóąśłżźćń</p>
-    <button type="button" onClick={getEvents}>
-      server test
-    </button>
-    {children}
+    <header className="layout__header">
+      <h1>List App</h1>
+      <p>Create your own list ęóąśłżźćń</p>
+      <button onClick={getEvents} type="button">
+        server test
+      </button>
+    </header>
+    <nav className="layout__navigation">
+      <Link to={createDashboardRoute()}>Home</Link>
+      <Link to={createSignInRoute()}>Sign in</Link>
+      <Link to={createSignUpRoute()}>Sign up</Link>
+    </nav>
+    <main className="layout__content">
+      <div>{children}</div>
+    </main>
   </div>
 );
 
