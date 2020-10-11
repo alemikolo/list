@@ -45,6 +45,7 @@
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "comma-dangle": ["warn", "never"],
     "comma-spacing": ["warn"],
+    "complexity": ["error", 10],
     "computed-property-spacing": ["error", "never"],
     "eqeqeq": ["error", "smart"],
     "func-call-spacing": ["error", "never"],
@@ -84,6 +85,18 @@
     "key-spacing": "error",
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "newline-before-return": ["error"],
+    "max-depth": ["error", 4],
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreComments": false,
+        "ignoreTrailingComments": false,
+        "tabWidth": 2
+      }
+    ],
+    "max-lines": ["error", 300],
+    "max-lines-per-function": ["error", 50],
     "no-console": [2, { "allow": ["info", "error"] }],
     "no-debugger": ["warn"],
     "no-else-return": "error",
