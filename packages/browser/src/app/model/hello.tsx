@@ -1,5 +1,11 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-len */
+
 import { gql } from '@apollo/client';
+import * as React from 'react';
 import * as Apollo from '@apollo/client';
+import * as ApolloReactComponents from '@apollo/client/react/components';
+import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
 import * as Types from '../../shared/model/types';
 
@@ -7,6 +13,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -194,6 +201,44 @@ export const HelloDocument = gql`
     hello
   }
 `;
+export type HelloComponentProps = Omit<
+  ApolloReactComponents.QueryComponentOptions<HelloQuery, HelloQueryVariables>,
+  'query'
+>;
+
+export const HelloComponent = (props: HelloComponentProps) => (
+  <ApolloReactComponents.Query<HelloQuery, HelloQueryVariables>
+    query={HelloDocument}
+    {...props}
+  />
+);
+
+export type HelloProps<TChildProps = {}, TDataName extends string = 'data'> = {
+  [key in TDataName]: ApolloReactHoc.DataValue<HelloQuery, HelloQueryVariables>;
+} &
+  TChildProps;
+export function withHello<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'data'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    HelloQuery,
+    HelloQueryVariables,
+    HelloProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withQuery<
+    TProps,
+    HelloQuery,
+    HelloQueryVariables,
+    HelloProps<TChildProps, TDataName>
+  >(HelloDocument, {
+    alias: 'hello',
+    ...operationOptions
+  });
+}
 
 /**
  * __useHelloQuery__

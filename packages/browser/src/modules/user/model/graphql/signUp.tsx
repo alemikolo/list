@@ -1,5 +1,11 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-len */
+
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import * as React from 'react';
+import * as ApolloReactComponents from '@apollo/client/react/components';
+import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
 import * as Types from '../../../../shared/model/types';
 
@@ -7,6 +13,7 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -204,6 +211,53 @@ export type SignUpMutationFn = Apollo.MutationFunction<
   SignUpMutation,
   SignUpMutationVariables
 >;
+export type SignUpComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    SignUpMutation,
+    SignUpMutationVariables
+  >,
+  'mutation'
+>;
+
+export const SignUpComponent = (props: SignUpComponentProps) => (
+  <ApolloReactComponents.Mutation<SignUpMutation, SignUpMutationVariables>
+    mutation={SignUpDocument}
+    {...props}
+  />
+);
+
+export type SignUpProps<
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+> = {
+  [key in TDataName]: Apollo.MutationFunction<
+    SignUpMutation,
+    SignUpMutationVariables
+  >;
+} &
+  TChildProps;
+export function withSignUp<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    SignUpMutation,
+    SignUpMutationVariables,
+    SignUpProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withMutation<
+    TProps,
+    SignUpMutation,
+    SignUpMutationVariables,
+    SignUpProps<TChildProps, TDataName>
+  >(SignUpDocument, {
+    alias: 'signUp',
+    ...operationOptions
+  });
+}
 
 /**
  * __useSignUpMutation__
