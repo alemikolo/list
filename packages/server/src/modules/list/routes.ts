@@ -7,7 +7,7 @@ const { GET } = Crud;
 const scope = '/api/lists';
 
 const listRoutes: Routes = [
-  { method: GET, path: `${scope}/get`, handlers: [getLists] }
+  { handlers: [getLists], method: GET, path: `${scope}/get` }
 ];
 
 export default listRoutes;

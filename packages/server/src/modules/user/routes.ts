@@ -7,7 +7,7 @@ const { POST } = Crud;
 const scope = '/api/auth';
 
 const userRoutes: Routes = [
-  { method: POST, path: `${scope}/refresh-token`, handlers: [refreshToken] }
+  { handlers: [refreshToken], method: POST, path: `${scope}/refresh-token` }
 ];
 
 export default userRoutes;

@@ -104,6 +104,7 @@
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["warn", "always"],
+    "sort-keys": ["error", "asc", { "natural": true }],
     "space-before-blocks": "error",
     "space-before-function-paren": [
       "error",

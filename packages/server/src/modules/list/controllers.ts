@@ -7,8 +7,8 @@ export const getLists: RequestHandler = (
   res.send({
     baseUrl: req.baseUrl,
     host: req.hostname,
-    protocol: req.protocol,
     origin: req.originalUrl,
-    route: req.route,
-    path: req.path
+    path: req.path,
+    protocol: req.protocol,
+    route: req.route
   });

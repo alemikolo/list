@@ -47,7 +47,7 @@ export default class User extends BaseEntity {
   @Column({ length: 50, nullable: true, type: 'varchar' })
   provider!: string;
 
-  @Column({ nullable: false, type: 'integer', default: 0 })
+  @Column({ default: 0, nullable: false, type: 'integer' })
   tokenVersion!: number;
 
   @Field(() => AccountStatus)
