@@ -158,7 +158,7 @@ export type Mutation = {
   forgotPassword: Scalars['Boolean'];
   logout: Scalars['Boolean'];
   login: LoginResponse;
-  register: Scalars['Boolean'];
+  signUp: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -170,7 +170,7 @@ export type MutationLoginArgs = {
   email: Scalars['String'];
 };
 
-export type MutationRegisterArgs = {
+export type MutationSignUpArgs = {
   password: Scalars['String'];
   email: Scalars['String'];
 };

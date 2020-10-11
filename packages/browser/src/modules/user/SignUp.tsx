@@ -1,37 +1,63 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, FormEvent } from 'react';
 
-export const Register: FC = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+import { useSignUpMutation } from './model/graphql/signUp';
+import { InputChangeHandler } from '../../shared/constants/types';
 
-  return (
-    <form>
+export const SignUp: FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signUp, { loading }] = useSignUpMutation();
+  const handleEmailChange: InputChangeHandler = event => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange: InputChangeHandler = event => {
+    setPassword(event.target.value);
+  };
+
+  const handleSignUp = async (event: FormEvent): Promise<Boolean> => {
+    event.preventDefault();
+
+    if (!email || !password) {
+      return false;
+    }
+
+    const response = await signUp({
+      variables: { email, password }
+    });
+
+    if (response) {
+      return true;
+    }
+
+    return false;
+  };
+
+  return loading ? (
+    <div>loading...</div>
+  ) : (
+    <form onSubmit={handleSignUp}>
       <div>
         <label>
           Email
-          <input
-            onChange={event => {
-              setEmail(event.target.value);
-            }}
-            type="email"
-            value={email}
-          />
+          <input onChange={handleEmailChange} type="text" value={email} />
         </label>
       </div>
       <div>
         <label>
           Password
           <input
-            onChange={event => {
-              setPassword(event.target.value);
-            }}
+            onChange={handlePasswordChange}
             type="password"
             value={password}
           />
         </label>
       </div>
+      <div>
+        <button type="submit">Sign Up</button>
+      </div>
     </form>
   );
 };
 
-export default Register;
+export default SignUp;

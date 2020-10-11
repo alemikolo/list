@@ -104,10 +104,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async register(
-    @Arg('email') email: string,
-    @Arg('password') password: string
-  ) {
+  async signUp(@Arg('email') email: string, @Arg('password') password: string) {
     try {
       await connectDB();
 
