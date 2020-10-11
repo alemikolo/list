@@ -25,8 +25,8 @@
     "dev": "concurrently \"webpack-dev-server --open --config ./webpack.config.dev.ts\" \"npm run gen:watch\"",
     "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "gen": "graphql-codegen --config codegen.json",
-    "gen:watch": "graphql-codegen --watch --config codegen.json",
+    "gen": "graphql-codegen --config codegen.yml -r dotenv/config",
+    "gen:watch": "graphql-codegen --watch --config codegen.yml -r dotenv/config",
     "lint": "eslint . --ext \".js,.jsx,.ts,.tsx\"",
     "lint:fix": "eslint ./ --ext \".js,.jsx,.ts,.tsx\" --max-warnings=0 --fix",
     "pre-commit": "lint-staged && npm run test",
@@ -44,6 +44,7 @@
     "ts-polyfill": "3.8.2"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "2.0.1",
     "@graphql-codegen/cli": "1.17.10",
     "@graphql-codegen/near-operation-file-preset": "1.17.11",
     "@graphql-codegen/typescript": "1.17.10",
