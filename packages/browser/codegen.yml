@@ -1,6 +1,6 @@
 overwrite: true
 schema: ${GRAPHQL_URL}
-documents: src/**/*.graphql
+documents: src/**/*.gql
 generates:
   src/shared/model/types.ts:
     plugins:
@@ -8,6 +8,7 @@ generates:
           content:
             - '/* eslint-disable max-lines */'
             - '/* eslint-disable max-len */'
+            - '/* eslint-disable max-lines-per-function */'
       - typescript
   src/:
     preset: near-operation-file
@@ -19,6 +20,7 @@ generates:
           content:
             - '/* eslint-disable max-lines */'
             - '/* eslint-disable max-len */'
+            - '/* eslint-disable max-lines-per-function */'
       - typescript
       - typescript-operations
       - typescript-react-apollo

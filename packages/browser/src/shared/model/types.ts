@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-len */
+/* eslint-disable max-lines-per-function */
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
