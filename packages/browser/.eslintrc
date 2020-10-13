@@ -96,17 +96,7 @@
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "newline-before-return": ["error"],
     "max-depth": ["error", 4],
-    "max-len": [
-      "error",
-      {
-        "code": 80,
-        "ignoreComments": false,
-        "ignoreTrailingComments": false,
-        "tabWidth": 2
-      }
-    ],
     "max-lines": ["error", 300],
-    "max-lines-per-function": ["error", 50],
     "no-console": [2, { "allow": ["warn", "error"] }],
     "no-debugger": ["warn"],
     "no-else-return": "error",

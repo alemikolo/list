@@ -73,7 +73,7 @@ export class UserResolver {
   }
 
   @Mutation(() => LoginResponse)
-  async login(
+  async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context

@@ -25,7 +25,7 @@ const createRouter: RouterCreator = (router: Router): RoutesCreator => (
 const useRoutes = createRouter(Router());
 
 const startApp = async (app: Application): Promise<Application> => {
-  app.use(cors({ credentials: true, origin: true }));
+  app.use(cors({ credentials: true, origin: 'http://localhost:4000' }));
   app.use(bodyParser.json());
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,7 +34,7 @@ const startApp = async (app: Application): Promise<Application> => {
 
   const apollo = await startApollo();
 
-  apollo.applyMiddleware({ app });
+  apollo.applyMiddleware({ app, cors: false });
 
   app.use('*', (_, res) => res.sendFile(path.resolve('public/index.html')));
 

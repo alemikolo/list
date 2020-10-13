@@ -160,7 +160,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
   logout: Scalars['Boolean'];
-  login: LoginResponse;
+  signIn: LoginResponse;
   signUp: Scalars['Boolean'];
 };
 
@@ -168,7 +168,7 @@ export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
 };
 
-export type MutationLoginArgs = {
+export type MutationSignInArgs = {
   password: Scalars['String'];
   email: Scalars['String'];
 };

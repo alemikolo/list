@@ -12,6 +12,7 @@ const { GRAPHQL_URL } = environment;
 
 const cache = new InMemoryCache();
 const link = createHttpLink({
+  credentials: 'include',
   uri: GRAPHQL_URL
 });
 
