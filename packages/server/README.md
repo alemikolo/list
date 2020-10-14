@@ -1,1 +1,1 @@
-# Errand List - Server package
+# Handle It - Server package
