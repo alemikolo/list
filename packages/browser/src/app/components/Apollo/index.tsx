@@ -1,20 +1,8 @@
 import React, { FC } from 'react';
-import {
-  ApolloClient,
-  ApolloProvider,
-  createHttpLink,
-  InMemoryCache
-} from '@apollo/client';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
 
-import environment from '../../../env';
-
-const { GRAPHQL_URL } = environment;
-
-const cache = new InMemoryCache();
-const link = createHttpLink({
-  credentials: 'include',
-  uri: GRAPHQL_URL
-});
+import cache from './cache';
+import link from './link';
 
 const client = new ApolloClient({ cache, link });
 

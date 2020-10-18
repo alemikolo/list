@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import {
   createDashboardRoute,
+  createOrganizationsRoute,
   createSignInRoute,
   createSignUpRoute
 } from '../../../routes';
@@ -29,6 +30,7 @@ const Layout: FC = ({ children }) => (
       <Link to={createDashboardRoute()}>Home</Link>
       <Link to={createSignInRoute()}>Sign in</Link>
       <Link to={createSignUpRoute()}>Sign up</Link>
+      <Link to={createOrganizationsRoute()}>Bye</Link>
     </nav>
     <main className="layout__content">
       <div>{children}</div>

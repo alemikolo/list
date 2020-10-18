@@ -16,6 +16,10 @@ export const refreshToken: RequestHandler = async (
   try {
     const { refreshToken } = req.cookies;
 
+    if (!refreshToken) {
+      return res.sendStatus(401);
+    }
+
     const payload = verifyRefreshToken(refreshToken);
 
     const { userId, tokenVersion } = payload;

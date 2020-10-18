@@ -36,8 +36,10 @@
     "test": "echo 'No tests Found!'"
   },
   "dependencies": {
-    "@apollo/client": "3.2.2",
+    "@apollo/client": "3.2.4",
+    "apollo-link-token-refresh": "0.3.2",
     "graphql": "15.3.0",
+    "jwt-decode": "3.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
@@ -53,6 +55,7 @@
     "@types/autoprefixer": "9.7.2",
     "@types/dotenv-webpack": "3.0.0",
     "@types/graphql": "14.5.0",
+    "@types/jwt-decode": "2.2.1",
     "@types/mini-css-extract-plugin": "0.9.1",
     "@types/node": "14.11.2",
     "@types/optimize-css-assets-webpack-plugin": "5.0.1",

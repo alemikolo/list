@@ -2,6 +2,7 @@ import React, { FC, useState, FormEvent } from 'react';
 
 import { useSignInMutation } from './model/graphql/signIn';
 import { InputChangeHandler } from '../../shared/constants/types';
+import { setAccessToken } from '../auth/token';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
@@ -26,8 +27,8 @@ export const SignIn: FC = () => {
       variables: { email, password }
     });
 
-    if (response) {
-      return true;
+    if (response && response.data) {
+      setAccessToken(response.data.signIn.accessToken);
     }
 
     return false;
