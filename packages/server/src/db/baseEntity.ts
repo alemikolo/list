@@ -1,6 +1,7 @@
 import { BaseEntity, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { Field } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
 
+@ObjectType()
 abstract class Entity extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn('uuid')

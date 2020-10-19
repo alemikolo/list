@@ -46,6 +46,30 @@ export class UserResolver {
     return User.find();
   }
 
+  @UseMiddleware(isAuth)
+  @Query(() => User, { nullable: true })
+  async currentUser(@Ctx() { user }: Context) {
+    try {
+      if (!user) {
+        throw new Error();
+      }
+
+      const { userId } = user;
+
+      await connectDB();
+
+      const currentUser = await User.findOne(userId);
+
+      await disconnectDB();
+
+      return currentUser;
+    } catch (error) {
+      console.error(error);
+
+      return null;
+    }
+  }
+
   @Mutation(() => Boolean)
   async forgotPassword(@Arg('email') email: string): Promise<Boolean> {
     try {
@@ -66,7 +90,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async logout(@Ctx() { res }: Context) {
+  async signOut(@Ctx() { res }: Context) {
     res.clearCookie('refreshToken');
 
     return true;

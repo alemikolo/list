@@ -31,16 +31,20 @@ export type Query = {
   hello: Scalars['String'];
   bye: Scalars['String'];
   users: Array<User>;
+  currentUser?: Maybe<User>;
 };
 
 export type User = {
   __typename?: 'User';
-  activeAt: Scalars['DateTime'];
-  avatarUrl: Scalars['String'];
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  activeAt?: Maybe<Scalars['DateTime']>;
+  avatarUrl?: Maybe<Scalars['String']>;
   email: Scalars['String'];
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   status: AccountStatus;
-  settings: Settings;
+  settings?: Maybe<Settings>;
   categoryCreator: Category;
   categoryModifier: Category;
   itemsModifier: Item;
@@ -65,6 +69,9 @@ export enum AccountStatus {
 
 export type Settings = {
   __typename?: 'Settings';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   notification: Scalars['String'];
   theme: Scalars['String'];
   change: Activity;
@@ -72,6 +79,9 @@ export type Settings = {
 
 export type Activity = {
   __typename?: 'Activity';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   field: Scalars['String'];
   messageId: Scalars['String'];
   newValue: Scalars['String'];
@@ -86,6 +96,9 @@ export type Activity = {
 
 export type Category = {
   __typename?: 'Category';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   color: Scalars['String'];
   description: Scalars['String'];
   icon: Icon;
@@ -108,6 +121,9 @@ export enum Icon {
 
 export type Item = {
   __typename?: 'Item';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   description: Scalars['String'];
   done: Scalars['Boolean'];
   link: Scalars['String'];
@@ -136,6 +152,9 @@ export enum Status {
 
 export type Lock = {
   __typename?: 'Lock';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   field: Scalars['String'];
   item: Item;
   list: List;
@@ -144,6 +163,9 @@ export type Lock = {
 
 export type List = {
   __typename?: 'List';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   description: Scalars['String'];
   name: Scalars['String'];
   type: Type;
@@ -169,7 +191,7 @@ export enum Type {
 export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
-  logout: Scalars['Boolean'];
+  signOut: Scalars['Boolean'];
   signIn: LoginResponse;
   signUp: Scalars['Boolean'];
 };

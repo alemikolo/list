@@ -1,10 +1,20 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
+
+import { gql } from '@apollo/client';
+import * as React from 'react';
+import * as Apollo from '@apollo/client';
+import * as ApolloReactComponents from '@apollo/client/react/components';
+import * as ApolloReactHoc from '@apollo/client/react/hoc';
+
+import * as Types from '../../../../shared/model/types';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -204,3 +214,114 @@ export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
 };
+
+export type CurrentUserQueryVariables = Types.Exact<{ [key: string]: never }>;
+
+export type CurrentUserQuery = { __typename?: 'Query' } & {
+  currentUser?: Types.Maybe<
+    { __typename?: 'User' } & Pick<Types.User, 'id' | 'email' | 'name'>
+  >;
+};
+
+export const CurrentUserDocument = gql`
+  query CurrentUser {
+    currentUser {
+      id
+      email
+      name
+    }
+  }
+`;
+export type CurrentUserComponentProps = Omit<
+  ApolloReactComponents.QueryComponentOptions<
+    CurrentUserQuery,
+    CurrentUserQueryVariables
+  >,
+  'query'
+>;
+
+export const CurrentUserComponent = (props: CurrentUserComponentProps) => (
+  <ApolloReactComponents.Query<CurrentUserQuery, CurrentUserQueryVariables>
+    query={CurrentUserDocument}
+    {...props}
+  />
+);
+
+export type CurrentUserProps<
+  TChildProps = {},
+  TDataName extends string = 'data'
+> = {
+  [key in TDataName]: ApolloReactHoc.DataValue<
+    CurrentUserQuery,
+    CurrentUserQueryVariables
+  >;
+} &
+  TChildProps;
+export function withCurrentUser<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'data'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    CurrentUserQuery,
+    CurrentUserQueryVariables,
+    CurrentUserProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withQuery<
+    TProps,
+    CurrentUserQuery,
+    CurrentUserQueryVariables,
+    CurrentUserProps<TChildProps, TDataName>
+  >(CurrentUserDocument, {
+    alias: 'currentUser',
+    ...operationOptions
+  });
+}
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    CurrentUserQuery,
+    CurrentUserQueryVariables
+  >
+) {
+  return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(
+    CurrentUserDocument,
+    baseOptions
+  );
+}
+export function useCurrentUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CurrentUserQuery,
+    CurrentUserQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(
+    CurrentUserDocument,
+    baseOptions
+  );
+}
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<
+  typeof useCurrentUserLazyQuery
+>;
+export type CurrentUserQueryResult = Apollo.QueryResult<
+  CurrentUserQuery,
+  CurrentUserQueryVariables
+>;
