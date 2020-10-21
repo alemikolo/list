@@ -1,10 +1,7 @@
-import * as dotenv from 'dotenv';
+import 'dotenv/config';
 import 'module-alias/register';
 import 'reflect-metadata';
 
-dotenv.config();
-
-// eslint-disable-next-line import/first
 import startServer from '@app/server';
 
 try {

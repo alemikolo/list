@@ -8,7 +8,7 @@ import Category from '@modules/category/entity';
 import List from '@modules/list/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
-import { Priority, Status } from '@shared/types';
+import { Priority, Status } from '@shared/enums';
 
 @ObjectType()
 @Entity()

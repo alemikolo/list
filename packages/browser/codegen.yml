@@ -1,0 +1,34 @@
+overwrite: true
+schema: ${GRAPHQL_URL}
+documents: src/**/*.gql
+generates:
+  src/shared/model/types.ts:
+    plugins:
+      - add:
+          content:
+            - '/* eslint-disable max-lines */'
+            - '/* eslint-disable max-len */'
+            - '/* eslint-disable max-lines-per-function */'
+      - typescript
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .tsx
+      baseTypesPath: shared/model/types.ts
+    plugins:
+      - add:
+          content:
+            - '/* eslint-disable max-lines */'
+            - '/* eslint-disable max-len */'
+            - '/* eslint-disable max-lines-per-function */'
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+hooks:
+  afterOneFileWrite:
+    - prettier --write
+    - eslint --fix
+config:
+  withHOC: false,
+  withComponent: false,
+  withHooks: true

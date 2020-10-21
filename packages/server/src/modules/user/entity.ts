@@ -17,16 +17,16 @@ import Item from '@modules/item/entity';
 import List from '@modules/list/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
-import { AccountStatus } from '@shared/types';
+import { AccountStatus } from '@shared/enums';
 
 @ObjectType()
 @Entity()
 export default class User extends BaseEntity {
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true, type: 'timestamptz' })
   activeAt!: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 256, nullable: true, type: 'varchar' })
   avatarUrl!: string;
 
@@ -37,7 +37,7 @@ export default class User extends BaseEntity {
   @Column({ length: 128, nullable: true, type: 'varchar', unique: true })
   hashedEmail!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 50, nullable: true, type: 'varchar' })
   name!: string;
 
@@ -46,6 +46,9 @@ export default class User extends BaseEntity {
 
   @Column({ length: 50, nullable: true, type: 'varchar' })
   provider!: string;
+
+  @Column({ default: 0, nullable: false, type: 'integer' })
+  tokenVersion!: number;
 
   @Field(() => AccountStatus)
   @Column({
@@ -56,7 +59,7 @@ export default class User extends BaseEntity {
   })
   status!: AccountStatus;
 
-  @Field(() => Settings)
+  @Field(() => Settings, { nullable: true })
   @OneToOne(() => Settings, {
     nullable: true
   })

@@ -6,7 +6,7 @@ import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import User from '@modules/user/entity';
 import Item from '@modules/item/entity';
-import { Icon } from '@shared/types';
+import { Icon } from '@shared/enums';
 
 @ObjectType()
 @Entity()

@@ -13,3 +13,9 @@
   min-height: $height;
   flex-shrink: 0;
 }
+
+@mixin transition($properties...) {
+  transition-property: $properties;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}

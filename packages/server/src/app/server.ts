@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 
 import startApp from './app';
-import environment from '../environment';
+import environment from '@env/env';
 
 const { PORT } = environment;
 

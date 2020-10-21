@@ -1,7 +1,8 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import HtmlWebPackPlugin from 'html-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
@@ -11,23 +12,29 @@ interface IConfiguration extends WebpackConfiguration {
 }
 
 const config: IConfiguration = {
-  mode: 'development',
-  entry: './src/index.tsx',
+  devServer: {
+    disableHostCheck: true,
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    open: true,
+    port: 4000,
+    proxy: {
+      '/api': 'http://localhost:5000',
+      '/graphql': 'http://localhost:5000/graphql'
+    },
+    watchOptions: {
+      ignored: /node_modules/
+    }
+  },
   devtool: 'inline-source-map',
-  output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '../../dist/public'),
-    publicPath: '/'
-  },
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
-  },
+  entry: './src/index.tsx',
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
+        test: /\.(j|t)sx?$/,
         use: {
           loader: 'ts-loader',
           options: {
@@ -36,8 +43,8 @@ const config: IConfiguration = {
         }
       },
       {
-        test: /\.s?css$/,
         exclude: /node_modules/,
+        test: /\.s?css$/,
         use: [
           'style-loader',
           'css-loader',
@@ -54,8 +61,8 @@ const config: IConfiguration = {
             options: {
               implementation: require('sass'),
               sassOptions: {
-                indentWidth: 2,
-                includePaths: ['./src/app/scss']
+                includePaths: ['./src/app/scss'],
+                indentWidth: 2
               },
               sourceMap: true
             }
@@ -64,25 +71,21 @@ const config: IConfiguration = {
       }
     ]
   },
-  devServer: {
-    port: 4000,
-    open: true,
-    inline: true,
-    hot: true,
-    disableHostCheck: true,
-    proxy: {
-      '/api': 'http://localhost:5000'
-    },
-    watchOptions: {
-      ignored: /node_modules/
-    },
-    historyApiFallback: true
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, '../../dist/public'),
+    publicPath: '/'
   },
   plugins: [
+    new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: true }),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
-  ]
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
+  }
 };
 
 export default config;

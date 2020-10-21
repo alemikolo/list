@@ -1,0 +1,23 @@
+const {
+  ACCESS_PRIVATE_KEY = '',
+  ACCESS_PUBLIC_KEY = '',
+  ACCESS_TOKEN_EXP,
+  NODE_ENV,
+  PORT,
+  REFRESH_PRIVATE_KEY = '',
+  REFRESH_PUBLIC_KEY = '',
+  REFRESH_TOKEN_EXP
+} = process.env;
+
+const environment = {
+  ACCESS_PRIVATE_KEY,
+  ACCESS_PUBLIC_KEY,
+  ACCESS_TOKEN_EXP: Number(ACCESS_TOKEN_EXP),
+  NODE_ENV,
+  PORT: Number(PORT),
+  REFRESH_PRIVATE_KEY,
+  REFRESH_PUBLIC_KEY,
+  REFRESH_TOKEN_EXP: Number(REFRESH_TOKEN_EXP)
+};
+
+export default environment;

@@ -1,22 +1,15 @@
 /* eslint-disable no-console */
 import React, { FC } from 'react';
 
+import Header from '../Header';
 import './Layout.scss';
 
-const getEvents = (): void => {
-  fetch('/api/lists/get', { method: 'GET' })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.log(err));
-};
-
-const Layout: FC = () => (
+const Layout: FC = ({ children }) => (
   <div className="layout">
-    <h1>List App</h1>
-    <p>Create your own list ęóąśłżźćń</p>
-    <button type="button" onClick={getEvents}>
-      server test
-    </button>
+    <Header />
+    <main className="layout__content">
+      <div>{children}</div>
+    </main>
   </div>
 );
 

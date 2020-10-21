@@ -1,4 +1,5 @@
-import { Crud, Routes } from '@shared/types';
+import { Crud } from '@shared/enums';
+import { Routes } from '@shared/types';
 import { getLists } from '@modules/list/controllers';
 
 const { GET } = Crud;
@@ -6,7 +7,7 @@ const { GET } = Crud;
 const scope = '/api/lists';
 
 const listRoutes: Routes = [
-  { method: GET, path: `${scope}/get`, handlers: [getLists] }
+  { handlers: [getLists], method: GET, path: `${scope}/get` }
 ];
 
 export default listRoutes;

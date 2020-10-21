@@ -45,6 +45,7 @@
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "comma-dangle": ["warn", "never"],
     "comma-spacing": ["warn"],
+    "complexity": ["error", 10],
     "computed-property-spacing": ["error", "never"],
     "eqeqeq": ["error", "smart"],
     "func-call-spacing": ["error", "never"],
@@ -84,6 +85,8 @@
     "key-spacing": "error",
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "newline-before-return": ["error"],
+    "max-depth": ["error", 4],
+    "max-lines": ["error", 300],
     "no-console": [2, { "allow": ["info", "error"] }],
     "no-debugger": ["warn"],
     "no-else-return": "error",
@@ -104,6 +107,7 @@
     "quote-props": ["error", "as-needed"],
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["warn", "always"],
+    "sort-keys": ["error", "asc", { "natural": true }],
     "space-before-blocks": "error",
     "space-before-function-paren": [
       "error",
@@ -122,6 +126,7 @@
         "map": [
           ["@app", "./src/app"],
           ["@db", "./src/db"],
+          ["@env", "./src/env"],
           ["@modules", "./src/modules"],
           ["@shared", "./src/shared"]
         ],

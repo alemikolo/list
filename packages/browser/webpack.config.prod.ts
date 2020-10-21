@@ -1,6 +1,7 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
+import Dotenv from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -9,22 +10,13 @@ import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 
 const config: WebpackConfiguration = {
-  mode: 'production',
   entry: './src/index.tsx',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, '../../dist/public'),
-    publicPath: '/'
-  },
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules'],
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
-  },
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
+        test: /\.(j|t)sx?$/,
         use: {
           loader: 'ts-loader',
           options: {
@@ -33,8 +25,8 @@ const config: WebpackConfiguration = {
         }
       },
       {
-        test: /\.s?css$/,
         exclude: /node_modules/,
+        test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -49,12 +41,12 @@ const config: WebpackConfiguration = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
               implementation: require('sass'),
               sassOptions: {
-                indentWidth: 2,
-                includePaths: ['./src/app/scss']
-              }
+                includePaths: ['./src/app/scss'],
+                indentWidth: 2
+              },
+              sourceMap: true
             }
           }
         ]
@@ -70,14 +62,24 @@ const config: WebpackConfiguration = {
       new OptimizeCssAssetsPlugin()
     ]
   },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, '../../dist/public'),
+    publicPath: '/'
+  },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin({ verbose: true }),
     new ForkTsCheckerWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css'
     }),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
-  ]
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
+  }
 };
 
 export default config;

@@ -35,6 +35,7 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@db/*": ["src/db/*"],
+      "@env/*": ["src/env/*"],
       "@modules/*": ["src/modules/*"],
       "@shared/*": ["src/shared/*"]
     },
