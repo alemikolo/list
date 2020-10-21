@@ -192,7 +192,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
   signOut: Scalars['Boolean'];
-  signIn: LoginResponse;
+  signIn: SignInResponse;
   signUp: Scalars['Boolean'];
 };
 
@@ -210,9 +210,10 @@ export type MutationSignUpArgs = {
   email: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
+export type SignInResponse = {
+  __typename?: 'SignInResponse';
   accessToken: Scalars['String'];
+  user: User;
 };
 
 export type SignUpMutationVariables = Types.Exact<{

@@ -17,7 +17,7 @@ export const refreshToken: RequestHandler = async (
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      return res.sendStatus(401);
+      throw new Error('not Authorized');
     }
 
     const payload = verifyRefreshToken(refreshToken);
@@ -44,8 +44,9 @@ export const refreshToken: RequestHandler = async (
 
     return res.send({ accessToken: createAccessToken(id) });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
 
+    //return res.send({ accessToken: '' });
     return res.sendStatus(401);
   }
 };

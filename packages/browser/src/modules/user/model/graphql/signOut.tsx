@@ -3,8 +3,8 @@
 /* eslint-disable max-lines-per-function */
 
 import { gql } from '@apollo/client';
-import * as React from 'react';
 import * as Apollo from '@apollo/client';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/client/react/components';
 import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
@@ -216,82 +216,100 @@ export type SignInResponse = {
   user: User;
 };
 
-export type ByeQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type SignOutMutationVariables = Types.Exact<{ [key: string]: never }>;
 
-export type ByeQuery = { __typename?: 'Query' } & Pick<Types.Query, 'bye'>;
-
-export const ByeDocument = gql`
-  query Bye {
-    bye
-  }
-`;
-export type ByeComponentProps = Omit<
-  ApolloReactComponents.QueryComponentOptions<ByeQuery, ByeQueryVariables>,
-  'query'
+export type SignOutMutation = { __typename?: 'Mutation' } & Pick<
+  Types.Mutation,
+  'signOut'
 >;
 
-export const ByeComponent = (props: ByeComponentProps) => (
-  <ApolloReactComponents.Query<ByeQuery, ByeQueryVariables>
-    query={ByeDocument}
+export const SignOutDocument = gql`
+  mutation signOut {
+    signOut
+  }
+`;
+export type SignOutMutationFn = Apollo.MutationFunction<
+  SignOutMutation,
+  SignOutMutationVariables
+>;
+export type SignOutComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    SignOutMutation,
+    SignOutMutationVariables
+  >,
+  'mutation'
+>;
+
+export const SignOutComponent = (props: SignOutComponentProps) => (
+  <ApolloReactComponents.Mutation<SignOutMutation, SignOutMutationVariables>
+    mutation={SignOutDocument}
     {...props}
   />
 );
 
-export type ByeProps<TChildProps = {}, TDataName extends string = 'data'> = {
-  [key in TDataName]: ApolloReactHoc.DataValue<ByeQuery, ByeQueryVariables>;
+export type SignOutProps<
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+> = {
+  [key in TDataName]: Apollo.MutationFunction<
+    SignOutMutation,
+    SignOutMutationVariables
+  >;
 } &
   TChildProps;
-export function withBye<
+export function withSignOut<
   TProps,
   TChildProps = {},
-  TDataName extends string = 'data'
+  TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    ByeQuery,
-    ByeQueryVariables,
-    ByeProps<TChildProps, TDataName>
+    SignOutMutation,
+    SignOutMutationVariables,
+    SignOutProps<TChildProps, TDataName>
   >
 ) {
-  return ApolloReactHoc.withQuery<
+  return ApolloReactHoc.withMutation<
     TProps,
-    ByeQuery,
-    ByeQueryVariables,
-    ByeProps<TChildProps, TDataName>
-  >(ByeDocument, {
-    alias: 'bye',
+    SignOutMutation,
+    SignOutMutationVariables,
+    SignOutProps<TChildProps, TDataName>
+  >(SignOutDocument, {
+    alias: 'signOut',
     ...operationOptions
   });
 }
 
 /**
- * __useByeQuery__
+ * __useSignOutMutation__
  *
- * To run a query within a React component, call `useByeQuery` and pass it any options that fit your needs.
- * When your component renders, `useByeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useSignOutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignOutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useByeQuery({
+ * const [signOutMutation, { data, loading, error }] = useSignOutMutation({
  *   variables: {
  *   },
  * });
  */
-export function useByeQuery(
-  baseOptions?: Apollo.QueryHookOptions<ByeQuery, ByeQueryVariables>
+export function useSignOutMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SignOutMutation,
+    SignOutMutationVariables
+  >
 ) {
-  return Apollo.useQuery<ByeQuery, ByeQueryVariables>(ByeDocument, baseOptions);
-}
-export function useByeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ByeQuery, ByeQueryVariables>
-) {
-  return Apollo.useLazyQuery<ByeQuery, ByeQueryVariables>(
-    ByeDocument,
+  return Apollo.useMutation<SignOutMutation, SignOutMutationVariables>(
+    SignOutDocument,
     baseOptions
   );
 }
-export type ByeQueryHookResult = ReturnType<typeof useByeQuery>;
-export type ByeLazyQueryHookResult = ReturnType<typeof useByeLazyQuery>;
-export type ByeQueryResult = Apollo.QueryResult<ByeQuery, ByeQueryVariables>;
+export type SignOutMutationHookResult = ReturnType<typeof useSignOutMutation>;
+export type SignOutMutationResult = Apollo.MutationResult<SignOutMutation>;
+export type SignOutMutationOptions = Apollo.BaseMutationOptions<
+  SignOutMutation,
+  SignOutMutationVariables
+>;

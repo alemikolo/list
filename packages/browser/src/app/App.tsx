@@ -20,7 +20,8 @@ const App: FC = () => {
         setAccessToken(accessToken);
       })
       .catch(() => {
-        console.error('no refresh token');
+        // eslint-disable-next-line no-console
+        console.log('no refresh token');
       })
       .finally(() => setLoading(false));
   }, []);

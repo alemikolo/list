@@ -8,11 +8,12 @@ import {
   createSignUpRoute
 } from '../../routes';
 import { useCurrentUserQuery } from '../../modules/user/model/graphql/currentUser';
+import { useSignOutMutation } from '../../modules/user/model/graphql/signOut';
+import { setAccessToken } from '../../modules/auth/token';
 
 export const Header: FC = () => {
-  const { data, error, loading } = useCurrentUserQuery({
-    fetchPolicy: 'network-only'
-  });
+  const { data, loading } = useCurrentUserQuery();
+  const [signout, { client }] = useSignOutMutation();
 
   const getEvents = (): void => {
     fetch('/api/lists/get', { method: 'GET' })
@@ -20,12 +21,6 @@ export const Header: FC = () => {
       .then(json => console.error(json))
       .catch(err => console.error(err));
   };
-
-  if (error) {
-    console.error(error);
-
-    return <div>{error.message}</div>;
-  }
 
   const body = loading ? (
     <div>loading...</div>
@@ -35,6 +30,16 @@ export const Header: FC = () => {
     <div>Not logged in</div>
   );
 
+  const handleSignOut = async () => {
+    await signout();
+
+    setAccessToken('');
+
+    await client.clearStore();
+
+    window.location.reload();
+  };
+
   return (
     <header className="layout__header">
       <h1>List App</h1>
@@ -42,6 +47,9 @@ export const Header: FC = () => {
       <button onClick={getEvents} type="button">
         server test
       </button>
+      {data?.currentUser?.email && (
+        <button onClick={handleSignOut}>sign out</button>
+      )}
       <nav className="layout__navigation">
         <Link to={createDashboardRoute()}>Home</Link>
         <Link to={createSignInRoute()}>Sign in</Link>

@@ -23,9 +23,11 @@ import {
 import User from './entity';
 
 @ObjectType()
-class LoginResponse {
+class SignInResponse {
   @Field()
   accessToken!: string;
+  @Field(() => User)
+  user!: User;
 }
 
 @Resolver()
@@ -96,12 +98,12 @@ export class UserResolver {
     return true;
   }
 
-  @Mutation(() => LoginResponse)
+  @Mutation(() => SignInResponse)
   async signIn(
     @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { res }: Context
-  ): Promise<LoginResponse> {
+  ): Promise<SignInResponse> {
     await connectDB();
 
     const user = await User.findOne({ where: { email } });
@@ -123,7 +125,8 @@ export class UserResolver {
     sendRefreshToken(res, createRefreshToken(id, tokenVersion));
 
     return {
-      accessToken: createAccessToken(id)
+      accessToken: createAccessToken(id),
+      user
     };
   }
 

@@ -192,7 +192,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
   signOut: Scalars['Boolean'];
-  signIn: LoginResponse;
+  signIn: SignInResponse;
   signUp: Scalars['Boolean'];
 };
 
@@ -210,24 +210,25 @@ export type MutationSignUpArgs = {
   email: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
+export type SignInResponse = {
+  __typename?: 'SignInResponse';
   accessToken: Scalars['String'];
+  user: User;
 };
 
 export type CurrentUserQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type CurrentUserQuery = { __typename?: 'Query' } & {
   currentUser?: Types.Maybe<
-    { __typename?: 'User' } & Pick<Types.User, 'id' | 'email' | 'name'>
+    { __typename?: 'User' } & Pick<Types.User, 'email' | 'id' | 'name'>
   >;
 };
 
 export const CurrentUserDocument = gql`
   query CurrentUser {
     currentUser {
-      id
       email
+      id
       name
     }
   }

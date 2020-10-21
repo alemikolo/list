@@ -13,11 +13,28 @@ const refreshTokenLink = new TokenRefreshLink({
   accessTokenField: 'accessToken',
   fetchAccessToken: refreshToken,
   handleError: err => {
-    // TODO logout | redirect | etc
-    console.error(err);
+    if (err) {
+      // TODO logout | redirect | etc
+      // window.location.href = '/';
+    }
   },
   handleFetch: accessToken => {
     setAccessToken(accessToken);
+  },
+  handleResponse: (operation, accessTokenField) => async (
+    response: Response
+  ) => {
+    try {
+      const { accessToken } = await response.json();
+
+      if (!accessToken) {
+        throw new Error();
+      }
+
+      return { accessToken };
+    } catch (error) {
+      throw new Error(`Nie ma ${accessTokenField}! Nie da rady ${operation}`);
+    }
   },
   isTokenValidOrUndefined: () => {
     const token = getAccessToken();

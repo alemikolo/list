@@ -1,9 +1,13 @@
 import { onError } from '@apollo/client/link/error';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  //TODO logout | redirect | etc
-  console.error(graphQLErrors);
-  console.error(networkError);
+  if (graphQLErrors && graphQLErrors.length > 0) {
+    //TODO
+  }
+
+  if (networkError) {
+    // TODO
+  }
 });
 
 export default errorLink;

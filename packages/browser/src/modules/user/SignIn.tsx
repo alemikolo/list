@@ -3,6 +3,10 @@ import React, { FC, useState, FormEvent } from 'react';
 import { useSignInMutation } from './model/graphql/signIn';
 import { InputChangeHandler } from '../../shared/constants/types';
 import { setAccessToken } from '../auth/token';
+import {
+  CurrentUserDocument,
+  CurrentUserQuery
+} from './model/graphql/currentUser';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
@@ -24,6 +28,15 @@ export const SignIn: FC = () => {
     }
 
     const response = await signIn({
+      update: (store, { data }) => {
+        if (!data) {
+          return null;
+        }
+        store.writeQuery<CurrentUserQuery>({
+          data: { currentUser: data.signIn.user },
+          query: CurrentUserDocument
+        });
+      },
       variables: { email, password }
     });
 

@@ -192,7 +192,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
   signOut: Scalars['Boolean'];
-  signIn: LoginResponse;
+  signIn: SignInResponse;
   signUp: Scalars['Boolean'];
 };
 
@@ -210,9 +210,10 @@ export type MutationSignUpArgs = {
   email: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
+export type SignInResponse = {
+  __typename?: 'SignInResponse';
   accessToken: Scalars['String'];
+  user: User;
 };
 
 export type SignInMutationVariables = Types.Exact<{
@@ -221,16 +222,23 @@ export type SignInMutationVariables = Types.Exact<{
 }>;
 
 export type SignInMutation = { __typename?: 'Mutation' } & {
-  signIn: { __typename?: 'LoginResponse' } & Pick<
-    Types.LoginResponse,
+  signIn: { __typename?: 'SignInResponse' } & Pick<
+    Types.SignInResponse,
     'accessToken'
-  >;
+  > & {
+      user: { __typename?: 'User' } & Pick<Types.User, 'email' | 'id' | 'name'>;
+    };
 };
 
 export const SignInDocument = gql`
   mutation signIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
       accessToken
+      user {
+        email
+        id
+        name
+      }
     }
   }
 `;
