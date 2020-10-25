@@ -93,7 +93,7 @@ export class UserResolver {
 
   @Mutation(() => Boolean)
   async signOut(@Ctx() { res }: Context) {
-    res.clearCookie('refreshToken');
+    res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
 
     return true;
   }
