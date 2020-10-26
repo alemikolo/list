@@ -14,7 +14,7 @@ import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import Category from '@modules/category/entity';
 import Item from '@modules/item/entity';
-import List from '@modules/list/entity';
+import Project from '@modules/project/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
 import { AccountStatus } from '@shared/enums';
@@ -82,13 +82,13 @@ export default class User extends BaseEntity {
   @OneToMany(() => Item, item => item.modifier)
   itemsCreator!: Item[];
 
-  @Field(() => List)
-  @OneToMany(() => List, list => list.creator)
-  listsCreator!: List[];
+  @Field(() => Project)
+  @OneToMany(() => Project, project => project.creator)
+  projectCreator!: Project[];
 
-  @Field(() => List)
-  @OneToMany(() => List, list => list.modifier)
-  listsModifier!: List[];
+  @Field(() => Project)
+  @OneToMany(() => Project, project => project.modifier)
+  projectModifier!: Project[];
 
   @Field(() => Lock)
   @OneToMany(() => Lock, lock => lock.user)
@@ -102,23 +102,23 @@ export default class User extends BaseEntity {
   @OneToMany(() => Activity, activity => activity.performer)
   activity!: Activity[];
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.isFavorite)
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.isFavorite)
   @JoinTable()
-  favorites!: List[];
+  favorites!: Project[];
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.owners)
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.owners)
   @JoinTable()
-  owner!: List[];
+  owner!: Project[];
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.editors)
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.members)
   @JoinTable()
-  editor!: List[];
+  member!: Project[];
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.viewers)
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.viewers)
   @JoinTable()
-  viewer!: List[];
+  viewer!: Project[];
 }

@@ -5,7 +5,7 @@ import { ObjectType, Field } from 'type-graphql';
 import BaseEntity from '@db/baseEntity';
 import Category from '@modules/category/entity';
 import Item from '@modules/item/entity';
-import List from '@modules/list/entity';
+import Project from '@modules/project/entity';
 import Settings from '@modules/settings/entity';
 import User from '@modules/user/entity';
 
@@ -38,9 +38,9 @@ export default class Activity extends BaseEntity {
   @ManyToOne(() => Item, item => item.change, { nullable: true })
   item!: Item;
 
-  @Field(() => List)
-  @ManyToOne(() => List, list => list.change, { nullable: true })
-  list!: List;
+  @Field(() => Project)
+  @ManyToOne(() => Project, project => project.change, { nullable: true })
+  project!: Project;
 
   @Field(() => Settings)
   @ManyToOne(() => Settings, settings => settings.change, {

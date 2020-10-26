@@ -4,7 +4,7 @@ import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
 import Item from '@modules/item/entity';
-import List from '@modules/list/entity';
+import Project from '@modules/project/entity';
 import User from '@modules/user/entity';
 
 @ObjectType()
@@ -18,9 +18,9 @@ export default class Lock extends BaseEntity {
   @ManyToOne(() => Item, item => item.locks, { nullable: true })
   item!: Item;
 
-  @Field(() => List)
-  @ManyToOne(() => List, list => list.locks, { nullable: true })
-  list!: List;
+  @Field(() => Project)
+  @ManyToOne(() => Project, project => project.locks, { nullable: true })
+  project!: Project;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.locks, { nullable: true })

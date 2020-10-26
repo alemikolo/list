@@ -5,7 +5,7 @@ import { ObjectType, Field } from 'type-graphql';
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import Category from '@modules/category/entity';
-import List from '@modules/list/entity';
+import Project from '@modules/project/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
 import { Priority, Status } from '@shared/enums';
@@ -23,10 +23,6 @@ export default class Item extends BaseEntity {
     nullable: false
   })
   done!: boolean;
-
-  @Field()
-  @Column({ length: 512, nullable: true, type: 'varchar' })
-  link!: string;
 
   @Field()
   @Column({ length: 50, nullable: false, type: 'varchar' })
@@ -70,7 +66,7 @@ export default class Item extends BaseEntity {
   @ManyToOne(() => User, user => user.itemsModifier, { nullable: false })
   modifier!: User;
 
-  @Field(() => List)
-  @ManyToOne(() => List, list => list.items, { nullable: false })
-  list!: List;
+  @Field(() => Project)
+  @ManyToOne(() => Project, project => project.items, { nullable: false })
+  project!: Project;
 }
