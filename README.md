@@ -28,55 +28,57 @@
 
 ---
 
-## Installation
+## Documentation
 
-### 1. Instal **node.js 15.0.1**
+### Installation
 
-### 2. Install **PostgreSQL 13**
+#### 1. Instal node.js 15.0.1
 
-### 3. Run **SQL Shell** (psql) or launch **pgAdmin** to create Database ([creating database tutorial](https://www.postgresqltutorial.com/postgresql-create-database/))
+#### 2. Install PostgreSQL 13
+
+#### 3. Run SQL Shell (psql) or launch **pgAdmin** to create Database ([creating database tutorial](https://www.postgresqltutorial.com/postgresql-create-database/))
 
 ```bash
 CREATE DATABASE handle-it
 ```
 
-### 4. Clone the repository
+#### 4. Clone the repository
 
 ```bash
 git clone https://github.com/aleksanderfret/handle-it.git
 ```
 
-### 5. Go to the directory
+#### 5. Go to the directory
 
 ```bash
 cd handle-it
 ```
 
-### 6. Install dependencies
+#### 6. Install dependencies
 
 ```bash
 npm i
 ```
 
-### 7. Go to the server package directory
+#### 7. Go to the server package directory
 
 ```bash
 cd packages/server
 ```
 
-### 8. Create .env file in server package directory and add necessary `.env` keys that you can find in the `.env.example` file
+#### 8. Create .env file in server package directory and add necessary `.env` keys that you can find in the `.env.example` file
 
 ```bash
 touch .env
 ```
 
-### 9. Start development (in the root directory)
+#### 9. Start development (in the root directory)
 
 ```bash
 npm run dev
 ```
 
-### 10. Build for production
+#### 10. Build for production
 
 ```bash
 npm run build
@@ -84,7 +86,7 @@ npm run build
 
 ---
 
-## Available scripts
+### Available scripts
 
 ---
 
