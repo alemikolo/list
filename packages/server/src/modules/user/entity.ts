@@ -13,7 +13,7 @@ import { ObjectType, Field } from 'type-graphql';
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import Category from '@modules/category/entity';
-import Item from '@modules/item/entity';
+import Task from '@modules/task/entity';
 import Project from '@modules/project/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
@@ -74,13 +74,13 @@ export default class User extends BaseEntity {
   @OneToMany(() => Category, category => category.modifier)
   categoryModifier!: Category[];
 
-  @Field(() => Item)
-  @OneToMany(() => Item, item => item.creator)
-  itemsModifier!: Item[];
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.creator)
+  taskModifier!: Task[];
 
-  @Field(() => Item)
-  @OneToMany(() => Item, item => item.modifier)
-  itemsCreator!: Item[];
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.modifier)
+  taskCreator!: Task[];
 
   @Field(() => Project)
   @OneToMany(() => Project, project => project.creator)

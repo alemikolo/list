@@ -12,7 +12,7 @@ import { Priority, Status } from '@shared/enums';
 
 @ObjectType()
 @Entity()
-export default class Item extends BaseEntity {
+export default class Task extends BaseEntity {
   @Field()
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   description!: string;
@@ -47,26 +47,26 @@ export default class Item extends BaseEntity {
   status!: Status;
 
   @Field(() => Activity)
-  @OneToMany(() => Activity, activity => activity.item)
+  @OneToMany(() => Activity, activity => activity.task)
   change!: Activity[];
 
   @Field(() => Lock)
-  @OneToMany(() => Lock, lock => lock.item)
+  @OneToMany(() => Lock, lock => lock.task)
   locks!: Lock[];
 
   @Field(() => Category)
-  @ManyToOne(() => Category, category => category.items, { nullable: true })
+  @ManyToOne(() => Category, category => category.tasks, { nullable: true })
   category!: Category;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.itemsCreator, { nullable: false })
+  @ManyToOne(() => User, user => user.taskCreator, { nullable: false })
   creator!: User;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.itemsModifier, { nullable: false })
+  @ManyToOne(() => User, user => user.taskModifier, { nullable: false })
   modifier!: User;
 
   @Field(() => Project)
-  @ManyToOne(() => Project, project => project.items, { nullable: false })
+  @ManyToOne(() => Project, project => project.tasks, { nullable: false })
   project!: Project;
 }

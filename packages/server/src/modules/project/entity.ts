@@ -11,7 +11,7 @@ import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
-import Item from '@modules/item/entity';
+import Task from '@modules/task/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
 import { Status, Type } from '@shared/enums';
@@ -49,9 +49,9 @@ export default class Project extends BaseEntity {
   @ManyToMany(() => User, user => user.favorites)
   isFavorite!: User[];
 
-  @Field(() => Item)
-  @OneToMany(() => Item, item => item.project)
-  items!: Item[];
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.project)
+  tasks!: Task[];
 
   @Field(() => Activity)
   @OneToMany(() => Activity, activity => activity.project)
