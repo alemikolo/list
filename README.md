@@ -102,6 +102,5 @@ npm run build
 - split users and auth functionalities to separate modules
 - refactor entities
 - add nullable true to Field decorator
-- change license and make repo private
 
 ---
