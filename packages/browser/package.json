@@ -2,7 +2,6 @@
   "name": "handle-it-browser",
   "version": "0.1.0",
   "description": "Handle It - Browser",
-  "license": "MIT",
   "type": "module",
   "main": "src/index.tsx",
   "author": {
