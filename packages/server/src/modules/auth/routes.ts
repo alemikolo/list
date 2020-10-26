@@ -1,6 +1,6 @@
 import { Crud } from '@shared/enums';
 import { Routes } from '@shared/types';
-import { refreshToken } from '@modules/user/controllers';
+import { refreshToken } from './controllers';
 
 const { POST } = Crud;
 

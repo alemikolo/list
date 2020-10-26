@@ -1,6 +1,6 @@
 import { Request, Response, RequestHandler } from 'express';
 
-export const getLists: RequestHandler = (
+export const getProjects: RequestHandler = (
   req: Request,
   res: Response
 ): Response =>

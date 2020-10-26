@@ -5,7 +5,7 @@ import { ObjectType, Field } from 'type-graphql';
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import User from '@modules/user/entity';
-import Item from '@modules/item/entity';
+import Task from '@modules/task/entity';
 import { Icon } from '@shared/enums';
 
 @ObjectType()
@@ -35,9 +35,9 @@ export default class Category extends BaseEntity {
   @OneToMany(() => Activity, activity => activity.category)
   change!: Activity[];
 
-  @Field(() => Item)
-  @OneToMany(() => Item, item => item.category)
-  items!: Item[];
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.category)
+  tasks!: Task[];
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.categoryCreator, { nullable: false })

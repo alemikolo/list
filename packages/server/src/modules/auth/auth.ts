@@ -29,7 +29,7 @@ const createSigner = (expiration: number, key: string): Signer => (
 
   const payload = { exp, iat, jwtid, userId: id } as JwtPayload;
 
-  if (tokenVersion) {
+  if (tokenVersion !== undefined) {
     payload.tokenVersion = tokenVersion;
   }
 

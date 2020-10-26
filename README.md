@@ -4,7 +4,7 @@
 
 ## Version
 
-0.2.0. - 2020.10.26
+0.3.0. - 2020.10.26
 
 ## Main Tech Stack
 
@@ -99,9 +99,8 @@ npm run build
 - internationalization
 - error handling (error boundaries)
 - fetch methods
-- split users and auth functionalities to separate modules
-- refactor entities
 - add nullable true to Field decorator
-- change license and make repo private
+- extend database structure with new entities and relations
+- split user and auth on browser package
 
 ---

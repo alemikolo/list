@@ -1,13 +1,13 @@
 import { Request, Response, RequestHandler } from 'express';
 
-import User from './entity';
+import User from '@modules/user/entity';
 import { connectDB, disconnectDB } from '@db/db';
 import {
   createAccessToken,
   createRefreshToken,
   sendRefreshToken,
   verifyRefreshToken
-} from '@modules/user/auth';
+} from './auth';
 
 export const refreshToken: RequestHandler = async (
   req: Request,

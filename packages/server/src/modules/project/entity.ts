@@ -11,14 +11,14 @@ import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
-import Item from '@modules/item/entity';
+import Task from '@modules/task/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
 import { Status, Type } from '@shared/enums';
 
 @ObjectType()
 @Entity()
-export default class List extends BaseEntity {
+export default class Project extends BaseEntity {
   @Field()
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   description!: string;
@@ -49,42 +49,42 @@ export default class List extends BaseEntity {
   @ManyToMany(() => User, user => user.favorites)
   isFavorite!: User[];
 
-  @Field(() => Item)
-  @OneToMany(() => Item, item => item.list)
-  items!: Item[];
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.project)
+  tasks!: Task[];
 
   @Field(() => Activity)
-  @OneToMany(() => Activity, activity => activity.list)
+  @OneToMany(() => Activity, activity => activity.project)
   change!: Activity[];
 
   @Field(() => Lock)
-  @OneToMany(() => Lock, lock => lock.list)
+  @OneToMany(() => Lock, lock => lock.project)
   locks!: Lock[];
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.listsCreator, { nullable: false })
+  @ManyToOne(() => User, user => user.projectCreator, { nullable: false })
   creator!: User;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.listsModifier, { nullable: false })
+  @ManyToOne(() => User, user => user.projectModifier, { nullable: false })
   modifier!: User;
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.complexLists)
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.complexProjects)
   @JoinTable()
-  lists!: List[];
+  projects!: Project[];
 
-  @Field(() => List)
-  @ManyToMany(() => List, list => list.lists)
-  complexLists!: List[];
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.projects)
+  complexProjects!: Project[];
 
   @Field(() => User)
   @ManyToMany(() => User, user => user.owner)
   owners!: User[];
 
   @Field(() => User)
-  @ManyToMany(() => User, user => user.editor)
-  editors!: User[];
+  @ManyToMany(() => User, user => user.member)
+  members!: User[];
 
   @Field(() => User)
   @ManyToMany(() => User, user => user.viewer)

@@ -16,7 +16,7 @@ export const Header: FC = () => {
   const [signout, { client }] = useSignOutMutation();
 
   const getEvents = (): void => {
-    fetch('/api/lists/get', { method: 'GET' })
+    fetch('/api/projects/get', { method: 'GET' })
       .then(res => res.json())
       .then(json => console.error(json))
       .catch(err => console.error(err));

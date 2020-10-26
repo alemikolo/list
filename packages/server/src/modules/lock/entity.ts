@@ -3,8 +3,8 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
-import Item from '@modules/item/entity';
-import List from '@modules/list/entity';
+import Task from '@modules/task/entity';
+import Project from '@modules/project/entity';
 import User from '@modules/user/entity';
 
 @ObjectType()
@@ -14,13 +14,13 @@ export default class Lock extends BaseEntity {
   @Column({ length: 32, nullable: true, type: 'varchar' })
   field!: string;
 
-  @Field(() => Item)
-  @ManyToOne(() => Item, item => item.locks, { nullable: true })
-  item!: Item;
+  @Field(() => Task)
+  @ManyToOne(() => Task, task => task.locks, { nullable: true })
+  task!: Task;
 
-  @Field(() => List)
-  @ManyToOne(() => List, list => list.locks, { nullable: true })
-  list!: List;
+  @Field(() => Project)
+  @ManyToOne(() => Project, project => project.locks, { nullable: true })
+  project!: Project;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.locks, { nullable: true })
