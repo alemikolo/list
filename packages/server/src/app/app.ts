@@ -6,8 +6,8 @@ import path from 'path';
 
 import { startApollo } from '@app/apollo';
 import { Routes } from '@shared/types';
-import listRoutes from '@modules/list/routes';
-import userRoutes from '@modules/user/routes';
+import projectRoutes from '@modules/project/routes';
+import authRoutes from '@modules/auth/routes';
 
 type RoutesCreator = (routes: Routes) => Router;
 type RouterCreator = (router: Router) => RoutesCreator;
@@ -30,7 +30,7 @@ const startApp = async (app: Application): Promise<Application> => {
   app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use(useRoutes([...listRoutes, ...userRoutes]));
+  app.use(useRoutes([...authRoutes, ...projectRoutes]));
 
   const apollo = await startApollo();
 
