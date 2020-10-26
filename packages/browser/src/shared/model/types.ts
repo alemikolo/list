@@ -37,17 +37,17 @@ export type User = {
   settings?: Maybe<Settings>;
   categoryCreator: Category;
   categoryModifier: Category;
-  itemsModifier: Item;
-  itemsCreator: Item;
-  listsCreator: List;
-  listsModifier: List;
+  taskModifier: Task;
+  taskCreator: Task;
+  projectCreator: Project;
+  projectModifier: Project;
   locks: Lock;
   change: Activity;
   activity: Activity;
-  favorites: List;
-  owner: List;
-  editor: List;
-  viewer: List;
+  favorites: Project;
+  owner: Project;
+  member: Project;
+  viewer: Project;
 };
 
 export enum AccountStatus {
@@ -77,8 +77,8 @@ export type Activity = {
   newValue: Scalars['String'];
   oldValue: Scalars['String'];
   category: Category;
-  item: Item;
-  list: List;
+  task: Task;
+  project: Project;
   settings: Settings;
   user: User;
   performer: User;
@@ -94,7 +94,7 @@ export type Category = {
   icon: Icon;
   name: Scalars['String'];
   change: Activity;
-  items: Item;
+  tasks: Task;
   creator: User;
   modifier: User;
 };
@@ -109,14 +109,13 @@ export enum Icon {
   WorkIcon = 'WORK_ICON'
 }
 
-export type Item = {
-  __typename?: 'Item';
+export type Task = {
+  __typename?: 'Task';
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   description: Scalars['String'];
   done: Scalars['Boolean'];
-  link: Scalars['String'];
   name: Scalars['String'];
   priority: Priority;
   status: Status;
@@ -125,7 +124,7 @@ export type Item = {
   category: Category;
   creator: User;
   modifier: User;
-  list: List;
+  project: Project;
 };
 
 export enum Priority {
@@ -146,13 +145,13 @@ export type Lock = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   field: Scalars['String'];
-  item: Item;
-  list: List;
+  task: Task;
+  project: Project;
   user: User;
 };
 
-export type List = {
-  __typename?: 'List';
+export type Project = {
+  __typename?: 'Project';
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
@@ -161,15 +160,15 @@ export type List = {
   type: Type;
   status: Status;
   isFavorite: User;
-  items: Item;
+  tasks: Task;
   change: Activity;
   locks: Lock;
   creator: User;
   modifier: User;
-  lists: List;
-  complexLists: List;
+  projects: Project;
+  complexProjects: Project;
   owners: User;
-  editors: User;
+  members: User;
   viewers: User;
 };
 
