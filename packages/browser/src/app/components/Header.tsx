@@ -42,8 +42,8 @@ export const Header: FC = () => {
 
   return (
     <header className="layout__header">
-      <h1>List App</h1>
-      <p>Create your own list ęóąśłżźćń</p>
+      <h1>Handle It</h1>
+      <p>Create your own project ęóąśłżźćń</p>
       <button onClick={getEvents} type="button">
         server test
       </button>

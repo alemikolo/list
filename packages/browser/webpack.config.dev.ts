@@ -1,6 +1,5 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
@@ -77,7 +76,6 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
-    new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: true }),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
@@ -85,7 +83,8 @@ const config: IConfiguration = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
-  }
+  },
+  target: 'web'
 };
 
 export default config;

@@ -1,12 +1,12 @@
 import { HttpLink } from '@apollo/client';
 
-import environment from '../../../../../env';
+// import environment from '../../../../../env';
 
-const { GRAPHQL_URL } = environment;
+//const { GRAPHQL_URL } = environment;
 
 const httpLink = new HttpLink({
   credentials: 'include',
-  uri: GRAPHQL_URL
+  uri: 'http://localhost:5000/graphql'
 });
 
 export default httpLink;
