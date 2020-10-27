@@ -12,6 +12,8 @@ import { ObjectType, Field } from 'type-graphql';
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import Task from '@modules/task/entity';
+import Stage from '@modules/stage/entity';
+import Organization from '@modules/organization/entity';
 import Lock from '@modules/lock/entity';
 import User from '@modules/user/entity';
 import { Status, Type } from '@shared/enums';
@@ -19,7 +21,7 @@ import { Status, Type } from '@shared/enums';
 @ObjectType()
 @Entity()
 export default class Project extends BaseEntity {
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   description!: string;
 
@@ -57,6 +59,10 @@ export default class Project extends BaseEntity {
   @OneToMany(() => Activity, activity => activity.project)
   change!: Activity[];
 
+  @Field(() => Stage)
+  @OneToMany(() => Stage, stage => stage.project)
+  stage!: Stage[];
+
   @Field(() => Lock)
   @OneToMany(() => Lock, lock => lock.project)
   locks!: Lock[];
@@ -78,15 +84,23 @@ export default class Project extends BaseEntity {
   @ManyToMany(() => Project, project => project.projects)
   complexProjects!: Project[];
 
+  @Field(() => Organization)
+  @ManyToOne(() => Organization, organization => organization.projects)
+  organization!: Organization;
+
   @Field(() => User)
-  @ManyToMany(() => User, user => user.owner)
+  @ManyToMany(() => User, user => user.projectOwner)
   owners!: User[];
 
   @Field(() => User)
-  @ManyToMany(() => User, user => user.member)
+  @ManyToMany(() => User, user => user.projectAdmin)
+  admins!: User[];
+
+  @Field(() => User)
+  @ManyToMany(() => User, user => user.projectMember)
   members!: User[];
 
   @Field(() => User)
-  @ManyToMany(() => User, user => user.viewer)
+  @ManyToMany(() => User, user => user.projectViewer)
   viewers!: User[];
 }

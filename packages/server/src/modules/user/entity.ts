@@ -14,6 +14,8 @@ import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import Category from '@modules/category/entity';
 import Task from '@modules/task/entity';
+import Stage from '@modules/stage/entity';
+import Organization from '@modules/organization/entity';
 import Project from '@modules/project/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
@@ -82,6 +84,26 @@ export default class User extends BaseEntity {
   @OneToMany(() => Task, task => task.modifier)
   taskCreator!: Task[];
 
+  @Field(() => Task)
+  @OneToMany(() => Task, task => task.performer)
+  taskPerformer!: Task[];
+
+  @Field(() => Organization)
+  @OneToMany(() => Organization, organization => organization.creator)
+  orgCreator!: Organization[];
+
+  @Field(() => Organization)
+  @OneToMany(() => Organization, organization => organization.modifier)
+  orgModifier!: Organization[];
+
+  @Field(() => Stage)
+  @OneToMany(() => Stage, stage => stage.creator)
+  stageCreator!: Stage[];
+
+  @Field(() => Stage)
+  @OneToMany(() => Stage, stage => stage.modifier)
+  stageModifier!: Stage[];
+
   @Field(() => Project)
   @OneToMany(() => Project, project => project.creator)
   projectCreator!: Project[];
@@ -110,15 +132,40 @@ export default class User extends BaseEntity {
   @Field(() => Project)
   @ManyToMany(() => Project, project => project.owners)
   @JoinTable()
-  owner!: Project[];
+  projectOwner!: Project[];
+
+  @Field(() => Project)
+  @ManyToMany(() => Project, project => project.admins)
+  @JoinTable()
+  projectAdmin!: Project[];
 
   @Field(() => Project)
   @ManyToMany(() => Project, project => project.members)
   @JoinTable()
-  member!: Project[];
+  projectMember!: Project[];
 
   @Field(() => Project)
   @ManyToMany(() => Project, project => project.viewers)
   @JoinTable()
-  viewer!: Project[];
+  projectViewer!: Project[];
+
+  @Field(() => Organization)
+  @ManyToMany(() => Organization, organization => organization.owners)
+  @JoinTable()
+  organizationOwner!: Organization[];
+
+  @Field(() => Organization)
+  @ManyToMany(() => Organization, organization => organization.admins)
+  @JoinTable()
+  organizationAdmin!: Organization[];
+
+  @Field(() => Organization)
+  @ManyToMany(() => Organization, organization => organization.members)
+  @JoinTable()
+  organizationMember!: Organization[];
+
+  @Field(() => Organization)
+  @ManyToMany(() => Organization, organization => organization.viewers)
+  @JoinTable()
+  organizationViewer!: Organization[];
 }
