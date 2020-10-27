@@ -4,21 +4,22 @@ import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
-import User from '@modules/user/entity';
 import Lock from '@modules/lock/entity';
+import User from '@modules/user/entity';
 import Task from '@modules/task/entity';
+import Project from '@modules/project/entity';
 import { Icon } from '@shared/enums';
 
 @ObjectType()
 @Entity()
-export default class Category extends BaseEntity {
-  @Field({ nullable: true })
-  @Column({ length: 7, nullable: true, type: 'varchar' })
-  color!: string;
-
+export default class Stage extends BaseEntity {
   @Field({ nullable: true })
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   description!: string;
+
+  @Field()
+  @Column({ length: 50, nullable: false, type: 'varchar' })
+  name!: string;
 
   @Field(() => Icon, { nullable: true })
   @Column({
@@ -29,26 +30,30 @@ export default class Category extends BaseEntity {
   icon!: Icon;
 
   @Field()
-  @Column({ length: 50, nullable: false, type: 'varchar' })
-  name!: string;
-
-  @Field(() => Lock)
-  @OneToMany(() => Lock, lock => lock.category)
-  locks!: Lock[];
+  @Column({ nullable: false, type: 'integer' })
+  order!: number;
 
   @Field(() => Activity)
-  @OneToMany(() => Activity, activity => activity.category)
+  @OneToMany(() => Activity, activity => activity.stage)
   change!: Activity[];
 
-  @Field(() => Task)
-  @OneToMany(() => Task, task => task.category)
-  tasks!: Task[];
+  @Field(() => Lock)
+  @OneToMany(() => Lock, lock => lock.stage)
+  locks!: Lock[];
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.categoryCreator, { nullable: false })
+  @ManyToOne(() => User, user => user.stageCreator, { nullable: false })
   creator!: User;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.categoryModifier, { nullable: false })
+  @ManyToOne(() => User, user => user.stageModifier, { nullable: false })
   modifier!: User;
+
+  @Field(() => Project)
+  @ManyToOne(() => Project, project => project.stage)
+  project!: Project;
+
+  @Field(() => Task)
+  @ManyToOne(() => Task, task => task.stage)
+  task!: Task;
 }

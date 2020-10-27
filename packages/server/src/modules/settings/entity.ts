@@ -8,11 +8,11 @@ import Activity from '@modules/activity/entity';
 @ObjectType()
 @Entity()
 export default class Settings extends BaseEntity {
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 128, nullable: true, type: 'varchar' })
   notification!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 64, nullable: true, type: 'varchar' })
   theme!: string;
 

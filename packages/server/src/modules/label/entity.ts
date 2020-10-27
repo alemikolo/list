@@ -1,17 +1,17 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { ObjectType, Field } from 'type-graphql';
 
 import BaseEntity from '@db/baseEntity';
 import Activity from '@modules/activity/entity';
 import User from '@modules/user/entity';
-import Lock from '@modules/lock/entity';
 import Task from '@modules/task/entity';
+import Lock from '@modules/lock/entity';
 import { Icon } from '@shared/enums';
 
 @ObjectType()
 @Entity()
-export default class Category extends BaseEntity {
+export default class Label extends BaseEntity {
   @Field({ nullable: true })
   @Column({ length: 7, nullable: true, type: 'varchar' })
   color!: string;
@@ -32,16 +32,16 @@ export default class Category extends BaseEntity {
   @Column({ length: 50, nullable: false, type: 'varchar' })
   name!: string;
 
-  @Field(() => Lock)
-  @OneToMany(() => Lock, lock => lock.category)
-  locks!: Lock[];
-
   @Field(() => Activity)
-  @OneToMany(() => Activity, activity => activity.category)
+  @OneToMany(() => Activity, activity => activity.label)
   change!: Activity[];
 
+  @Field(() => Lock)
+  @OneToMany(() => Lock, lock => lock.label)
+  locks!: Lock[];
+
   @Field(() => Task)
-  @OneToMany(() => Task, task => task.category)
+  @ManyToMany(() => Task, task => task.category)
   tasks!: Task[];
 
   @Field(() => User)

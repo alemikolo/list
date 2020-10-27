@@ -7,12 +7,15 @@ import Category from '@modules/category/entity';
 import Task from '@modules/task/entity';
 import Project from '@modules/project/entity';
 import Settings from '@modules/settings/entity';
+import Stage from '@modules/stage/entity';
 import User from '@modules/user/entity';
+import Label from '@modules/label/entity';
+import Organization from '@modules/organization/entity';
 
 @ObjectType()
 @Entity()
 export default class Activity extends BaseEntity {
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 32, nullable: true, type: 'varchar' })
   field!: string;
 
@@ -20,11 +23,11 @@ export default class Activity extends BaseEntity {
   @Column({ length: 256, type: 'varchar' })
   messageId!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   newValue!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ length: 1000, nullable: true, type: 'varchar' })
   oldValue!: string;
 
@@ -38,9 +41,23 @@ export default class Activity extends BaseEntity {
   @ManyToOne(() => Task, task => task.change, { nullable: true })
   task!: Task;
 
+  @Field(() => Label)
+  @ManyToOne(() => Label, label => label.change, { nullable: true })
+  label!: Label;
+
+  @Field(() => Stage)
+  @ManyToOne(() => Stage, stage => stage.change, { nullable: true })
+  stage!: Stage;
+
   @Field(() => Project)
   @ManyToOne(() => Project, project => project.change, { nullable: true })
   project!: Project;
+
+  @Field(() => Organization)
+  @ManyToOne(() => Organization, organization => organization.change, {
+    nullable: true
+  })
+  organization!: Organization;
 
   @Field(() => Settings)
   @ManyToOne(() => Settings, settings => settings.change, {

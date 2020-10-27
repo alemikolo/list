@@ -39,15 +39,25 @@ export type User = {
   categoryModifier: Category;
   taskModifier: Task;
   taskCreator: Task;
+  taskPerformer: Task;
+  orgCreator: Organization;
+  orgModifier: Organization;
+  stageCreator: Stage;
+  stageModifier: Stage;
   projectCreator: Project;
   projectModifier: Project;
   locks: Lock;
   change: Activity;
   activity: Activity;
   favorites: Project;
-  owner: Project;
-  member: Project;
-  viewer: Project;
+  projectOwner: Project;
+  projectAdmin: Project;
+  projectMember: Project;
+  projectViewer: Project;
+  organizationOwner: Organization;
+  organizationAdmin: Organization;
+  organizationMember: Organization;
+  organizationViewer: Organization;
 };
 
 export enum AccountStatus {
@@ -62,8 +72,8 @@ export type Settings = {
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  notification: Scalars['String'];
-  theme: Scalars['String'];
+  notification?: Maybe<Scalars['String']>;
+  theme?: Maybe<Scalars['String']>;
   change: Activity;
 };
 
@@ -72,13 +82,16 @@ export type Activity = {
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  field: Scalars['String'];
+  field?: Maybe<Scalars['String']>;
   messageId: Scalars['String'];
-  newValue: Scalars['String'];
-  oldValue: Scalars['String'];
+  newValue?: Maybe<Scalars['String']>;
+  oldValue?: Maybe<Scalars['String']>;
   category: Category;
   task: Task;
+  label: Label;
+  stage: Stage;
   project: Project;
+  organization: Organization;
   settings: Settings;
   user: User;
   performer: User;
@@ -89,10 +102,11 @@ export type Category = {
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  color: Scalars['String'];
-  description: Scalars['String'];
-  icon: Icon;
+  color?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  icon?: Maybe<Icon>;
   name: Scalars['String'];
+  locks: Lock;
   change: Activity;
   tasks: Task;
   creator: User;
@@ -109,22 +123,40 @@ export enum Icon {
   WorkIcon = 'WORK_ICON'
 }
 
+export type Lock = {
+  __typename?: 'Lock';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  field?: Maybe<Scalars['String']>;
+  task: Task;
+  stage: Stage;
+  category: Category;
+  label: Label;
+  project: Project;
+  user: User;
+  organization: Organization;
+};
+
 export type Task = {
   __typename?: 'Task';
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  description: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   done: Scalars['Boolean'];
   name: Scalars['String'];
   priority: Priority;
   status: Status;
   change: Activity;
   locks: Lock;
+  stage: Stage;
   category: Category;
   creator: User;
+  performer: User;
   modifier: User;
   project: Project;
+  labels: Label;
 };
 
 export enum Priority {
@@ -139,15 +171,21 @@ export enum Status {
   Deleted = 'DELETED'
 }
 
-export type Lock = {
-  __typename?: 'Lock';
+export type Stage = {
+  __typename?: 'Stage';
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  field: Scalars['String'];
-  task: Task;
+  description?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  icon?: Maybe<Icon>;
+  order: Scalars['Float'];
+  change: Activity;
+  locks: Lock;
+  creator: User;
+  modifier: User;
   project: Project;
-  user: User;
+  task: Task;
 };
 
 export type Project = {
@@ -155,19 +193,22 @@ export type Project = {
   id: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  description: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   type: Type;
   status: Status;
   isFavorite: User;
   tasks: Task;
   change: Activity;
+  stage: Stage;
   locks: Lock;
   creator: User;
   modifier: User;
   projects: Project;
   complexProjects: Project;
+  organization: Organization;
   owners: User;
+  admins: User;
   members: User;
   viewers: User;
 };
@@ -176,6 +217,42 @@ export enum Type {
   Basic = 'BASIC',
   Complex = 'COMPLEX'
 }
+
+export type Organization = {
+  __typename?: 'Organization';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  avatarUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  status: Status;
+  change: Activity;
+  locks: Lock;
+  creator: User;
+  modifier: User;
+  projects: Project;
+  owners: User;
+  admins: User;
+  members: User;
+  viewers: User;
+};
+
+export type Label = {
+  __typename?: 'Label';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  color?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  icon?: Maybe<Icon>;
+  name: Scalars['String'];
+  change: Activity;
+  locks: Lock;
+  tasks: Task;
+  creator: User;
+  modifier: User;
+};
 
 export type Mutation = {
   __typename?: 'Mutation';
