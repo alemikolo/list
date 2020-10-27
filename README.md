@@ -99,8 +99,6 @@ npm run build
 - internationalization
 - error handling (error boundaries)
 - fetch methods
-- add nullable true to Field decorator
-- extend database structure with new entities and relations
 - split user and auth on browser package
 
 ---
