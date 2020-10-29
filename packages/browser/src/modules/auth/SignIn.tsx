@@ -1,12 +1,12 @@
 import React, { FC, useState, FormEvent } from 'react';
 
 import { useSignInMutation } from './model/signIn';
-import { InputChangeHandler } from '../../shared/constants/types';
+import { InputChangeHandler } from 'shared/constants/types';
 import { setAccessToken } from './token';
 import {
   CurrentUserDocument,
   CurrentUserQuery
-} from '../user/model/currentUser';
+} from 'modules/user/model/currentUser';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
