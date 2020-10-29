@@ -6,10 +6,10 @@ import {
   createOrganizationsRoute,
   createSignInRoute,
   createSignUpRoute
-} from '../../routes';
-import { useCurrentUserQuery } from '../../modules/user/model/currentUser';
-import { useSignOutMutation } from '../../modules/auth/model/signOut';
-import { setAccessToken } from '../../modules/auth/token';
+} from '../routes';
+import { useCurrentUserQuery } from 'modules/user/model/currentUser';
+import { useSignOutMutation } from 'modules/auth/model/signOut';
+import { setAccessToken } from 'modules/auth/token';
 
 export const Header: FC = () => {
   const { data, loading } = useCurrentUserQuery();

@@ -33,7 +33,10 @@
     "noUnusedLocals": true,
     "outDir": "../../dist/public",
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*"],
+      "src/app/*": ["src/app/*"],
+      "src/modules/*": ["src/modules/*"],
+      "src/shared/*": ["src/shared/*"]
     },
     "preserveConstEnums": true,
     "pretty": true,

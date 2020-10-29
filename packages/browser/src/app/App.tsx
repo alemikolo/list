@@ -1,14 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Dashboard from '../modules/dashboard';
+import Dashboard from 'modules/dashboard';
 import Layout from './components/Layout';
-import SignIn from '../modules/auth/SignIn';
-import SignUp from '../modules/auth/SignUp';
-import Bye from '../modules/user/Bye';
-import Path from '../routes/enums';
-import { setAccessToken } from '../modules/auth/token';
-import { refreshToken } from '../modules/auth/utils';
+import SignIn from 'modules/auth/SignIn';
+import SignUp from 'modules/auth/SignUp';
+import Bye from 'modules/user/Bye';
+import Path from './routes/enums';
+import { setAccessToken } from 'modules/auth/token';
+import { refreshToken } from 'modules/auth/utils';
 
 const App: FC = () => {
   const [loading, setLoading] = useState(true);
