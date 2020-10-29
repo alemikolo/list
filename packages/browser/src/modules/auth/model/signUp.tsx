@@ -3,12 +3,12 @@
 /* eslint-disable max-lines-per-function */
 
 import { gql } from '@apollo/client';
-import * as React from 'react';
 import * as Apollo from '@apollo/client';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/client/react/components';
 import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
-import * as Types from '../../../../shared/model/types';
+import * as Types from '../../../shared/model/types';
 
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -292,82 +292,105 @@ export type SignInResponse = {
   user: User;
 };
 
-export type ByeQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type SignUpMutationVariables = Types.Exact<{
+  email: Types.Scalars['String'];
+  password: Types.Scalars['String'];
+}>;
 
-export type ByeQuery = { __typename?: 'Query' } & Pick<Types.Query, 'bye'>;
-
-export const ByeDocument = gql`
-  query Bye {
-    bye
-  }
-`;
-export type ByeComponentProps = Omit<
-  ApolloReactComponents.QueryComponentOptions<ByeQuery, ByeQueryVariables>,
-  'query'
+export type SignUpMutation = { __typename?: 'Mutation' } & Pick<
+  Types.Mutation,
+  'signUp'
 >;
 
-export const ByeComponent = (props: ByeComponentProps) => (
-  <ApolloReactComponents.Query<ByeQuery, ByeQueryVariables>
-    query={ByeDocument}
+export const SignUpDocument = gql`
+  mutation signUp($email: String!, $password: String!) {
+    signUp(email: $email, password: $password)
+  }
+`;
+export type SignUpMutationFn = Apollo.MutationFunction<
+  SignUpMutation,
+  SignUpMutationVariables
+>;
+export type SignUpComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    SignUpMutation,
+    SignUpMutationVariables
+  >,
+  'mutation'
+>;
+
+export const SignUpComponent = (props: SignUpComponentProps) => (
+  <ApolloReactComponents.Mutation<SignUpMutation, SignUpMutationVariables>
+    mutation={SignUpDocument}
     {...props}
   />
 );
 
-export type ByeProps<TChildProps = {}, TDataName extends string = 'data'> = {
-  [key in TDataName]: ApolloReactHoc.DataValue<ByeQuery, ByeQueryVariables>;
+export type SignUpProps<
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+> = {
+  [key in TDataName]: Apollo.MutationFunction<
+    SignUpMutation,
+    SignUpMutationVariables
+  >;
 } &
   TChildProps;
-export function withBye<
+export function withSignUp<
   TProps,
   TChildProps = {},
-  TDataName extends string = 'data'
+  TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    ByeQuery,
-    ByeQueryVariables,
-    ByeProps<TChildProps, TDataName>
+    SignUpMutation,
+    SignUpMutationVariables,
+    SignUpProps<TChildProps, TDataName>
   >
 ) {
-  return ApolloReactHoc.withQuery<
+  return ApolloReactHoc.withMutation<
     TProps,
-    ByeQuery,
-    ByeQueryVariables,
-    ByeProps<TChildProps, TDataName>
-  >(ByeDocument, {
-    alias: 'bye',
+    SignUpMutation,
+    SignUpMutationVariables,
+    SignUpProps<TChildProps, TDataName>
+  >(SignUpDocument, {
+    alias: 'signUp',
     ...operationOptions
   });
 }
 
 /**
- * __useByeQuery__
+ * __useSignUpMutation__
  *
- * To run a query within a React component, call `useByeQuery` and pass it any options that fit your needs.
- * When your component renders, `useByeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useByeQuery({
+ * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
  *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
  *   },
  * });
  */
-export function useByeQuery(
-  baseOptions?: Apollo.QueryHookOptions<ByeQuery, ByeQueryVariables>
+export function useSignUpMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SignUpMutation,
+    SignUpMutationVariables
+  >
 ) {
-  return Apollo.useQuery<ByeQuery, ByeQueryVariables>(ByeDocument, baseOptions);
-}
-export function useByeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ByeQuery, ByeQueryVariables>
-) {
-  return Apollo.useLazyQuery<ByeQuery, ByeQueryVariables>(
-    ByeDocument,
+  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(
+    SignUpDocument,
     baseOptions
   );
 }
-export type ByeQueryHookResult = ReturnType<typeof useByeQuery>;
-export type ByeLazyQueryHookResult = ReturnType<typeof useByeLazyQuery>;
-export type ByeQueryResult = Apollo.QueryResult<ByeQuery, ByeQueryVariables>;
+export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<
+  SignUpMutation,
+  SignUpMutationVariables
+>;

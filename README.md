@@ -99,6 +99,5 @@ npm run build
 - internationalization
 - error handling (error boundaries)
 - fetch methods
-- split user and auth on browser package
 
 ---

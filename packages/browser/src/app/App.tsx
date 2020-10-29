@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Dashboard from '../modules/dashboard';
 import Layout from './components/Layout';
-import SignIn from '../modules/user/SignIn';
-import SignUp from '../modules/user/SignUp';
+import SignIn from '../modules/auth/SignIn';
+import SignUp from '../modules/auth/SignUp';
 import Bye from '../modules/user/Bye';
 import Path from '../routes/enums';
 import { setAccessToken } from '../modules/auth/token';

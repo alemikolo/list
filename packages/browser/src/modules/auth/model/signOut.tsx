@@ -8,7 +8,7 @@ import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/client/react/components';
 import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
-import * as Types from '../../../../shared/model/types';
+import * as Types from '../../../shared/model/types';
 
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -292,105 +292,100 @@ export type SignInResponse = {
   user: User;
 };
 
-export type SignUpMutationVariables = Types.Exact<{
-  email: Types.Scalars['String'];
-  password: Types.Scalars['String'];
-}>;
+export type SignOutMutationVariables = Types.Exact<{ [key: string]: never }>;
 
-export type SignUpMutation = { __typename?: 'Mutation' } & Pick<
+export type SignOutMutation = { __typename?: 'Mutation' } & Pick<
   Types.Mutation,
-  'signUp'
+  'signOut'
 >;
 
-export const SignUpDocument = gql`
-  mutation signUp($email: String!, $password: String!) {
-    signUp(email: $email, password: $password)
+export const SignOutDocument = gql`
+  mutation signOut {
+    signOut
   }
 `;
-export type SignUpMutationFn = Apollo.MutationFunction<
-  SignUpMutation,
-  SignUpMutationVariables
+export type SignOutMutationFn = Apollo.MutationFunction<
+  SignOutMutation,
+  SignOutMutationVariables
 >;
-export type SignUpComponentProps = Omit<
+export type SignOutComponentProps = Omit<
   ApolloReactComponents.MutationComponentOptions<
-    SignUpMutation,
-    SignUpMutationVariables
+    SignOutMutation,
+    SignOutMutationVariables
   >,
   'mutation'
 >;
 
-export const SignUpComponent = (props: SignUpComponentProps) => (
-  <ApolloReactComponents.Mutation<SignUpMutation, SignUpMutationVariables>
-    mutation={SignUpDocument}
+export const SignOutComponent = (props: SignOutComponentProps) => (
+  <ApolloReactComponents.Mutation<SignOutMutation, SignOutMutationVariables>
+    mutation={SignOutDocument}
     {...props}
   />
 );
 
-export type SignUpProps<
+export type SignOutProps<
   TChildProps = {},
   TDataName extends string = 'mutate'
 > = {
   [key in TDataName]: Apollo.MutationFunction<
-    SignUpMutation,
-    SignUpMutationVariables
+    SignOutMutation,
+    SignOutMutationVariables
   >;
 } &
   TChildProps;
-export function withSignUp<
+export function withSignOut<
   TProps,
   TChildProps = {},
   TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    SignUpMutation,
-    SignUpMutationVariables,
-    SignUpProps<TChildProps, TDataName>
+    SignOutMutation,
+    SignOutMutationVariables,
+    SignOutProps<TChildProps, TDataName>
   >
 ) {
   return ApolloReactHoc.withMutation<
     TProps,
-    SignUpMutation,
-    SignUpMutationVariables,
-    SignUpProps<TChildProps, TDataName>
-  >(SignUpDocument, {
-    alias: 'signUp',
+    SignOutMutation,
+    SignOutMutationVariables,
+    SignOutProps<TChildProps, TDataName>
+  >(SignOutDocument, {
+    alias: 'signOut',
     ...operationOptions
   });
 }
 
 /**
- * __useSignUpMutation__
+ * __useSignOutMutation__
  *
- * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useSignOutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignOutMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
+ * const [signOutMutation, { data, loading, error }] = useSignOutMutation({
  *   variables: {
- *      email: // value for 'email'
- *      password: // value for 'password'
  *   },
  * });
  */
-export function useSignUpMutation(
+export function useSignOutMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    SignUpMutation,
-    SignUpMutationVariables
+    SignOutMutation,
+    SignOutMutationVariables
   >
 ) {
-  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(
-    SignUpDocument,
+  return Apollo.useMutation<SignOutMutation, SignOutMutationVariables>(
+    SignOutDocument,
     baseOptions
   );
 }
-export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
-export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
-export type SignUpMutationOptions = Apollo.BaseMutationOptions<
-  SignUpMutation,
-  SignUpMutationVariables
+export type SignOutMutationHookResult = ReturnType<typeof useSignOutMutation>;
+export type SignOutMutationResult = Apollo.MutationResult<SignOutMutation>;
+export type SignOutMutationOptions = Apollo.BaseMutationOptions<
+  SignOutMutation,
+  SignOutMutationVariables
 >;
