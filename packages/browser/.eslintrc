@@ -142,6 +142,11 @@
     "space-infix-ops": "error"
   },
   "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.dev.ts"
+      }
+    },
     "react": {
       "version": "detect"
     }
