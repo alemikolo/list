@@ -2,11 +2,11 @@ import React, { FC, useState, FormEvent } from 'react';
 
 import { useSignInMutation } from './model/graphql/signIn';
 import { InputChangeHandler } from '../../shared/constants/types';
-import { setAccessToken } from '../auth/token';
+import { setAccessToken } from './token';
 import {
   CurrentUserDocument,
   CurrentUserQuery
-} from './model/graphql/currentUser';
+} from '../user/model/graphql/currentUser';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
