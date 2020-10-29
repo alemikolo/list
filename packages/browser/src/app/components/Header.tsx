@@ -7,8 +7,8 @@ import {
   createSignInRoute,
   createSignUpRoute
 } from '../../routes';
-import { useCurrentUserQuery } from '../../modules/user/model/graphql/currentUser';
-import { useSignOutMutation } from '../../modules/auth/model/graphql/signOut';
+import { useCurrentUserQuery } from '../../modules/user/model/currentUser';
+import { useSignOutMutation } from '../../modules/auth/model/signOut';
 import { setAccessToken } from '../../modules/auth/token';
 
 export const Header: FC = () => {
