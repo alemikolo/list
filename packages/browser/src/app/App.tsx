@@ -1,40 +1,47 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Dashboard from 'modules/dashboard';
-import Layout from './components/Layout';
 import SignIn from 'modules/auth/SignIn';
 import SignUp from 'modules/auth/SignUp';
 import Bye from 'modules/user/Bye';
-import Path from './routes/enums';
 import { setAccessToken } from 'modules/auth/token';
-import { refreshToken } from 'modules/auth/utils';
+import useFetch from 'shared/hooks/useFetch';
+import Path from './routes/enums';
+import Layout from './components/Layout';
+import PrivateRoute from './routes/PrivateRoute';
 
-const App: FC = () => {
-  const [loading, setLoading] = useState(true);
+interface AT {
+  accessToken: string;
+}
+const App: FC = ({ asdasd }) => {
+  const { data, pending, error } = useFetch<AT>(
+    'http://localhost:5000/api/auth/refresh-token'
+  );
 
-  useEffect(() => {
-    refreshToken()
-      .then(async x => {
-        const { accessToken } = await x.json();
-        setAccessToken(accessToken);
-      })
-      .catch(() => {
-        // eslint-disable-next-line no-console
-        console.log('no refresh token');
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  if (data) {
+    const { accessToken } = data;
+    setAccessToken(accessToken);
+  }
 
-  if (loading) {
+  if (pending) {
     return <div>loading...</div>;
+  }
+
+  if (error) {
+    console.error(error);
   }
 
   return (
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route component={SignIn} exact path={Path.SignIn} />
+          <PrivateRoute
+            component={SignIn}
+            exact
+            isAuthenticated
+            path={Path.SignIn}
+          />
           <Route component={SignUp} exact path={Path.SignUp} />
           <Route component={Bye} exact path={Path.Organizations} />
           <Route
