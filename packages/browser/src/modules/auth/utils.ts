@@ -1,5 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
+import { getAccessToken } from './token';
+
 export const isTokenExpired = (token: string): boolean => {
   const { exp } = jwtDecode(token);
 
@@ -11,3 +13,9 @@ export const refreshToken = (): Promise<Response> =>
     credentials: 'include',
     method: 'POST'
   });
+
+export const isAuthenticated = (): boolean => {
+  const token = getAccessToken();
+
+  return typeof token === 'string' && !isTokenExpired(token);
+};

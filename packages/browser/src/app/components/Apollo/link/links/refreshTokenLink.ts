@@ -1,13 +1,7 @@
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 
-import {
-  isTokenExpired,
-  refreshToken
-} from '../../../../../modules/auth/utils';
-import {
-  getAccessToken,
-  setAccessToken
-} from '../../../../../modules/auth/token';
+import { isTokenExpired, refreshToken } from 'modules/auth/utils';
+import { getAccessToken, setAccessToken } from 'modules/auth/token';
 
 const refreshTokenLink = new TokenRefreshLink({
   accessTokenField: 'accessToken',
