@@ -22,6 +22,7 @@ const config: IConfiguration = {
       '/api': 'http://localhost:5000',
       '/graphql': 'http://localhost:5000/graphql'
     },
+    publicPath: '/',
     watchOptions: {
       ignored: /node_modules/
     }

@@ -14,7 +14,7 @@ import PrivateRoute from './routes/PrivateRoute';
 interface AT {
   accessToken: string;
 }
-const App: FC = ({ asdasd }) => {
+const App: FC = () => {
   const { data, pending, error } = useFetch<AT>(
     'http://localhost:5000/api/auth/refresh-token'
   );

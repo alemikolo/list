@@ -55,9 +55,13 @@ const config: WebpackConfiguration = {
   optimization: {
     minimize: true,
     minimizer: [
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       new TerserPlugin({
         parallel: true
       }),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       new OptimizeCssAssetsPlugin()
     ]
   },
@@ -69,6 +73,8 @@ const config: WebpackConfiguration = {
   plugins: [
     new CleanWebpackPlugin({ verbose: true }),
     new ForkTsCheckerWebpackPlugin(),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css'
     }),
