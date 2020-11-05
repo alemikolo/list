@@ -2,14 +2,18 @@ import jwtDecode from 'jwt-decode';
 
 import { getAccessToken } from './token';
 
+interface TokenPayload {
+  exp: number;
+}
+
 export const isTokenExpired = (token: string): boolean => {
-  const { exp } = jwtDecode(token);
+  const { exp } = jwtDecode(token) as TokenPayload;
 
   return Date.now() >= exp * 1000;
 };
 
 export const refreshToken = (): Promise<Response> =>
-  fetch('http://localhost:5000/api/auth/refresh-token', {
+  fetch('/api/auth/refresh-token', {
     credentials: 'include',
     method: 'POST'
   });

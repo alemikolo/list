@@ -33,7 +33,7 @@ export const Header: FC = () => {
   const handleSignOut = async () => {
     await signout();
 
-    setAccessToken('');
+    setAccessToken();
 
     await client.clearStore();
 
