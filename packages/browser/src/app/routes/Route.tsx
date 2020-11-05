@@ -40,11 +40,7 @@ const BaseRoute: FC<BaseRouteProps> = ({
         }
       }
 
-      return noFallback ? null : (
-        <Redirect
-          to={{ pathname: redirectPath, state: { from: props.location } }}
-        />
-      );
+      return noFallback ? null : <Redirect to={redirectPath} />;
     }}
   />
 );

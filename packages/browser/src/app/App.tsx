@@ -9,7 +9,7 @@ import Home from 'modules/home';
 import { setAccessToken } from 'modules/auth/token';
 import useFetch from 'shared/hooks/useFetch';
 import Path from './routes/enums';
-import Layout from './components/Layout';
+import Layout, { LeftBar, RightBar, TopBar } from './components/Layout';
 import { PrivateRoute, PublicRoute } from './routes';
 
 interface AT {
@@ -35,11 +35,24 @@ const App: FC = () => {
     <BrowserRouter>
       <Layout>
         <Switch>
+          <PublicRoute component={Home} exact path={Path.Home} />
           <PublicRoute component={SignIn} exact path={Path.SignIn} />
           <PublicRoute component={SignUp} exact path={Path.SignUp} />
-          <PublicRoute component={Home} exact path={Path.Home} />
+          <PublicRoute component={() => <div>404</div>} noFallback />
+        </Switch>
+        <Switch>
+          <PrivateRoute component={TopBar} noFallback />
+        </Switch>
+        <Switch>
+          <PrivateRoute component={LeftBar} noFallback />
+        </Switch>
+        <Switch>
           <PrivateRoute component={Bye} exact path={Path.Organizations} />
           <PrivateRoute component={Dashboard} exact path={Path.Dashboard} />
+          <PrivateRoute component={() => <div>404</div>} noFallback />
+        </Switch>
+        <Switch>
+          <PrivateRoute component={RightBar} noFallback />
         </Switch>
       </Layout>
     </BrowserRouter>
