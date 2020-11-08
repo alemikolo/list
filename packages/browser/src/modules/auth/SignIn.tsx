@@ -2,21 +2,21 @@ import React, { FC, useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useSignInMutation } from './model/signIn';
-import { InputChangeHandler } from 'shared/constants/types';
+import { InputChangeHandler } from 'constants/types';
 import { setAccessToken } from './token';
 import {
   CurrentUserDocument,
   CurrentUserQuery
 } from 'modules/user/model/currentUser';
-import { useAppContext } from 'shared/hooks';
-import { setIsAuthenticated } from 'app/context/actions';
-import { Path } from 'app/routes';
+import { useAppState } from 'hooks';
+import { setIsAuthenticated } from 'state';
+import { Path } from 'router';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signIn, { loading }] = useSignInMutation();
-  const { dispatch } = useAppContext();
+  const { dispatch } = useAppState();
   const history = useHistory();
 
   const handleEmailChange: InputChangeHandler = event => {

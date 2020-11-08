@@ -1,7 +1,7 @@
 import React, { FC, useState, FormEvent } from 'react';
 
 import { useSignUpMutation } from './model/signUp';
-import { InputChangeHandler } from 'shared/constants/types';
+import { InputChangeHandler } from 'constants/types';
 
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');

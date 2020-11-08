@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import 'ts-polyfill';
 
-import Apollo from 'app/components/Apollo';
+import Apollo from 'app/Apollo';
 import App from 'app/App';
 
-import './app/scss/index.scss';
+import './scss/index.scss';
 
 ReactDOM.render(
   <Apollo>

@@ -42,7 +42,7 @@ const config: WebpackConfiguration = {
             options: {
               implementation: require('sass'),
               sassOptions: {
-                includePaths: ['./src/app/scss'],
+                includePaths: ['./src/scss'],
                 indentWidth: 2
               },
               sourceMap: true

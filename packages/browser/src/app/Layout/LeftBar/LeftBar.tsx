@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Path } from 'app/routes';
+import { Path } from 'router';
 
 const LeftBar: FC = () => {
   return (

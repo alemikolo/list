@@ -41,7 +41,7 @@ export type AppAction = LocaleAction | ThemeAction | IsAuthenticatedAction;
 
 export type ActionCreator = (payload: any) => AppAction;
 
-export type AppContext = {
+export interface AppStore {
   dispatch: Dispatch<AppAction>;
   state: AppState;
-};
+}
