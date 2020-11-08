@@ -2,9 +2,8 @@ import React, { FC, useMemo, useReducer } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Dashboard from 'modules/dashboard';
-import SignIn from 'modules/auth/SignIn';
-import SignUp from 'modules/auth/SignUp';
-import Bye from 'modules/user/Bye';
+import { SignIn, SignUp } from 'modules/auth';
+import { Bye } from 'modules/user';
 import Home from 'modules/home';
 import { setAccessToken } from 'modules/auth/token';
 import useFetch from 'hooks/useFetch';

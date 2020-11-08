@@ -1,9 +1,9 @@
 import React, { FC, useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSignInMutation } from './model/signIn';
+import { useSignInMutation } from '../model/signIn';
 import { InputChangeHandler } from 'constants/types';
-import { setAccessToken } from './token';
+import { setAccessToken } from '../token';
 import {
   CurrentUserDocument,
   CurrentUserQuery
