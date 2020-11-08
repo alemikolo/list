@@ -2,7 +2,6 @@ import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
 
-import { connectDB, disconnectDB } from '@db/db';
 import { AccountStatus } from '@shared/enums';
 import { Context } from '@shared/types';
 import {
@@ -25,11 +24,7 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   async forgotPassword(@Arg('email') email: string): Promise<Boolean> {
     try {
-      await connectDB();
-
       await getManager().increment(User, { email }, 'tokenVersion', 1);
-
-      await disconnectDB();
 
       // send email with link
     } catch (error) {
@@ -54,11 +49,7 @@ export class AuthResolver {
     @Arg('password') password: string,
     @Ctx() { res }: Context
   ): Promise<SignInResponse> {
-    await connectDB();
-
     const user = await User.findOne({ where: { email } });
-
-    await disconnectDB();
 
     if (!user) {
       throw new Error('no user');
@@ -83,8 +74,6 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   async signUp(@Arg('email') email: string, @Arg('password') password: string) {
     try {
-      await connectDB();
-
       const hashedPassword = await hash(password, 12);
 
       await User.insert({
@@ -92,8 +81,6 @@ export class AuthResolver {
         password: hashedPassword,
         status: AccountStatus.REGISTERED
       });
-
-      await disconnectDB();
     } catch (error) {
       console.error(error);
 

@@ -20,6 +20,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "check": "lerna run check",
+    "clean": "lerna clean",
     "compile": "lerna run compile",
     "create": "lerna create",
     "dev": "lerna run dev --stream",

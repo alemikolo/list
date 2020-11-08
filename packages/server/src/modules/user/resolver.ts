@@ -1,6 +1,5 @@
 import { Ctx, Query, Resolver, UseMiddleware } from 'type-graphql';
 
-import { connectDB, disconnectDB } from '@db/db';
 import { Context } from '@shared/types';
 import { isAuth } from '@modules/auth/auth';
 import User from './entity';
@@ -33,11 +32,7 @@ export class UserResolver {
 
       const { userId } = user;
 
-      await connectDB();
-
       const currentUser = await User.findOne(userId);
-
-      await disconnectDB();
 
       return currentUser;
     } catch (error) {

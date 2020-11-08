@@ -58,6 +58,8 @@ const config: WebpackConfiguration = {
       new TerserPlugin({
         parallel: true
       }),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       new OptimizeCssAssetsPlugin()
     ]
   },

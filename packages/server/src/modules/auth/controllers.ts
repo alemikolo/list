@@ -1,7 +1,6 @@
 import { Request, Response, RequestHandler } from 'express';
 
 import User from '@modules/user/entity';
-import { connectDB, disconnectDB } from '@db/db';
 import {
   createAccessToken,
   createRefreshToken,
@@ -24,11 +23,7 @@ export const refreshToken: RequestHandler = async (
 
     const { userId, tokenVersion } = payload;
 
-    await connectDB();
-
     const user = await User.findOne({ id: userId });
-
-    await disconnectDB();
 
     if (!user) {
       throw new Error('not Authorized');
