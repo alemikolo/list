@@ -26,9 +26,13 @@ const useFetch = <T extends unknown>(url: string, options?: any): State<T> => {
 
       try {
         const response = await fetch(url, fetchOptions);
-        const json = await response.json();
-        if (!aborted) {
-          setData(json);
+
+        if (response.ok) {
+          const json = await response.json();
+
+          if (!aborted) {
+            setData(json);
+          }
         }
       } catch (error) {
         if (!aborted) setError(error);

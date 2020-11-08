@@ -6,8 +6,8 @@ import {
   RouteComponentProps
 } from 'react-router-dom';
 
-import { isAuthenticated } from 'modules/auth/utils';
 import Path from './enums';
+import { useAppContext } from 'shared/hooks';
 
 interface RouteProps extends SourceRouteProps {
   noFallback?: boolean;
@@ -45,18 +45,30 @@ const BaseRoute: FC<BaseRouteProps> = ({
   />
 );
 
-export const PrivateRoute: FC<RouteProps> = props => (
-  <BaseRoute
-    permitted={isAuthenticated()}
-    redirectPath={Path.SignIn}
-    {...props}
-  />
-);
+export const PrivateRoute: FC<RouteProps> = props => {
+  const {
+    state: { isAuthenticated }
+  } = useAppContext();
 
-export const PublicRoute: FC<RouteProps> = props => (
-  <BaseRoute
-    permitted={!isAuthenticated()}
-    redirectPath={Path.Dashboard}
-    {...props}
-  />
-);
+  return (
+    <BaseRoute
+      permitted={isAuthenticated}
+      redirectPath={Path.SignIn}
+      {...props}
+    />
+  );
+};
+
+export const PublicRoute: FC<RouteProps> = props => {
+  const {
+    state: { isAuthenticated }
+  } = useAppContext();
+
+  return (
+    <BaseRoute
+      permitted={!isAuthenticated}
+      redirectPath={Path.Dashboard}
+      {...props}
+    />
+  );
+};

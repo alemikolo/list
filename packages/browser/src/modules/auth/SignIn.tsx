@@ -1,4 +1,5 @@
 import React, { FC, useState, FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useSignInMutation } from './model/signIn';
 import { InputChangeHandler } from 'shared/constants/types';
@@ -7,11 +8,17 @@ import {
   CurrentUserDocument,
   CurrentUserQuery
 } from 'modules/user/model/currentUser';
+import { useAppContext } from 'shared/hooks';
+import { setIsAuthenticated } from 'app/context/actions';
+import { Path } from 'app/routes';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signIn, { loading }] = useSignInMutation();
+  const { dispatch } = useAppContext();
+  const history = useHistory();
+
   const handleEmailChange: InputChangeHandler = event => {
     setEmail(event.target.value);
   };
@@ -20,7 +27,7 @@ export const SignIn: FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSignUp = async (event: FormEvent): Promise<Boolean> => {
+  const handleSignIn = async (event: FormEvent): Promise<Boolean> => {
     event.preventDefault();
 
     if (!email || !password) {
@@ -42,6 +49,8 @@ export const SignIn: FC = () => {
 
     if (response && response.data) {
       setAccessToken(response.data.signIn.accessToken);
+      dispatch(setIsAuthenticated(true));
+      history.replace(Path.Dashboard);
     }
 
     return false;
@@ -50,7 +59,7 @@ export const SignIn: FC = () => {
   return loading ? (
     <div>loading...</div>
   ) : (
-    <form onSubmit={handleSignUp}>
+    <form onSubmit={handleSignIn}>
       <div>
         <label>
           Email
