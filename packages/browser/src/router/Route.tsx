@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Path from './enums';
-import { useAppContext } from 'shared/hooks';
+import { useAppState } from 'hooks';
 
 interface RouteProps extends SourceRouteProps {
   noFallback?: boolean;
@@ -48,7 +48,7 @@ const BaseRoute: FC<BaseRouteProps> = ({
 export const PrivateRoute: FC<RouteProps> = props => {
   const {
     state: { isAuthenticated }
-  } = useAppContext();
+  } = useAppState();
 
   return (
     <BaseRoute
@@ -62,7 +62,7 @@ export const PrivateRoute: FC<RouteProps> = props => {
 export const PublicRoute: FC<RouteProps> = props => {
   const {
     state: { isAuthenticated }
-  } = useAppContext();
+  } = useAppState();
 
   return (
     <BaseRoute

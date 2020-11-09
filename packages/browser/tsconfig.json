@@ -35,8 +35,14 @@
     "paths": {
       "*": ["src/*"],
       "src/app/*": ["src/app/*"],
+      "src/constants/*": ["src/constants/*"],
+      "src/env/*": ["src/env/*"],
+      "src/hooks/*": ["src/hooks/*"],
+      "src/model/*": ["src/model/*"],
       "src/modules/*": ["src/modules/*"],
-      "src/shared/*": ["src/shared/*"]
+      "src/router/*": ["src/router/*"],
+      "src/state/*": ["src/state/*"],
+      "src/ui/*": ["src/ui/*"]
     },
     "preserveConstEnums": true,
     "pretty": true,

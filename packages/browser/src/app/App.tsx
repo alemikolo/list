@@ -2,18 +2,19 @@ import React, { FC, useMemo, useReducer } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Dashboard from 'modules/dashboard';
-import SignIn from 'modules/auth/SignIn';
-import SignUp from 'modules/auth/SignUp';
-import Bye from 'modules/user/Bye';
+import { SignIn, SignUp } from 'modules/auth';
+import { Bye } from 'modules/user';
 import Home from 'modules/home';
 import { setAccessToken } from 'modules/auth/token';
-import useFetch from 'shared/hooks/useFetch';
-import Path from './routes/enums';
-import Layout, { LeftBar, RightBar, TopBar } from './components/Layout';
-import { PrivateRoute, PublicRoute } from './routes';
-import appReducer from './context/reducer';
-import { initialState, Provider } from './context/AppContext';
-import { setIsAuthenticated } from 'app/context/actions';
+import useFetch from 'hooks/useFetch';
+import { Path, PrivateRoute, PublicRoute } from 'router';
+import Layout, { LeftBar, RightBar, TopBar } from './Layout';
+import {
+  appReducer,
+  initialState,
+  AppStateProvider,
+  setIsAuthenticated
+} from 'state';
 
 interface AT {
   accessToken: string;
@@ -51,7 +52,7 @@ const App: FC = () => {
   }
 
   return (
-    <Provider value={contextValue}>
+    <AppStateProvider value={contextValue}>
       <BrowserRouter>
         <Layout>
           <Switch>
@@ -76,7 +77,7 @@ const App: FC = () => {
           </Switch>
         </Layout>
       </BrowserRouter>
-    </Provider>
+    </AppStateProvider>
   );
 };
 

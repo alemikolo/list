@@ -94,9 +94,7 @@ npm run build
 
 - improve auth flow
 - revoking tokens
-- cancelable promise
 - internationalization
 - error handling (error boundaries)
-- fetch methods
 
 ---

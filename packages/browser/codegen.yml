@@ -2,7 +2,7 @@ overwrite: true
 schema: 'http://localhost:5000/graphql'
 documents: src/**/*.gql
 generates:
-  src/shared/model/types.ts:
+  src/constants/graphqlTypes.ts:
     plugins:
       - add:
           content:
@@ -14,7 +14,7 @@ generates:
     preset: near-operation-file
     presetConfig:
       extension: .tsx
-      baseTypesPath: shared/model/types.ts
+      baseTypesPath: constants/graphqlTypes.ts
     plugins:
       - add:
           content:

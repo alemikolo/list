@@ -1,7 +1,6 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
@@ -42,7 +41,7 @@ const config: WebpackConfiguration = {
             options: {
               implementation: require('sass'),
               sassOptions: {
-                includePaths: ['./src/app/scss'],
+                includePaths: ['./src/scss'],
                 indentWidth: 2
               },
               sourceMap: true
@@ -70,7 +69,6 @@ const config: WebpackConfiguration = {
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: true }),
-    new ForkTsCheckerWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css'
     }),

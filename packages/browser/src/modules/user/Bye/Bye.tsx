@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import { useByeQuery } from './model/bye';
+import { useByeQuery } from '../model/bye';
 
 export const Bye: FC = () => {
-  const { data, error, loading } = useByeQuery({ fetchPolicy: 'network-only' });
+  const { data, error, loading } = useByeQuery();
 
   if (error) {
     return <div>{error.message}</div>;

@@ -1,6 +1,6 @@
 import { ApolloLink, Observable } from '@apollo/client';
 
-import { getAccessToken } from '../../../../../modules/auth/token';
+import { getAccessToken } from 'modules/auth/token';
 
 const requestLink = new ApolloLink(
   (operation, forward) =>

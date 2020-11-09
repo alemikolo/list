@@ -1,6 +1,5 @@
 import autoprefixer from 'autoprefixer';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
@@ -61,7 +60,7 @@ const config: IConfiguration = {
             options: {
               implementation: require('sass'),
               sassOptions: {
-                includePaths: ['./src/app/scss'],
+                includePaths: ['./src/scss'],
                 indentWidth: 2
               },
               sourceMap: true
@@ -77,7 +76,6 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: true }),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
