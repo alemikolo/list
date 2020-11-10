@@ -9,12 +9,12 @@ const getEvents = (): void => {
 
 const Dashboard: FC = () => {
   return (
-    <>
+    <div>
       <div>Dashboard page</div>
       <button onClick={getEvents} type="button">
         server test
       </button>
-    </>
+    </div>
   );
 };
 

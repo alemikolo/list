@@ -1,11 +1,43 @@
 @use 'partials' as p;
 
 .layout {
-  h1 {
-    color: p.lighten(p.$themeBlue, 50);
+  background-color: #ececec;
+  width: 100vw;
+  min-height: 100vh;
 
-    @include p.breakpoint(p.$screenL) {
-      color: p.darken(p.$themeBlue, 50);
-    }
+  &__header {
+    position: sticky;
+    width: 100%;
+    height: 64px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 16px;
+    background-color: white;
   }
+
+  &__content {
+    min-height: calc(100vh - 64px);
+    display: flex;
+  }
+
+  &__app {
+    min-height: 100%;
+    display: grid;
+  }
+
+  &__app-main {
+    flex-grow: 1;
+  }
+
+  // h1 {
+  //   color: p.lighten(p.$themeBlue, 50);
+
+  //   @include p.breakpoint(p.$screenL) {
+  //     color: p.darken(p.$themeBlue, 50);
+  //   }
+  // }
 }

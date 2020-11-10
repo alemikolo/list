@@ -6,6 +6,8 @@ import { setAccessToken } from 'modules/auth/token';
 import { useAppState } from 'hooks';
 import { setIsAuthenticated } from 'state';
 
+import './TopBar.scss';
+
 const TopBar: FC = () => {
   const { data, loading } = useCurrentUserQuery();
   const [signout, { client }] = useSignOutMutation();
@@ -14,7 +16,7 @@ const TopBar: FC = () => {
   const body = loading ? (
     <div>loading...</div>
   ) : data && data.currentUser ? (
-    <div>You are logged in as: {data.currentUser.email}</div>
+    <div>{data.currentUser.email}</div>
   ) : (
     <div>Not logged in</div>
   );
@@ -32,13 +34,17 @@ const TopBar: FC = () => {
   };
 
   return (
-    <>
-      <h1>Handle It</h1>
-      {data?.currentUser?.email && (
-        <button onClick={handleSignOut}>sign out</button>
-      )}
-      <div>{body}</div>
-    </>
+    <div className="top-bar">
+      <div className="top-bar__logo">
+        <h1>Handle It</h1>
+      </div>
+      <div className="top-bar__user">
+        {data?.currentUser?.email && (
+          <button onClick={handleSignOut}>sign out</button>
+        )}
+        <div>{body}</div>
+      </div>
+    </div>
   );
 };
 
