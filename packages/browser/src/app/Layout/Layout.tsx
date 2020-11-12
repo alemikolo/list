@@ -6,7 +6,6 @@ import { SignIn, SignUp } from 'modules/auth';
 import { Bye } from 'modules/user';
 import Home from 'modules/home';
 import { Path, PrivateRoute, PublicRoute } from 'router';
-// import Footer from './Footer';
 import Header from './Header';
 import LeftBar from './LeftBar';
 import RightBar from './RightBar';
