@@ -11,6 +11,7 @@ import {
 import { useAppState } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
+import './SignIn.scss';
 
 export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
@@ -56,30 +57,34 @@ export const SignIn: FC = () => {
     return false;
   };
 
-  return loading ? (
-    <div>loading...</div>
-  ) : (
-    <form onSubmit={handleSignIn}>
-      <div>
-        <label>
-          Email
-          <input onChange={handleEmailChange} type="text" value={email} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password
-          <input
-            onChange={handlePasswordChange}
-            type="password"
-            value={password}
-          />
-        </label>
-      </div>
-      <div>
-        <button type="submit">Sign in</button>
-      </div>
-    </form>
+  return (
+    <div className="sign-in">
+      {loading ? (
+        <div>loading...</div>
+      ) : (
+        <form onSubmit={handleSignIn}>
+          <div>
+            <label>
+              Email
+              <input onChange={handleEmailChange} type="text" value={email} />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password
+              <input
+                onChange={handlePasswordChange}
+                type="password"
+                value={password}
+              />
+            </label>
+          </div>
+          <div>
+            <button type="submit">Sign in</button>
+          </div>
+        </form>
+      )}
+    </div>
   );
 };
 
