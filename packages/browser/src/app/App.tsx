@@ -1,14 +1,9 @@
 import React, { FC, useMemo, useReducer } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import Dashboard from 'modules/dashboard';
-import { SignIn, SignUp } from 'modules/auth';
-import { Bye } from 'modules/user';
-import Home from 'modules/home';
 import { setAccessToken } from 'modules/auth/token';
 import useFetch from 'hooks/useFetch';
-import { Path, PrivateRoute, PublicRoute } from 'router';
-import Layout, { LeftBar, RightBar, TopBar } from './Layout';
+import Layout from './Layout';
 import {
   appReducer,
   initialState,
@@ -54,28 +49,7 @@ const App: FC = () => {
   return (
     <AppStateProvider value={contextValue}>
       <BrowserRouter>
-        <Layout>
-          <Switch>
-            <PublicRoute component={Home} exact path={Path.Home} />
-            <PublicRoute component={SignIn} exact path={Path.SignIn} />
-            <PublicRoute component={SignUp} exact path={Path.SignUp} />
-            <PublicRoute component={() => <div>404</div>} noFallback />
-          </Switch>
-          <Switch>
-            <PrivateRoute component={TopBar} noFallback />
-          </Switch>
-          <Switch>
-            <PrivateRoute component={LeftBar} noFallback />
-          </Switch>
-          <Switch>
-            <PrivateRoute component={Bye} exact path={Path.Organizations} />
-            <PrivateRoute component={Dashboard} exact path={Path.Dashboard} />
-            <PrivateRoute component={() => <div>404</div>} noFallback />
-          </Switch>
-          <Switch>
-            <PrivateRoute component={RightBar} noFallback />
-          </Switch>
-        </Layout>
+        <Layout />
       </BrowserRouter>
     </AppStateProvider>
   );

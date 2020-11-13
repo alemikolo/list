@@ -2,6 +2,7 @@ import React, { FC, useState, FormEvent } from 'react';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
+import './SignUp.scss';
 
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
@@ -33,30 +34,34 @@ export const SignUp: FC = () => {
     return false;
   };
 
-  return loading ? (
-    <div>loading...</div>
-  ) : (
-    <form onSubmit={handleSignUp}>
-      <div>
-        <label>
-          Email
-          <input onChange={handleEmailChange} type="text" value={email} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Password
-          <input
-            onChange={handlePasswordChange}
-            type="password"
-            value={password}
-          />
-        </label>
-      </div>
-      <div>
-        <button type="submit">Sign Up</button>
-      </div>
-    </form>
+  return (
+    <div className="sign-in">
+      {loading ? (
+        <div>loading...</div>
+      ) : (
+        <form onSubmit={handleSignUp}>
+          <div>
+            <label>
+              Email
+              <input onChange={handleEmailChange} type="text" value={email} />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password
+              <input
+                onChange={handlePasswordChange}
+                type="password"
+                value={password}
+              />
+            </label>
+          </div>
+          <div>
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+      )}
+    </div>
   );
 };
 

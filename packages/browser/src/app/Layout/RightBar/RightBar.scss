@@ -1,0 +1,12 @@
+.right-bar {
+  width: 48px;
+  height: 100%;
+  background-color: sandybrown;
+  grid-column: 3;
+  overflow: hidden;
+  transition: width 500ms ease-in-out;
+
+  &--expanded {
+    width: 200px;
+  }
+}

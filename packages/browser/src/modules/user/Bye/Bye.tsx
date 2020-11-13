@@ -1,22 +1,23 @@
 import React, { FC } from 'react';
 
 import { useByeQuery } from '../model/bye';
+import Content from 'ui/Content';
 
 export const Bye: FC = () => {
   const { data, error, loading } = useByeQuery();
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <Content>{error.message}</Content>;
   }
 
   if (loading) {
-    return <div>loading...</div>;
+    return <Content>loading...</Content>;
   }
   if (!data) {
-    return <div>no data</div>;
+    return <Content>no data</Content>;
   }
 
-  return <div>{data.bye}</div>;
+  return <Content>{data.bye}</Content>;
 };
 
 export default Bye;
