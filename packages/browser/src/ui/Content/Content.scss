@@ -1,6 +1,12 @@
+@use 'partials' as *;
+
 .content {
-  grid-column: 2;
   width: 100%;
-  overflow: auto;
-  height: calc(100vh - 64px);
+  grid-column: 1 / span 3;
+
+  @include breakpoint($screenM) {
+    overflow: auto;
+    grid-column: 2;
+    height: calc(100vh - 64px);
+  }
 }

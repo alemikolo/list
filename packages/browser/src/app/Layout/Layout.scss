@@ -1,10 +1,14 @@
-@use 'partials' as p;
+@use 'partials' as *;
 
 .layout {
   background-color: #ececec;
   width: 100vw;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr auto 1fr;
+
+  @include breakpoint($screenM) {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto;
+  }
 }

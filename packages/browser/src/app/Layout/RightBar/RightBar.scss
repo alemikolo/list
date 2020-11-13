@@ -1,12 +1,19 @@
-.right-bar {
-  width: 48px;
-  height: 100%;
-  background-color: sandybrown;
-  grid-column: 3;
-  overflow: hidden;
-  transition: width 500ms ease-in-out;
+@use 'partials' as *;
 
-  &--expanded {
-    width: 200px;
+.right-bar {
+  display: none;
+
+  @include breakpoint($screenM) {
+    background-color: sandybrown;
+    transition: width 500ms ease-in-out;
+    display: block;
+    grid-column: 3;
+    overflow: hidden;
+    width: 48px;
+    height: 100%;
+
+    &--expanded {
+      width: 200px;
+    }
   }
 }
