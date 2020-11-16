@@ -1,44 +1,45 @@
 import { registerEnumTypes } from '@shared/utils';
 
 export enum AccountStatus {
-  ACTIVE = 'active',
-  DELETED = 'deleted',
-  INVITED = 'invited',
-  REGISTERED = 'registered'
+  Active = 'active',
+  Deleted = 'deleted',
+  Invited = 'invited',
+  Registered = 'registered'
 }
 
 export enum Icon {
-  BREAD_ICON = 'BreadIcon',
-  FOOD_ICON = 'FoodIcon',
-  HOME_ICON = 'HomeIcon',
-  MEAT_ICON = 'MeatIcon',
-  TOOL_ICON = 'ToolIcon',
-  TOY_ICON = 'ToyIcon',
-  WORK_ICON = 'WorkIcon'
+  BreadIcon = 'BreadIcon',
+  FoodIcon = 'FoodIcon',
+  HomeIcon = 'HomeIcon',
+  MeatIcon = 'MeatIcon',
+  ToolIcon = 'ToolIcon',
+  ToyIcon = 'ToyIcon',
+  WorkIcon = 'WorkIcon'
 }
 
 export enum Crud {
-  DELETE = 'delete',
-  GET = 'get',
-  PATCH = 'patch',
-  POST = 'post'
+  Delete = 'delete',
+  Get = 'get',
+  Patch = 'patch',
+  Post = 'post'
 }
 
 export enum Priority {
-  IMPORTANT = 'Important',
-  LOW = 'low',
-  NORMAL = 'Normal'
+  High = 'High',
+  Low = 'low',
+  Normal = 'Normal',
+  Urgent = 'Urgent'
 }
 
 export enum Status {
-  ACTIVE = 'active',
-  ARCHIVED = 'archived',
-  DELETED = 'deleted'
+  Active = 'active',
+  Archived = 'archived',
+  Deleted = 'deleted'
 }
 
 export enum Type {
-  BASIC = 'Basic',
-  COMPLEX = 'Complex'
+  Basic = 'Basic',
+  Complex = 'Complex'
 }
 
 registerEnumTypes([

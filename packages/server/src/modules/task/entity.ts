@@ -39,7 +39,7 @@ export default class Task extends BaseEntity {
 
   @Field(() => Priority)
   @Column({
-    default: Priority.NORMAL,
+    default: Priority.Normal,
     enum: Priority,
     nullable: false,
     type: 'enum'
@@ -48,7 +48,7 @@ export default class Task extends BaseEntity {
 
   @Field(() => Status)
   @Column({
-    default: Status.ACTIVE,
+    default: Status.Active,
     enum: Status,
     nullable: false,
     type: 'enum'

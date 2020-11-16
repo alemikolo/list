@@ -2,12 +2,12 @@ import { Crud } from '@shared/enums';
 import { Routes } from '@shared/types';
 import { getProjects } from '@modules/project/controllers';
 
-const { GET } = Crud;
+const { Get } = Crud;
 
 const scope = '/api/projects';
 
 const projectRoutes: Routes = [
-  { handlers: [getProjects], method: GET, path: `${scope}/get` }
+  { handlers: [getProjects], method: Get, path: `${scope}/get` }
 ];
 
 export default projectRoutes;

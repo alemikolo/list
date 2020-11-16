@@ -79,7 +79,7 @@ export class AuthResolver {
       await User.insert({
         email,
         password: hashedPassword,
-        status: AccountStatus.REGISTERED
+        status: AccountStatus.Registered
       });
     } catch (error) {
       console.error(error);
