@@ -10,6 +10,7 @@ import {
   sendRefreshToken
 } from './auth';
 import User from '@modules/user/entity';
+import { sendSignUpConfirmation } from '@modules/mailer';
 
 @ObjectType()
 class SignInResponse {
@@ -80,6 +81,12 @@ export class AuthResolver {
         email,
         password: hashedPassword,
         status: AccountStatus.Registered
+      });
+
+      await sendSignUpConfirmation({
+        recipient: email,
+        redirectUrl: 'http://handle-it',
+        user: { email }
       });
     } catch (error) {
       console.error(error);

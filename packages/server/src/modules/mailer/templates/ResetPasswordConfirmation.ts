@@ -35,7 +35,7 @@ const ResetPasswordConfirmation: MessageCreator<AuthMailData> = data => {
               </tr>
               <tr>
                 <td>
-                  <a href="http://handle-it}">
+                  <a href="http://localhost:4000">
                     link
                   </a>
                 </td>

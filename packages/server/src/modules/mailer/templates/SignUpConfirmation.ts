@@ -2,7 +2,7 @@ import { AuthMailData, MessageCreator } from '../types';
 
 const SignUpConfirmation: MessageCreator<AuthMailData> = data => {
   const { recipient, redirectUrl, user } = data;
-  const subject = 'title';
+  const subject = 'confirm registration';
   const html = `
       <!DOCTYPE html>
       <html>
@@ -28,14 +28,14 @@ const SignUpConfirmation: MessageCreator<AuthMailData> = data => {
                 <td>info</td>
               </tr>
               <tr>
-                <td>Sincerely, ${user}, ${redirectUrl}</td>
+                <td>Sincerely, ${user}</td>
               </tr>
               <tr>
                 <td>sender</td>
               </tr>
               <tr>
                 <td>
-                  <a href="http://handle-it}">
+                  <a href="${redirectUrl}">
                     link
                   </a>
                 </td>
