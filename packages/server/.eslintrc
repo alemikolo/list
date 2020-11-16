@@ -30,7 +30,7 @@
       },
       {
         "selector": "enumMember",
-        "format": ["UPPER_CASE"]
+        "format": ["PascalCase"]
       }
     ],
     "@typescript-eslint/ban-types": 0,
