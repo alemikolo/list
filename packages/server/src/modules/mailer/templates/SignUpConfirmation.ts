@@ -1,6 +1,6 @@
-import { MessageCreator, SignUpData } from '../types';
+import { AuthMailData, MessageCreator } from '../types';
 
-const SignUpConfirmation: MessageCreator<SignUpData> = data => {
+const SignUpConfirmation: MessageCreator<AuthMailData> = data => {
   const { recipient, redirectUrl, user } = data;
   const subject = 'title';
   const html = `

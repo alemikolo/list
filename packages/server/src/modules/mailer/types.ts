@@ -3,13 +3,6 @@ import SendGridMail from '@sendgrid/mail';
 import EmailTemplate from './enums';
 
 export type SendMailResult = ReturnType<typeof SendGridMail.send>;
-
-export interface MailData {
-  recipient: string;
-  subject: string;
-  html: string;
-}
-
 export interface MailTemplate {
   subject: string;
   html: string;
@@ -41,7 +34,6 @@ export interface MessageData {
   subject: string;
   html: string;
 }
-
 export interface Data {
   doer: User;
   organization: Organization;
@@ -51,10 +43,8 @@ export interface Data {
   task: Task;
   user: User;
 }
-//authNameData
-export type SignUpData = Pick<Data, 'recipient' | 'redirectUrl' | 'user'>;
 
-export type ResetPasswordData = SignUpData;
+export type AuthMailData = Pick<Data, 'recipient' | 'redirectUrl' | 'user'>;
 
 export type MessageCreator<T> = (data: T) => MessageData;
 

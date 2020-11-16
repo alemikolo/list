@@ -1,6 +1,6 @@
-import { MessageCreator, ResetPasswordData } from '../types';
+import { AuthMailData, MessageCreator } from '../types';
 
-const ResetPasswordConfirmation: MessageCreator<ResetPasswordData> = data => {
+const ResetPasswordConfirmation: MessageCreator<AuthMailData> = data => {
   const { recipient } = data;
   const subject = 'title';
   const html = `

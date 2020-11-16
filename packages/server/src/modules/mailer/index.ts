@@ -4,10 +4,10 @@ import environment from '@env/env';
 import {
   Mail,
   MessageData,
+  ResetPasswordMail,
   Send,
   SendMailResult,
-  SignUpMail,
-  ResetPasswordMail
+  SignUpMail
 } from './types';
 import EmailTemplate from './enums';
 import SignUpConfirmation from './templates/SignUpConfirmation';
