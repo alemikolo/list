@@ -1,4 +1,5 @@
 import React, { FC, useState, FormEvent } from 'react';
+import { ApolloError } from '@apollo/client';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
@@ -7,7 +8,7 @@ import './SignUp.scss';
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signUp, { loading }] = useSignUpMutation();
+  const [signUp, { error, loading }] = useSignUpMutation();
   const handleEmailChange: InputChangeHandler = event => {
     setEmail(event.target.value);
   };
@@ -32,6 +33,18 @@ export const SignUp: FC = () => {
     }
 
     return false;
+  };
+
+  const getErrors = (error: ApolloError) => {
+    if (!error) {
+      return [];
+    }
+
+    return error.graphQLErrors.map(({ message, extensions = {} }) => {
+      const { exception } = extensions;
+
+      return { message, ...exception };
+    });
   };
 
   return (
@@ -59,6 +72,18 @@ export const SignUp: FC = () => {
           <div>
             <button type="submit">Sign Up</button>
           </div>
+          {error && (
+            <div>
+              {getErrors(error).map(({ message, reason, status, type }) => (
+                <p key={message}>
+                  <span key={1}>{type}</span>
+                  <span key={2}>{message}</span>
+                  <span key={3}>{status}</span>
+                  <span key={4}>{reason}</span>
+                </p>
+              ))}
+            </div>
+          )}
         </form>
       )}
     </div>

@@ -73,6 +73,7 @@
     "@app": "src/app",
     "@db": "src/db",
     "@env": "src/env",
+    "@errors": "src/errors",
     "@modules": "src/modules",
     "@shared": "src/shared"
   },

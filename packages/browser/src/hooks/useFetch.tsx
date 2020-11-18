@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 interface State<T> {
-  pending: boolean;
+  loading: boolean;
   data?: T;
   error?: string;
 }
@@ -9,7 +9,7 @@ interface State<T> {
 const useFetch = <T extends unknown>(url: string, options?: any): State<T> => {
   const [data, setData] = useState();
   const [error, setError] = useState();
-  const [pending, setPending] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -18,7 +18,7 @@ const useFetch = <T extends unknown>(url: string, options?: any): State<T> => {
     } = abortController;
 
     const doFetch = async () => {
-      setPending(true);
+      setLoading(true);
 
       const fetchOptions = options
         ? options
@@ -38,14 +38,14 @@ const useFetch = <T extends unknown>(url: string, options?: any): State<T> => {
         if (!aborted) setError(error);
       } finally {
         if (!aborted) {
-          setPending(false);
+          setLoading(false);
         }
       }
     };
     doFetch();
   }, [url, options]);
 
-  return { data, error, pending };
+  return { data, error, loading };
 };
 
 export default useFetch;

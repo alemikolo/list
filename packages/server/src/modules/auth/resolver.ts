@@ -11,13 +11,15 @@ import {
 } from './auth';
 import User from '@modules/user/entity';
 import { sendSignUpConfirmation } from '@modules/mailer';
+import { BadRequestError } from '@errors/index';
+import { ErrorReason } from '@errors/enums';
 
 @ObjectType()
 class SignInResponse {
-  @Field()
-  accessToken!: string;
   @Field(() => User)
   user!: User;
+  @Field()
+  accessToken!: string;
 }
 
 @Resolver()
@@ -74,25 +76,28 @@ export class AuthResolver {
 
   @Mutation(() => Boolean)
   async signUp(@Arg('email') email: string, @Arg('password') password: string) {
-    try {
-      const hashedPassword = await hash(password, 12);
+    const user = await User.findOne({ email });
 
-      await User.insert({
-        email,
-        password: hashedPassword,
-        status: AccountStatus.Registered
-      });
-
-      await sendSignUpConfirmation({
-        recipient: email,
-        redirectUrl: 'http://handle-it',
-        user: { email }
-      });
-    } catch (error) {
-      console.error(error);
-
-      return false;
+    if (user) {
+      throw new BadRequestError(
+        'User already exists',
+        ErrorReason.AlreadyExist
+      );
     }
+
+    const hashedPassword = await hash(password, 12);
+
+    await User.insert({
+      email,
+      password: hashedPassword,
+      status: AccountStatus.Registered
+    });
+
+    await sendSignUpConfirmation({
+      recipient: email,
+      redirectUrl: 'http://handle-it',
+      user: { email }
+    });
 
     return true;
   }
