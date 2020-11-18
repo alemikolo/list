@@ -31,7 +31,7 @@ export default class Project extends BaseEntity {
 
   @Field(() => Type)
   @Column({
-    default: Type.BASIC,
+    default: Type.Basic,
     enum: Type,
     nullable: false,
     type: 'enum'
@@ -40,7 +40,7 @@ export default class Project extends BaseEntity {
 
   @Field(() => Status)
   @Column({
-    default: Status.ACTIVE,
+    default: Status.Active,
     enum: Status,
     nullable: false,
     type: 'enum'

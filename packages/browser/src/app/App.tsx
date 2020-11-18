@@ -22,7 +22,7 @@ const App: FC = () => {
     return { dispatch, state };
   }, [state, dispatch]);
 
-  const { data, pending, error } = useFetch<AT | null>(
+  const { data, loading, error } = useFetch<AT | null>(
     '/api/auth/refresh-token'
   );
 
@@ -38,7 +38,7 @@ const App: FC = () => {
     }
   }
 
-  if (pending) {
+  if (loading) {
     return <div>loading...</div>;
   }
 

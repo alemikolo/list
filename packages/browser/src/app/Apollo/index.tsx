@@ -4,7 +4,18 @@ import { ApolloClient, ApolloProvider } from '@apollo/client';
 import cache from './cache';
 import link from './link';
 
-const client = new ApolloClient({ cache, link });
+const client = new ApolloClient({
+  cache,
+  defaultOptions: {
+    mutate: {
+      errorPolicy: 'ignore'
+    },
+    query: {
+      errorPolicy: 'ignore'
+    }
+  },
+  link
+});
 
 const Apollo: FC = ({ children }) => (
   <ApolloProvider client={client}>{children}</ApolloProvider>

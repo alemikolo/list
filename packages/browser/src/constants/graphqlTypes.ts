@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  refreshToken: Scalars['String'];
   hello: Scalars['String'];
   bye: Scalars['String'];
   users: Array<User>;
@@ -61,10 +62,10 @@ export type User = {
 };
 
 export enum AccountStatus {
-  Active = 'ACTIVE',
-  Deleted = 'DELETED',
-  Invited = 'INVITED',
-  Registered = 'REGISTERED'
+  Active = 'Active',
+  Deleted = 'Deleted',
+  Invited = 'Invited',
+  Registered = 'Registered'
 }
 
 export type Settings = {
@@ -114,13 +115,13 @@ export type Category = {
 };
 
 export enum Icon {
-  BreadIcon = 'BREAD_ICON',
-  FoodIcon = 'FOOD_ICON',
-  HomeIcon = 'HOME_ICON',
-  MeatIcon = 'MEAT_ICON',
-  ToolIcon = 'TOOL_ICON',
-  ToyIcon = 'TOY_ICON',
-  WorkIcon = 'WORK_ICON'
+  BreadIcon = 'BreadIcon',
+  FoodIcon = 'FoodIcon',
+  HomeIcon = 'HomeIcon',
+  MeatIcon = 'MeatIcon',
+  ToolIcon = 'ToolIcon',
+  ToyIcon = 'ToyIcon',
+  WorkIcon = 'WorkIcon'
 }
 
 export type Lock = {
@@ -160,15 +161,16 @@ export type Task = {
 };
 
 export enum Priority {
-  Important = 'IMPORTANT',
-  Low = 'LOW',
-  Normal = 'NORMAL'
+  High = 'High',
+  Low = 'Low',
+  Normal = 'Normal',
+  Urgent = 'Urgent'
 }
 
 export enum Status {
-  Active = 'ACTIVE',
-  Archived = 'ARCHIVED',
-  Deleted = 'DELETED'
+  Active = 'Active',
+  Archived = 'Archived',
+  Deleted = 'Deleted'
 }
 
 export type Stage = {
@@ -214,8 +216,8 @@ export type Project = {
 };
 
 export enum Type {
-  Basic = 'BASIC',
-  Complex = 'COMPLEX'
+  Basic = 'Basic',
+  Complex = 'Complex'
 }
 
 export type Organization = {
@@ -278,6 +280,6 @@ export type MutationSignUpArgs = {
 
 export type SignInResponse = {
   __typename?: 'SignInResponse';
-  accessToken: Scalars['String'];
   user: User;
+  accessToken: Scalars['String'];
 };

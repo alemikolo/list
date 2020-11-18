@@ -26,7 +26,7 @@ export default class Organization extends BaseEntity {
 
   @Field(() => Status)
   @Column({
-    default: Status.ACTIVE,
+    default: Status.Active,
     enum: Status,
     nullable: false,
     type: 'enum'

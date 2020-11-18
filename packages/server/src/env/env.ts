@@ -6,7 +6,9 @@ const {
   PORT,
   REFRESH_PRIVATE_KEY = '',
   REFRESH_PUBLIC_KEY = '',
-  REFRESH_TOKEN_EXP
+  REFRESH_TOKEN_EXP,
+  SENDER_EMAIL = '',
+  SENDGRID_API_KEY = ''
 } = process.env;
 
 const environment = {
@@ -17,7 +19,9 @@ const environment = {
   PORT: Number(PORT),
   REFRESH_PRIVATE_KEY,
   REFRESH_PUBLIC_KEY,
-  REFRESH_TOKEN_EXP: Number(REFRESH_TOKEN_EXP)
+  REFRESH_TOKEN_EXP: Number(REFRESH_TOKEN_EXP),
+  SENDER_EMAIL,
+  SENDGRID_API_KEY
 };
 
 export default environment;

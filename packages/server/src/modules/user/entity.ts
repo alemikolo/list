@@ -54,7 +54,7 @@ export default class User extends BaseEntity {
 
   @Field(() => AccountStatus)
   @Column({
-    default: AccountStatus.ACTIVE,
+    default: AccountStatus.Active,
     enum: AccountStatus,
     nullable: false,
     type: 'enum'
