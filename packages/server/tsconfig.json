@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "importsNotUsedAsValues": "preserve",
+    "jsx": "react",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -40,13 +41,14 @@
       "@modules/*": ["src/modules/*"],
       "@shared/*": ["src/shared/*"]
     },
+    "preserveConstEnums": true,
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
-
+    "strictNullChecks": true,
     "target": "ES6"
   },
   "exclude": ["node_modules"],

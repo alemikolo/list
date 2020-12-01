@@ -12,6 +12,7 @@ import {
 import EmailTemplate from './enums';
 import SignUpConfirmation from './templates/SignUpConfirmation';
 import ResetPasswordConfirmation from './templates/ResetPasswordConfirmation';
+import createMessage from './createMessage';
 
 const { SENDER_EMAIL, SENDGRID_API_KEY } = environment;
 
@@ -27,7 +28,7 @@ const sendMessage = (send: Send) => <T extends Mail>(template: T[0]) => (
 ) => {
   const mailTemplate = templates[template];
 
-  return send(mailTemplate(data));
+  return send(createMessage(mailTemplate(data)));
 };
 
 const send = async (messageData: MessageData): SendMailResult => {
