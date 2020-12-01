@@ -38,25 +38,25 @@ export const createDashboardRoute = createPath<DashboardRoute>(Path.Dashboard);
 
 export const createHomeRoute = createPath<HomeRoute>(Path.Home);
 
-export const createOrganizationMemberRoute = createPath<
-  OrganizationMemberRoute
->(Path.OrganizationMember);
+export const createOrganizationMemberRoute = createPath<OrganizationMemberRoute>(
+  Path.OrganizationMember
+);
 
-export const createOrganizationMembersRoute = createPath<
-  OrganizationMembersRoute
->(Path.OrganizationMembers);
+export const createOrganizationMembersRoute = createPath<OrganizationMembersRoute>(
+  Path.OrganizationMembers
+);
 
-export const createOrganizationProjectRoute = createPath<
-  OrganizationProjectRoute
->(Path.OrganizationProject);
+export const createOrganizationProjectRoute = createPath<OrganizationProjectRoute>(
+  Path.OrganizationProject
+);
 
-export const createOrganizationProjectsRoute = createPath<
-  OrganizationProjectsRoute
->(Path.OrganizationProjects);
+export const createOrganizationProjectsRoute = createPath<OrganizationProjectsRoute>(
+  Path.OrganizationProjects
+);
 
-export const createOrganizationProjectTaskRoute = createPath<
-  OrganizationProjectTaskRoute
->(Path.OrganizationProjectTask);
+export const createOrganizationProjectTaskRoute = createPath<OrganizationProjectTaskRoute>(
+  Path.OrganizationProjectTask
+);
 
 export const createOrganizationRoute = createPath<OrganizationRoute>(
   Path.Organization
