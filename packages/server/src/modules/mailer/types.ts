@@ -1,4 +1,5 @@
 import SendGridMail from '@sendgrid/mail';
+import { ReactNode } from 'react';
 
 import EmailTemplate from './enums';
 
@@ -9,8 +10,9 @@ export interface MailTemplate {
 }
 
 interface User {
-  name?: string;
+  avatar?: string;
   email: string;
+  name?: string;
   url?: string;
 }
 
@@ -29,10 +31,21 @@ interface Organization {
   url?: string;
 }
 
-export interface MessageData {
+export interface MailContent {
+  content: ReactNode[];
+  title: string;
+}
+
+export interface MailData {
+  data: MailContent;
   recipient: string;
   subject: string;
+}
+
+export interface MessageData {
   html: string;
+  recipient: string;
+  subject: string;
 }
 export interface Data {
   doer: User;
@@ -46,7 +59,7 @@ export interface Data {
 
 export type AuthMailData = Pick<Data, 'recipient' | 'redirectUrl' | 'user'>;
 
-export type MessageCreator<T> = (data: T) => MessageData;
+export type MailDataCreator<T> = (data: T) => MailData;
 
 export type Send = (messageData: MessageData) => SendMailResult;
 

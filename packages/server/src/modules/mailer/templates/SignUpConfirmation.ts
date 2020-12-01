@@ -1,52 +1,13 @@
-import { AuthMailData, MessageCreator } from '../types';
+import { AuthMailData, MailDataCreator } from '../types';
 
-const SignUpConfirmation: MessageCreator<AuthMailData> = data => {
-  const { recipient, redirectUrl, user } = data;
-  const subject = 'confirm registration';
-  const html = `
-      <!DOCTYPE html>
-      <html>
-        <body>
-          <center>
-            <table>
-              <tr>
-                <td>
-                  App
-                </td>
-              </tr>
-              <tr> 
-                <td>
-                  title
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Hey,
-                </td>
-              </tr>
-              <tr>
-                <td>info</td>
-              </tr>
-              <tr>
-                <td>Sincerely, ${user}</td>
-              </tr>
-              <tr>
-                <td>sender</td>
-              </tr>
-              <tr>
-                <td>
-                  <a href="${redirectUrl}">
-                    link
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </center>
-        </body>
-      </html>
-   `;
+const SignUpConfirmation: MailDataCreator<AuthMailData> = mailData => {
+  const { recipient } = mailData;
+  const subject = 'title';
+  const content = ['aasd ', 'aasd ', 'aasd ', 'aasd ', 'aasd.'];
+  const title = 'mail title';
+  const data = { content, title };
 
-  return { html, recipient, subject };
+  return { data, recipient, subject };
 };
 
 export default SignUpConfirmation;
