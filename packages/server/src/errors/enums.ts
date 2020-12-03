@@ -2,10 +2,12 @@ export enum ErrorType {
   BadRequest = 'BadRequest',
   NotFound = 'NotFound',
   Unauthenticated = 'Unauthenticated',
-  Unauthorized = 'Unauthorized'
+  Unauthorized = 'Unauthorized',
+  Invalid = 'Invalid'
 }
 
 export enum ErrorReason {
   AlreadyExist = 'AlreadyExist',
-  WrongCredentials = 'WrongCredentials'
+  WrongCredentials = 'WrongCredentials',
+  ExpiredLink = 'ExpiredLink'
 }
