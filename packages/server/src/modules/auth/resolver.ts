@@ -7,13 +7,17 @@ import { Context } from '@shared/types';
 import {
   createAccessToken,
   createRefreshToken,
-  sendRefreshToken
+  createToken,
+  sendRefreshToken,
+  verifyToken
 } from './auth';
 import User from '@modules/user/entity';
 import { sendSignUpConfirmation } from '@modules/mailer';
-import { BadRequestError } from '@errors/index';
+import { BadRequestError, ValidationError } from '@errors/index';
 import { ErrorReason } from '@errors/enums';
+import environment from '@env/env';
 
+const { APP_URL, CONFIRM_SIGN_UP_TOKEN_EXP } = environment;
 @ObjectType()
 class SignInResponse {
   @Field(() => User)
@@ -64,7 +68,11 @@ export class AuthResolver {
       throw new Error('bad pass');
     }
 
-    const { id, tokenVersion } = user;
+    const { id, status, tokenVersion } = user;
+
+    if (status !== AccountStatus.Active) {
+      throw new Error('not active account');
+    }
 
     sendRefreshToken(res, createRefreshToken(id, tokenVersion));
 
@@ -79,23 +87,78 @@ export class AuthResolver {
     const user = await User.findOne({ email });
 
     if (user) {
-      throw new BadRequestError(
-        'User already exists',
-        ErrorReason.AlreadyExist
-      );
+      throw new BadRequestError();
     }
 
     const hashedPassword = await hash(password, 12);
 
-    await User.insert({
+    const newUser = await User.insert({
       email,
       password: hashedPassword,
       status: AccountStatus.Registered
     });
 
+    const { identifiers } = newUser;
+
+    const [{ id }] = identifiers;
+
+    const token = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
+
+    const redirectUrl = `${APP_URL}/confirmation/${token}`;
+
     await sendSignUpConfirmation({
       recipient: email,
-      redirectUrl: 'http://handle-it',
+      redirectUrl,
+      user: { email }
+    });
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async confirmSignUp(@Arg('token') token: string) {
+    const payload = verifyToken(token, {
+      ignoreExpiration: true
+    });
+
+    const { exp, userId: id } = payload;
+
+    if (Date.now() >= exp * 1000) {
+      throw new ValidationError('Link has expired', ErrorReason.ExpiredLink);
+    }
+
+    await getManager().update(
+      User,
+      { id, status: AccountStatus.Registered },
+      { activeAt: new Date(), status: AccountStatus.Active }
+    );
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async resendSignUpConfirmation(@Arg('token') token: string) {
+    const payload = verifyToken(token, {
+      ignoreExpiration: true
+    });
+
+    const { userId: id } = payload;
+
+    const user = await User.findOne({ id, status: AccountStatus.Registered });
+
+    if (!user) {
+      throw new BadRequestError();
+    }
+
+    const { email } = user;
+
+    const newToken = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
+
+    const redirectUrl = `${APP_URL}/confirmation/${newToken}`;
+
+    await sendSignUpConfirmation({
+      recipient: email,
+      redirectUrl,
       user: { email }
     });
 
