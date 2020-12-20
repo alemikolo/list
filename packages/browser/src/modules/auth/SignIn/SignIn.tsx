@@ -11,6 +11,7 @@ import {
 import { useAppState } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
+import Page from 'ui/Page';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
@@ -58,7 +59,7 @@ export const SignIn: FC = () => {
   };
 
   return (
-    <div className="sign-in">
+    <Page>
       {loading ? (
         <div>loading...</div>
       ) : (
@@ -84,7 +85,7 @@ export const SignIn: FC = () => {
           </div>
         </form>
       )}
-    </div>
+    </Page>
   );
 };
 

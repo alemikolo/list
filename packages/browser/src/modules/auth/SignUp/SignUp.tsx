@@ -3,6 +3,7 @@ import { ApolloError } from '@apollo/client';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
+import Page from 'ui/Page';
 import './SignUp.scss';
 
 export const SignUp: FC = () => {
@@ -48,7 +49,7 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <div className="sign-in">
+    <Page>
       {loading ? (
         <div>loading...</div>
       ) : (
@@ -86,7 +87,7 @@ export const SignUp: FC = () => {
           )}
         </form>
       )}
-    </div>
+    </Page>
   );
 };
 
