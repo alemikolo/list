@@ -11,6 +11,7 @@ import {
   sendRefreshToken,
   verifyToken
 } from './auth';
+import Token from './entity';
 import User from '@modules/user/entity';
 import { sendSignUpConfirmation } from '@modules/mailer';
 import { BadRequestError, ValidationError } from '@errors/index';
@@ -59,19 +60,25 @@ export class AuthResolver {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error('no user');
+      throw new BadRequestError();
     }
 
     const valid = await compare(password, user.password);
 
     if (!valid) {
-      throw new Error('bad pass');
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentials
+      );
     }
 
     const { id, status, tokenVersion } = user;
 
     if (status !== AccountStatus.Active) {
-      throw new Error('not active account');
+      throw new BadRequestError(
+        'Account Not Active',
+        ErrorReason.AccountNotConfirmed
+      );
     }
 
     sendRefreshToken(res, createRefreshToken(id, tokenVersion));
@@ -104,7 +111,11 @@ export class AuthResolver {
 
     const token = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
 
-    const redirectUrl = `${APP_URL}/confirmation/${token}`;
+    const {
+      identifiers: [{ id: tokenId }]
+    } = await Token.insert({ token, user: id });
+
+    const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
 
     await sendSignUpConfirmation({
       recipient: email,
@@ -116,8 +127,17 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async confirmSignUp(@Arg('token') token: string) {
-    const payload = verifyToken(token, {
+  async confirmSignUp(@Arg('tokenId') tokenId: string) {
+    const token = await Token.findOne({ id: tokenId });
+
+    if (!token) {
+      // TODO sign up one more time
+      throw new BadRequestError();
+    }
+
+    const { token: jwtToken } = token;
+
+    const payload = verifyToken(jwtToken, {
       ignoreExpiration: true
     });
 
@@ -133,12 +153,23 @@ export class AuthResolver {
       { activeAt: new Date(), status: AccountStatus.Active }
     );
 
+    await Token.delete({ id: tokenId });
+
     return true;
   }
 
   @Mutation(() => Boolean)
-  async resendSignUpConfirmation(@Arg('token') token: string) {
-    const payload = verifyToken(token, {
+  async resendSignUpConfirmation(@Arg('tokenId') tokenId: string) {
+    const token = await Token.findOne({ id: tokenId });
+
+    if (!token) {
+      // TODO sign up one more time
+      throw new BadRequestError();
+    }
+
+    const { token: jwtToken } = token;
+
+    const payload = verifyToken(jwtToken, {
       ignoreExpiration: true
     });
 
@@ -154,7 +185,9 @@ export class AuthResolver {
 
     const newToken = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
 
-    const redirectUrl = `${APP_URL}/confirmation/${newToken}`;
+    await getManager().update(Token, { id: tokenId }, { token: newToken });
+
+    const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
 
     await sendSignUpConfirmation({
       recipient: email,
@@ -165,3 +198,5 @@ export class AuthResolver {
     return true;
   }
 }
+
+//TODO validate userId, email, password, token

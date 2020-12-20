@@ -1,10 +1,20 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
+
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+import * as React from 'react';
+import * as ApolloReactComponents from '@apollo/client/react/components';
+import * as ApolloReactHoc from '@apollo/client/react/hoc';
+
+import * as Types from '../../../constants/graphqlTypes';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -292,3 +302,109 @@ export type SignInResponse = {
   user: User;
   accessToken: Scalars['String'];
 };
+
+export type ConfirmSignUpMutationVariables = Types.Exact<{
+  tokenId: Types.Scalars['String'];
+}>;
+
+export type ConfirmSignUpMutation = { __typename?: 'Mutation' } & Pick<
+  Types.Mutation,
+  'confirmSignUp'
+>;
+
+export const ConfirmSignUpDocument = gql`
+  mutation confirmSignUp($tokenId: String!) {
+    confirmSignUp(tokenId: $tokenId)
+  }
+`;
+export type ConfirmSignUpMutationFn = Apollo.MutationFunction<
+  ConfirmSignUpMutation,
+  ConfirmSignUpMutationVariables
+>;
+export type ConfirmSignUpComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables
+  >,
+  'mutation'
+>;
+
+export const ConfirmSignUpComponent = (props: ConfirmSignUpComponentProps) => (
+  <ApolloReactComponents.Mutation<
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables
+  >
+    mutation={ConfirmSignUpDocument}
+    {...props}
+  />
+);
+
+export type ConfirmSignUpProps<
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+> = {
+  [key in TDataName]: Apollo.MutationFunction<
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables
+  >;
+} &
+  TChildProps;
+export function withConfirmSignUp<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables,
+    ConfirmSignUpProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withMutation<
+    TProps,
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables,
+    ConfirmSignUpProps<TChildProps, TDataName>
+  >(ConfirmSignUpDocument, {
+    alias: 'confirmSignUp',
+    ...operationOptions
+  });
+}
+
+/**
+ * __useConfirmSignUpMutation__
+ *
+ * To run a mutation, you first call `useConfirmSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConfirmSignUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [confirmSignUpMutation, { data, loading, error }] = useConfirmSignUpMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useConfirmSignUpMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    ConfirmSignUpMutation,
+    ConfirmSignUpMutationVariables
+  >(ConfirmSignUpDocument, baseOptions);
+}
+export type ConfirmSignUpMutationHookResult = ReturnType<
+  typeof useConfirmSignUpMutation
+>;
+export type ConfirmSignUpMutationResult = Apollo.MutationResult<ConfirmSignUpMutation>;
+export type ConfirmSignUpMutationOptions = Apollo.BaseMutationOptions<
+  ConfirmSignUpMutation,
+  ConfirmSignUpMutationVariables
+>;

@@ -1,10 +1,20 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-len */
 /* eslint-disable max-lines-per-function */
+
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+import * as React from 'react';
+import * as ApolloReactComponents from '@apollo/client/react/components';
+import * as ApolloReactHoc from '@apollo/client/react/hoc';
+
+import * as Types from '../../../constants/graphqlTypes';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -292,3 +302,110 @@ export type SignInResponse = {
   user: User;
   accessToken: Scalars['String'];
 };
+
+export type ResendSignUpConfirmationMutationVariables = Types.Exact<{
+  tokenId: Types.Scalars['String'];
+}>;
+
+export type ResendSignUpConfirmationMutation = {
+  __typename?: 'Mutation';
+} & Pick<Types.Mutation, 'resendSignUpConfirmation'>;
+
+export const ResendSignUpConfirmationDocument = gql`
+  mutation resendSignUpConfirmation($tokenId: String!) {
+    resendSignUpConfirmation(tokenId: $tokenId)
+  }
+`;
+export type ResendSignUpConfirmationMutationFn = Apollo.MutationFunction<
+  ResendSignUpConfirmationMutation,
+  ResendSignUpConfirmationMutationVariables
+>;
+export type ResendSignUpConfirmationComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables
+  >,
+  'mutation'
+>;
+
+export const ResendSignUpConfirmationComponent = (
+  props: ResendSignUpConfirmationComponentProps
+) => (
+  <ApolloReactComponents.Mutation<
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables
+  >
+    mutation={ResendSignUpConfirmationDocument}
+    {...props}
+  />
+);
+
+export type ResendSignUpConfirmationProps<
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+> = {
+  [key in TDataName]: Apollo.MutationFunction<
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables
+  >;
+} &
+  TChildProps;
+export function withResendSignUpConfirmation<
+  TProps,
+  TChildProps = {},
+  TDataName extends string = 'mutate'
+>(
+  operationOptions?: ApolloReactHoc.OperationOption<
+    TProps,
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables,
+    ResendSignUpConfirmationProps<TChildProps, TDataName>
+  >
+) {
+  return ApolloReactHoc.withMutation<
+    TProps,
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables,
+    ResendSignUpConfirmationProps<TChildProps, TDataName>
+  >(ResendSignUpConfirmationDocument, {
+    alias: 'resendSignUpConfirmation',
+    ...operationOptions
+  });
+}
+
+/**
+ * __useResendSignUpConfirmationMutation__
+ *
+ * To run a mutation, you first call `useResendSignUpConfirmationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResendSignUpConfirmationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resendSignUpConfirmationMutation, { data, loading, error }] = useResendSignUpConfirmationMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useResendSignUpConfirmationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    ResendSignUpConfirmationMutation,
+    ResendSignUpConfirmationMutationVariables
+  >(ResendSignUpConfirmationDocument, baseOptions);
+}
+export type ResendSignUpConfirmationMutationHookResult = ReturnType<
+  typeof useResendSignUpConfirmationMutation
+>;
+export type ResendSignUpConfirmationMutationResult = Apollo.MutationResult<ResendSignUpConfirmationMutation>;
+export type ResendSignUpConfirmationMutationOptions = Apollo.BaseMutationOptions<
+  ResendSignUpConfirmationMutation,
+  ResendSignUpConfirmationMutationVariables
+>;

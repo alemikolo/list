@@ -14,6 +14,7 @@ enum Path {
   Settings = '/settings',
   SignIn = '/sign-in',
   SignUp = '/sign-up',
+  SignUpConfirmation = '/sign-up-confirmation/:tokenId',
   Task = '/projects/:projectId/task/:taskId'
 }
 

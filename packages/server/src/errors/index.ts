@@ -48,6 +48,6 @@ export class AuthorizationError extends HandleItError {
 
 export class ValidationError extends HandleItError {
   constructor(message: string, reason: ErrorReason) {
-    super(ErrorType.Invalid, 403, message, reason);
+    super(ErrorType.Invalid, 400, message, reason);
   }
 }

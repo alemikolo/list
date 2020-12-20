@@ -72,7 +72,7 @@ export const verifyAccessToken = createVerifier(ACCESS_PUBLIC_KEY);
 
 export const verifyRefreshToken = createVerifier(REFRESH_PUBLIC_KEY);
 
-export const verifyToken = createVerifier(REFRESH_PUBLIC_KEY);
+export const verifyToken = createVerifier(TOKEN_PUBLIC_KEY);
 
 export const isAuth: MiddlewareFn<Context> = ({ context }, next) => {
   const {
