@@ -36,6 +36,7 @@ export const SignUp: FC = () => {
     return false;
   };
 
+  // TODO parse server errors and display proper messages
   const getErrors = (error: ApolloError) => {
     if (!error) {
       return [];

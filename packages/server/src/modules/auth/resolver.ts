@@ -60,7 +60,10 @@ export class AuthResolver {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      throw new BadRequestError();
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentials
+      );
     }
 
     const valid = await compare(password, user.password);
@@ -94,6 +97,7 @@ export class AuthResolver {
     const user = await User.findOne({ email });
 
     if (user) {
+      // TODO throw already exist
       throw new BadRequestError();
     }
 
@@ -131,7 +135,9 @@ export class AuthResolver {
     const token = await Token.findOne({ id: tokenId });
 
     if (!token) {
-      // TODO sign up one more time
+      // TODO If there is no token and there is no user also
+      // this account was deleted due to email not being
+      // confirmed for 30 days
       throw new BadRequestError();
     }
 
@@ -163,7 +169,9 @@ export class AuthResolver {
     const token = await Token.findOne({ id: tokenId });
 
     if (!token) {
-      // TODO sign up one more time
+      // TODO If there is no token and there is no user also
+      // this account was deleted due to email not being
+      // confirmed for 30 days
       throw new BadRequestError();
     }
 
