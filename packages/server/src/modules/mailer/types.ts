@@ -32,7 +32,7 @@ interface Organization {
 }
 
 export interface MailContent {
-  content: ReactNode[];
+  content: ReactNode;
   title: string;
 }
 
@@ -74,3 +74,7 @@ export type ResetPasswordMail = [
 ];
 
 export type Mail = SignUpMail | ResetPasswordMail;
+
+export interface ComponentProps {
+  key: string;
+}
