@@ -16,6 +16,7 @@ interface AT {
 }
 
 const App: FC = () => {
+  //TODO set separate dispatch context
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   const contextValue = useMemo(() => {
