@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useResendSignUpConfirmationMutation } from 'modules/auth/model/resendSignUpConfirmation';
-import { checkAnyErrorExist } from 'errors';
+import { checkErrors } from 'errors';
 
 interface RouteParams {
   tokenId: string;
@@ -28,14 +28,14 @@ const ResendSignUpConfirmation: FC = () => {
     return false;
   };
 
-  const isAnyError = checkAnyErrorExist(error);
+  const [, isOtherError] = error ? checkErrors()(error) : [];
 
   return (
     <div>
       <button onClick={handleResendConfirmationLink}>
         {loading ? '...' : 'resend confirmation link'}
       </button>
-      {isAnyError && <div>Something went wrong</div>}
+      {isOtherError && <div>Something went wrong</div>}
     </div>
   );
 };

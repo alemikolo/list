@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useConfirmSignUpMutation } from 'modules/auth/model/confirmSigUp';
 import ResendSignUpConfirmation from 'modules/auth/ResendSignUpConfirmation';
-import { checkAnyErrorExist, checkErrorReasonExist } from 'errors';
+import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
 
@@ -20,16 +20,16 @@ const SignUpConfirmation: FC = () => {
     confirmSigUp({ variables: { tokenId } });
   }, [confirmSigUp, tokenId]);
 
-  const isLinkExpired = checkErrorReasonExist(ErrorReason.ExpiredLink)(error);
-
-  const isAnyError = !isLinkExpired && checkAnyErrorExist(error);
+  const [isLinkExpired, isOtherError] = error
+    ? checkErrors(ErrorReason.ExpiredLink)(error)
+    : [];
 
   return (
     <Page>
       {loading && 'loading...'}
       {!loading && !error && 'You successfully confirm your email.'}
       {isLinkExpired && <ResendSignUpConfirmation />}
-      {isAnyError && <div>Something went wrong</div>}
+      {isOtherError && <div>Something went wrong</div>}
     </Page>
   );
 };

@@ -1,28 +1,72 @@
 import { ApolloError } from '@apollo/client';
 
 import { ErrorReason } from './enums';
-import { Error, errorParser } from './types';
+import { CheckErrors, Error, Errors, SpecificErrors } from './types';
 
-const parseErrors = (error?: ApolloError): Error[] => {
-  if (!error) {
-    return [];
+export const checkErrors: CheckErrors = (reason?: any) => (
+  error: ApolloError
+): any => {
+  console.log(error);
+  const { graphQLErrors, networkError } = error;
+
+  const someGraphQLErrors = graphQLErrors && graphQLErrors.length > 0;
+
+  const parsedErrors: Error[] = someGraphQLErrors
+    ? graphQLErrors.map(({ message, extensions = {} }) => {
+        const { exception } = extensions;
+
+        return { message, ...exception };
+      })
+    : [];
+
+  if (Array.isArray(reason)) {
+    const errors: Errors = parsedErrors.reduce(
+      (previousValue, currentValue) => {
+        if (currentValue.reason) {
+          return { ...previousValue, [currentValue.reason]: currentValue };
+        }
+
+        return previousValue;
+      },
+      {}
+    );
+
+    const areOtherErrors =
+      parsedErrors.length - Object.keys(errors).length > 0 || networkError;
+
+    const otherSpecificErrors = { ...errors };
+
+    const specificErrors: SpecificErrors = (reason as ErrorReason[]).reduce(
+      (previousValue, currentValue) => {
+        if (errors[currentValue]) {
+          delete otherSpecificErrors[currentValue];
+
+          return {
+            ...previousValue,
+            [currentValue]: true
+          };
+        }
+
+        return previousValue;
+      },
+      {}
+    );
+
+    const areOtherSpecificErrors = Object.keys(otherSpecificErrors).length > 0;
+
+    const anyOtherErrors =
+      areOtherErrors || areOtherSpecificErrors || networkError;
+
+    return [specificErrors, anyOtherErrors];
   }
 
-  return error.graphQLErrors.map(({ message, extensions = {} }) => {
-    const { exception } = extensions;
-
-    return { message, ...exception };
-  });
-};
-
-const checkParsedErrors = (parseErrors: errorParser) => (
-  reason?: ErrorReason
-) => (error?: ApolloError): Boolean => {
-  return parseErrors(error).some((err: Error) =>
-    reason ? err.reason === reason : err
+  const specificError = parsedErrors.some(
+    (err: Error) => err.reason === reason
   );
+
+  const areOtherErrors = specificError
+    ? parsedErrors.length > 1
+    : parsedErrors.length > 0;
+
+  return [specificError, areOtherErrors];
 };
-
-export const checkErrorReasonExist = checkParsedErrors(parseErrors);
-
-export const checkAnyErrorExist = checkParsedErrors(parseErrors)();

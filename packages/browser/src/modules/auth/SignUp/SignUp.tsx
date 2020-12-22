@@ -1,8 +1,9 @@
 import React, { FC, useState, FormEvent } from 'react';
-import { ApolloError } from '@apollo/client';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
+import { checkErrors } from 'errors';
+import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
 import './SignUp.scss';
 
@@ -10,6 +11,7 @@ export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signUp, { error, loading }] = useSignUpMutation();
+
   const handleEmailChange: InputChangeHandler = event => {
     setEmail(event.target.value);
   };
@@ -36,18 +38,9 @@ export const SignUp: FC = () => {
     return false;
   };
 
-  // TODO parse server errors and display proper messages
-  const getErrors = (error: ApolloError) => {
-    if (!error) {
-      return [];
-    }
-
-    return error.graphQLErrors.map(({ message, extensions = {} }) => {
-      const { exception } = extensions;
-
-      return { message, ...exception };
-    });
-  };
+  const [isUserExist, isOtherError] = error
+    ? checkErrors(ErrorReason.AlreadyExists)(error)
+    : [];
 
   return (
     <Page>
@@ -74,18 +67,8 @@ export const SignUp: FC = () => {
           <div>
             <button type="submit">Sign Up</button>
           </div>
-          {error && (
-            <div>
-              {getErrors(error).map(({ message, reason, status, type }) => (
-                <p key={message}>
-                  <span key={1}>{type}</span>
-                  <span key={2}>{message}</span>
-                  <span key={3}>{status}</span>
-                  <span key={4}>{reason}</span>
-                </p>
-              ))}
-            </div>
-          )}
+          {isUserExist && <div>User already exists</div>}
+          {isOtherError && <div>Something went wrong</div>}
         </form>
       )}
     </Page>

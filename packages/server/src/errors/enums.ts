@@ -8,7 +8,7 @@ export enum ErrorType {
 
 export enum ErrorReason {
   AccountNotConfirmed = 'AccountNotConfirmed',
-  AlreadyExist = 'AlreadyExist',
+  AlreadyExists = 'AlreadyExists',
   InvalidCredentials = 'InvalidCredentials',
   ExpiredLink = 'ExpiredLink'
 }

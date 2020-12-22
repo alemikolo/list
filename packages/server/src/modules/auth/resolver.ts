@@ -1,3 +1,4 @@
+import { BadRequestError } from './../../errors/index';
 import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
@@ -97,8 +98,10 @@ export class AuthResolver {
     const user = await User.findOne({ email });
 
     if (user) {
-      // TODO throw already exist
-      throw new BadRequestError();
+      throw new BadRequestError(
+        'User already exists',
+        ErrorReason.AlreadyExists
+      );
     }
 
     const hashedPassword = await hash(password, 12);
@@ -121,11 +124,15 @@ export class AuthResolver {
 
     const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
 
-    await sendSignUpConfirmation({
-      recipient: email,
-      redirectUrl,
-      user: { email }
-    });
+    try {
+      await sendSignUpConfirmation({
+        recipient: email,
+        redirectUrl,
+        user: { email }
+      });
+    } catch {
+      throw new BadRequestError();
+    }
 
     return true;
   }
@@ -186,6 +193,9 @@ export class AuthResolver {
     const user = await User.findOne({ id, status: AccountStatus.Registered });
 
     if (!user) {
+      // TODO If there is no token and there is no user also
+      // this account was deleted due to email not being
+      // confirmed for 30 days
       throw new BadRequestError();
     }
 

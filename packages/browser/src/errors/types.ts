@@ -12,3 +12,16 @@ export interface Error {
   status: ErrorStatus;
   reason?: ErrorReason;
 }
+
+export type SpecificErrors = {
+  [key in ErrorReason]?: true;
+};
+
+export type Errors = {
+  [key in ErrorReason]?: Error;
+};
+
+export type CheckErrors = {
+  (reason?: ErrorReason): (error: ApolloError) => [boolean, boolean];
+  (reason: ErrorReason[]): (error: ApolloError) => [SpecificErrors, boolean];
+};
