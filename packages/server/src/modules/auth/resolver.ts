@@ -1,9 +1,8 @@
-import { BadRequestError } from './../../errors/index';
 import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql';
 import { getManager } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
 
-import { AccountStatus } from '@shared/enums';
+import { AccountStatus, TokenType } from '@shared/enums';
 import { Context } from '@shared/types';
 import {
   createAccessToken,
@@ -27,7 +26,6 @@ class SignInResponse {
   @Field()
   accessToken!: string;
 }
-
 @Resolver()
 export class AuthResolver {
   @Mutation(() => Boolean)
@@ -63,7 +61,7 @@ export class AuthResolver {
     if (!user) {
       throw new ValidationError(
         'Invalid credentials',
-        ErrorReason.InvalidCredentials
+        ErrorReason.InvalidCredentialsError
       );
     }
 
@@ -72,7 +70,7 @@ export class AuthResolver {
     if (!valid) {
       throw new ValidationError(
         'Invalid credentials',
-        ErrorReason.InvalidCredentials
+        ErrorReason.InvalidCredentialsError
       );
     }
 
@@ -81,7 +79,7 @@ export class AuthResolver {
     if (status !== AccountStatus.Active) {
       throw new BadRequestError(
         'Account Not Active',
-        ErrorReason.AccountNotConfirmed
+        ErrorReason.AccountNotConfirmedError
       );
     }
 
@@ -100,7 +98,7 @@ export class AuthResolver {
     if (user) {
       throw new BadRequestError(
         'User already exists',
-        ErrorReason.AlreadyExists
+        ErrorReason.AlreadyExistsError
       );
     }
 
@@ -120,7 +118,11 @@ export class AuthResolver {
 
     const {
       identifiers: [{ id: tokenId }]
-    } = await Token.insert({ token, user: id });
+    } = await Token.insert({
+      token,
+      type: TokenType.SignUpConfirmToken,
+      user: id
+    });
 
     const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
 
@@ -131,7 +133,10 @@ export class AuthResolver {
         user: { email }
       });
     } catch {
-      throw new BadRequestError();
+      throw new BadRequestError(
+        'Sending confirmation failed',
+        ErrorReason.SendingFailedError
+      );
     }
 
     return true;
@@ -157,7 +162,10 @@ export class AuthResolver {
     const { exp, userId: id } = payload;
 
     if (Date.now() >= exp * 1000) {
-      throw new ValidationError('Link has expired', ErrorReason.ExpiredLink);
+      throw new ValidationError(
+        'Link has expired',
+        ErrorReason.ExpiredLinkError
+      );
     }
 
     await getManager().update(
@@ -173,6 +181,10 @@ export class AuthResolver {
 
   @Mutation(() => Boolean)
   async resendSignUpConfirmation(@Arg('tokenId') tokenId: string) {
+    if (!tokenId) {
+      throw new BadRequestError();
+    }
+
     const token = await Token.findOne({ id: tokenId });
 
     if (!token) {
@@ -207,11 +219,64 @@ export class AuthResolver {
 
     const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
 
-    await sendSignUpConfirmation({
-      recipient: email,
-      redirectUrl,
-      user: { email }
+    try {
+      await sendSignUpConfirmation({
+        recipient: email,
+        redirectUrl,
+        user: { email }
+      });
+    } catch {
+      throw new BadRequestError(
+        'Sending confirmation failed',
+        ErrorReason.SendingFailedError
+      );
+    }
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async retrySignUpConfirmation(@Arg('email') email: string) {
+    const user = await User.findOne({
+      email,
+      status: AccountStatus.Registered
     });
+
+    if (!user) {
+      throw new BadRequestError();
+    }
+
+    const { id } = user;
+
+    const token = await Token.findOne({
+      type: TokenType.SignUpConfirmToken,
+      user
+    });
+
+    if (!token) {
+      throw new BadRequestError();
+    }
+
+    const { id: tokenId } = token;
+
+    const jwtToken = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
+
+    await getManager().update(Token, { id: tokenId }, { token: jwtToken });
+
+    const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
+
+    try {
+      await sendSignUpConfirmation({
+        recipient: email,
+        redirectUrl,
+        user: { email }
+      });
+    } catch {
+      throw new BadRequestError(
+        'Sending confirmation failed',
+        ErrorReason.SendingFailedError
+      );
+    }
 
     return true;
   }

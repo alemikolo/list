@@ -5,11 +5,13 @@ import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
+
 import './SignUp.scss';
 
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registered, setRegistered] = useState(false);
   const [signUp, { error, loading }] = useSignUpMutation();
 
   const handleEmailChange: InputChangeHandler = event => {
@@ -32,20 +34,31 @@ export const SignUp: FC = () => {
     });
 
     if (response) {
+      setRegistered(true);
+
       return true;
     }
 
     return false;
   };
 
-  const [isUserExist, isOtherError] = error
-    ? checkErrors(ErrorReason.AlreadyExists)(error)
+  const [specificErrors = {}, OtherError] = error
+    ? checkErrors([
+        ErrorReason.AlreadyExistsError,
+        ErrorReason.SendingFailedError
+      ])(error)
     : [];
+  const { AlreadyExistsError, SendingFailedError } = specificErrors;
+
+  const success = !error && !loading && registered;
 
   return (
     <Page>
-      {loading ? (
-        <div>loading...</div>
+      {success ? (
+        <div>
+          We have sent an email on address {email}. To finish sign up process
+          use the link from the email message to confirm your registration{' '}
+        </div>
       ) : (
         <form onSubmit={handleSignUp}>
           <div>
@@ -65,10 +78,18 @@ export const SignUp: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">Sign Up</button>
+            <button type="submit">{loading ? '...' : 'Sign Up'}</button>
           </div>
-          {isUserExist && <div>User already exists</div>}
-          {isOtherError && <div>Something went wrong</div>}
+          {AlreadyExistsError && <div>User already exists</div>}
+          {OtherError && <div>Something went wrong</div>}
+          {SendingFailedError && (
+            <div>
+              Your account was created but sending confirmation email failed. If
+              the email you entered: {email} is correct please use retry button.
+              Otherwise try to sign up again.
+              <button>Send</button>
+            </div>
+          )}
         </form>
       )}
     </Page>

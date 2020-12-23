@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 
 import { useResendSignUpConfirmationMutation } from 'modules/auth/model/resendSignUpConfirmation';
 import { checkErrors } from 'errors';
+import { ErrorReason } from 'errors/enums';
 
+interface ResendSignUpConfirmationProps {
+  email?: string;
+}
 interface RouteParams {
   tokenId: string;
 }
 
-const ResendSignUpConfirmation: FC = () => {
+const ResendSignUpConfirmation: FC<ResendSignUpConfirmationProps> = () => {
   const { tokenId } = useParams<RouteParams>();
 
   const [
@@ -28,14 +32,19 @@ const ResendSignUpConfirmation: FC = () => {
     return false;
   };
 
-  const [, isOtherError] = error ? checkErrors()(error) : [];
+  const [SendingFailedError, OtherError] = error
+    ? checkErrors(ErrorReason.SendingFailedError)(error)
+    : [];
 
   return (
     <div>
+      {SendingFailedError && (
+        <div>Sending email failed. Please try again. </div>
+      )}
       <button onClick={handleResendConfirmationLink}>
         {loading ? '...' : 'resend confirmation link'}
       </button>
-      {isOtherError && <div>Something went wrong</div>}
+      {OtherError && <div>Something went wrong</div>}
     </div>
   );
 };

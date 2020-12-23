@@ -20,16 +20,16 @@ const SignUpConfirmation: FC = () => {
     confirmSigUp({ variables: { tokenId } });
   }, [confirmSigUp, tokenId]);
 
-  const [isLinkExpired, isOtherError] = error
-    ? checkErrors(ErrorReason.ExpiredLink)(error)
+  const [LinkExpiredError, OtherError] = error
+    ? checkErrors(ErrorReason.ExpiredLinkError)(error)
     : [];
 
   return (
     <Page>
       {loading && 'loading...'}
       {!loading && !error && 'You successfully confirm your email.'}
-      {isLinkExpired && <ResendSignUpConfirmation />}
-      {isOtherError && <div>Something went wrong</div>}
+      {LinkExpiredError && <ResendSignUpConfirmation />}
+      {OtherError && <div>Something went wrong</div>}
     </Page>
   );
 };

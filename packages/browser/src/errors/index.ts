@@ -6,7 +6,6 @@ import { CheckErrors, Error, Errors, SpecificErrors } from './types';
 export const checkErrors: CheckErrors = (reason?: any) => (
   error: ApolloError
 ): any => {
-  console.log(error);
   const { graphQLErrors, networkError } = error;
 
   const someGraphQLErrors = graphQLErrors && graphQLErrors.length > 0;

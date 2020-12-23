@@ -42,6 +42,10 @@ export enum Type {
   Complex = 'Complex'
 }
 
+export enum TokenType {
+  SignUpConfirmToken = 'SignUpConfirmToken'
+}
+
 registerEnumTypes([
   [AccountStatus, 'AccountStatus'],
   [Icon, 'Icon'],
