@@ -236,7 +236,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async retrySignUpConfirmation(@Arg('email') email: string) {
+  async retrySendingConfirmation(@Arg('email') email: string) {
     const user = await User.findOne({
       email,
       status: AccountStatus.Registered

@@ -3,8 +3,8 @@
 /* eslint-disable max-lines-per-function */
 
 import { gql } from '@apollo/client';
-import * as React from 'react';
 import * as Apollo from '@apollo/client';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/client/react/components';
 import * as ApolloReactHoc from '@apollo/client/react/hoc';
 
@@ -316,113 +316,109 @@ export type SignInResponse = {
   accessToken: Scalars['String'];
 };
 
-export type CurrentUserQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type RetrySendingConfirmationMutationVariables = Types.Exact<{
+  email: Types.Scalars['String'];
+}>;
 
-export type CurrentUserQuery = { __typename?: 'Query' } & {
-  currentUser?: Types.Maybe<
-    { __typename?: 'User' } & Pick<Types.User, 'email' | 'id' | 'name'>
-  >;
-};
+export type RetrySendingConfirmationMutation = {
+  __typename?: 'Mutation';
+} & Pick<Types.Mutation, 'retrySendingConfirmation'>;
 
-export const CurrentUserDocument = gql`
-  query CurrentUser {
-    currentUser {
-      email
-      id
-      name
-    }
+export const RetrySendingConfirmationDocument = gql`
+  mutation retrySendingConfirmation($email: String!) {
+    retrySendingConfirmation(email: $email)
   }
 `;
-export type CurrentUserComponentProps = Omit<
-  ApolloReactComponents.QueryComponentOptions<
-    CurrentUserQuery,
-    CurrentUserQueryVariables
+export type RetrySendingConfirmationMutationFn = Apollo.MutationFunction<
+  RetrySendingConfirmationMutation,
+  RetrySendingConfirmationMutationVariables
+>;
+export type RetrySendingConfirmationComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables
   >,
-  'query'
+  'mutation'
 >;
 
-export const CurrentUserComponent = (props: CurrentUserComponentProps) => (
-  <ApolloReactComponents.Query<CurrentUserQuery, CurrentUserQueryVariables>
-    query={CurrentUserDocument}
+export const RetrySendingConfirmationComponent = (
+  props: RetrySendingConfirmationComponentProps
+) => (
+  <ApolloReactComponents.Mutation<
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables
+  >
+    mutation={RetrySendingConfirmationDocument}
     {...props}
   />
 );
 
-export type CurrentUserProps<
+export type RetrySendingConfirmationProps<
   TChildProps = {},
-  TDataName extends string = 'data'
+  TDataName extends string = 'mutate'
 > = {
-  [key in TDataName]: ApolloReactHoc.DataValue<
-    CurrentUserQuery,
-    CurrentUserQueryVariables
+  [key in TDataName]: Apollo.MutationFunction<
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables
   >;
 } &
   TChildProps;
-export function withCurrentUser<
+export function withRetrySendingConfirmation<
   TProps,
   TChildProps = {},
-  TDataName extends string = 'data'
+  TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    CurrentUserQuery,
-    CurrentUserQueryVariables,
-    CurrentUserProps<TChildProps, TDataName>
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables,
+    RetrySendingConfirmationProps<TChildProps, TDataName>
   >
 ) {
-  return ApolloReactHoc.withQuery<
+  return ApolloReactHoc.withMutation<
     TProps,
-    CurrentUserQuery,
-    CurrentUserQueryVariables,
-    CurrentUserProps<TChildProps, TDataName>
-  >(CurrentUserDocument, {
-    alias: 'currentUser',
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables,
+    RetrySendingConfirmationProps<TChildProps, TDataName>
+  >(RetrySendingConfirmationDocument, {
+    alias: 'retrySendingConfirmation',
     ...operationOptions
   });
 }
 
 /**
- * __useCurrentUserQuery__
+ * __useRetrySendingConfirmationMutation__
  *
- * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useRetrySendingConfirmationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRetrySendingConfirmationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useCurrentUserQuery({
+ * const [retrySendingConfirmationMutation, { data, loading, error }] = useRetrySendingConfirmationMutation({
  *   variables: {
+ *      email: // value for 'email'
  *   },
  * });
  */
-export function useCurrentUserQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    CurrentUserQuery,
-    CurrentUserQueryVariables
+export function useRetrySendingConfirmationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables
   >
 ) {
-  return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(
-    CurrentUserDocument,
-    baseOptions
-  );
+  return Apollo.useMutation<
+    RetrySendingConfirmationMutation,
+    RetrySendingConfirmationMutationVariables
+  >(RetrySendingConfirmationDocument, baseOptions);
 }
-export function useCurrentUserLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    CurrentUserQuery,
-    CurrentUserQueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(
-    CurrentUserDocument,
-    baseOptions
-  );
-}
-export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
-export type CurrentUserLazyQueryHookResult = ReturnType<
-  typeof useCurrentUserLazyQuery
+export type RetrySendingConfirmationMutationHookResult = ReturnType<
+  typeof useRetrySendingConfirmationMutation
 >;
-export type CurrentUserQueryResult = Apollo.QueryResult<
-  CurrentUserQuery,
-  CurrentUserQueryVariables
+export type RetrySendingConfirmationMutationResult = Apollo.MutationResult<RetrySendingConfirmationMutation>;
+export type RetrySendingConfirmationMutationOptions = Apollo.BaseMutationOptions<
+  RetrySendingConfirmationMutation,
+  RetrySendingConfirmationMutationVariables
 >;
