@@ -76,7 +76,7 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin({ verbose: true }),
+    new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {
