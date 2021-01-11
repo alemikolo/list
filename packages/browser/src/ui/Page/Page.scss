@@ -1,0 +1,7 @@
+@use 'partials' as *;
+
+.page {
+  width: 100vw;
+  min-height: calc(100vh - 64px);
+  grid-column: 1 / span 3;
+}

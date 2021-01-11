@@ -8,10 +8,10 @@ const client = new ApolloClient({
   cache,
   defaultOptions: {
     mutate: {
-      errorPolicy: 'ignore'
+      errorPolicy: 'all'
     },
     query: {
-      errorPolicy: 'ignore'
+      errorPolicy: 'all'
     }
   },
   link

@@ -23,7 +23,7 @@ export class HandleItError extends ApolloError {
 }
 
 export class BadRequestError extends HandleItError {
-  constructor(message: string, reason?: ErrorReason) {
+  constructor(message = 'Bad Request', reason?: ErrorReason) {
     super(ErrorType.BadRequest, 400, message, reason);
   }
 }
@@ -43,5 +43,11 @@ export class AuthenticationError extends HandleItError {
 export class AuthorizationError extends HandleItError {
   constructor(message: string) {
     super(ErrorType.Unauthorized, 403, message);
+  }
+}
+
+export class ValidationError extends HandleItError {
+  constructor(message: string, reason: ErrorReason) {
+    super(ErrorType.Invalid, 400, message, reason);
   }
 }

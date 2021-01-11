@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
+import Page from 'ui/Page';
 import './Home.scss';
 
 const Home: FC = () => {
   return (
-    <div className="home">
+    <Page>
       <h2>Home page</h2>
       <div>
         <p>
@@ -202,7 +203,7 @@ const Home: FC = () => {
           orci, vel dignissim arcu tortor eu dolor.
         </p>
       </div>
-    </div>
+    </Page>
   );
 };
 

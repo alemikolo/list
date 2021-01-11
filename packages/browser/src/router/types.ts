@@ -31,6 +31,10 @@ export type ProjectsRoute = [Path.Projects, NoParams];
 export type SettingsRoute = [Path.Settings, NoParams];
 export type SignInRoute = [Path.SignIn, NoParams];
 export type SignUpRoute = [Path.SignUp, NoParams];
+export type SignUpConfirmationRoute = [
+  Path.SignUpConfirmation,
+  { tokenId: string }
+];
 export type TaskRoute = [Path.Task, { projectId: string; taskId: string }];
 
 type Route =
@@ -48,6 +52,7 @@ type Route =
   | ProjectsRoute
   | SettingsRoute
   | SignInRoute
+  | SignUpConfirmationRoute
   | SignUpRoute
   | TaskRoute;
 

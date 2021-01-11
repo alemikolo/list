@@ -1,10 +1,18 @@
 import { AuthMailData, MailDataCreator } from '../types';
+import { Link, Paragraph } from './components';
 
 const SignUpConfirmation: MailDataCreator<AuthMailData> = mailData => {
-  const { recipient } = mailData;
-  const subject = 'title';
-  const content = ['aasd ', 'aasd ', 'aasd ', 'aasd ', 'aasd.'];
-  const title = 'mail title';
+  const {
+    recipient,
+    redirectUrl,
+    user: { email }
+  } = mailData;
+  const subject = 'Confirm registration in Handle It';
+  const title = 'Confirm registration in Handle It';
+  const content = Paragraph()(
+    `Hello ${email}. Welcome on board. Use the link below to confirm your registration: 
+    ${Link({ href: redirectUrl })('Confirm registration.')}`
+  );
   const data = { content, title };
 
   return { data, recipient, subject };

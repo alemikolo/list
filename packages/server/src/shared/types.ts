@@ -10,14 +10,6 @@ export type Route = {
 
 export type Routes = Array<Route>;
 
-export interface JwtPayload {
-  exp: number;
-  iat: number;
-  jwtid: string;
-  userId: string;
-  tokenVersion?: number;
-}
-
 export interface UserContext {
   userId: string;
 }

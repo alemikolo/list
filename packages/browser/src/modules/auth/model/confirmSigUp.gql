@@ -1,0 +1,3 @@
+mutation confirmSignUp($tokenId: String!) {
+  confirmSignUp(tokenId: $tokenId)
+}

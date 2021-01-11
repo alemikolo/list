@@ -95,6 +95,5 @@ npm run build
 - improve auth flow
 - revoking tokens
 - internationalization
-- error handling (error boundaries)
 
 ---

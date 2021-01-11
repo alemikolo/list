@@ -1,14 +1,19 @@
 import React, { FC, useState, FormEvent } from 'react';
-import { ApolloError } from '@apollo/client';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
+import { checkErrors } from 'errors';
+import { ErrorReason } from 'errors/enums';
+import Page from 'ui/Page';
+
 import './SignUp.scss';
 
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [registered, setRegistered] = useState(false);
   const [signUp, { error, loading }] = useSignUpMutation();
+
   const handleEmailChange: InputChangeHandler = event => {
     setEmail(event.target.value);
   };
@@ -29,28 +34,31 @@ export const SignUp: FC = () => {
     });
 
     if (response) {
+      setRegistered(true);
+
       return true;
     }
 
     return false;
   };
 
-  const getErrors = (error: ApolloError) => {
-    if (!error) {
-      return [];
-    }
+  const [specificErrors = {}, OtherError] = error
+    ? checkErrors([
+        ErrorReason.AlreadyExistsError,
+        ErrorReason.SendingFailedError
+      ])(error)
+    : [];
+  const { AlreadyExistsError, SendingFailedError } = specificErrors;
 
-    return error.graphQLErrors.map(({ message, extensions = {} }) => {
-      const { exception } = extensions;
-
-      return { message, ...exception };
-    });
-  };
+  const success = !error && !loading && registered;
 
   return (
-    <div className="sign-in">
-      {loading ? (
-        <div>loading...</div>
+    <Page>
+      {success ? (
+        <div>
+          We have sent an email on address {email}. To finish sign up process
+          use the link from the email message to confirm your registration{' '}
+        </div>
       ) : (
         <form onSubmit={handleSignUp}>
           <div>
@@ -70,23 +78,21 @@ export const SignUp: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">Sign Up</button>
+            <button type="submit">{loading ? '...' : 'Sign Up'}</button>
           </div>
-          {error && (
+          {AlreadyExistsError && <div>User already exists</div>}
+          {OtherError && <div>Something went wrong</div>}
+          {SendingFailedError && (
             <div>
-              {getErrors(error).map(({ message, reason, status, type }) => (
-                <p key={message}>
-                  <span key={1}>{type}</span>
-                  <span key={2}>{message}</span>
-                  <span key={3}>{status}</span>
-                  <span key={4}>{reason}</span>
-                </p>
-              ))}
+              Your account was created but sending confirmation email failed. If
+              the email you entered: {email} is correct please use retry button.
+              Otherwise try to sign up again.
+              <button>Send</button>
             </div>
           )}
         </form>
       )}
-    </div>
+    </Page>
   );
 };
 

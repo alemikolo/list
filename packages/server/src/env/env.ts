@@ -3,10 +3,12 @@ const {
   ACCESS_PUBLIC_KEY = '',
   ACCESS_TOKEN_EXP = '',
   APP_NAME = '',
+  CLIENT_HOST = '',
   COMPANY_ADDRESS = '',
   COMPANY_EMAIL = '',
   COMPANY_NAME = '',
   COMPANY_PHONE = '',
+  CONFIRM_SIGN_UP_TOKEN_EXP = '',
   HOST = '',
   NODE_ENV = '',
   PORT = '',
@@ -15,7 +17,9 @@ const {
   REFRESH_PUBLIC_KEY = '',
   REFRESH_TOKEN_EXP = '',
   SENDER_EMAIL = '',
-  SENDGRID_API_KEY = ''
+  SENDGRID_API_KEY = '',
+  TOKEN_PRIVATE_KEY = '',
+  TOKEN_PUBLIC_KEY = ''
 } = process.env;
 
 const environment = {
@@ -23,11 +27,15 @@ const environment = {
   ACCESS_PUBLIC_KEY,
   ACCESS_TOKEN_EXP: Number(ACCESS_TOKEN_EXP),
   APP_NAME,
-  BASE_URL: `${PROTOCOL}${HOST}`,
+  APP_URL:
+    NODE_ENV === 'development'
+      ? `${PROTOCOL}${CLIENT_HOST}`
+      : `${PROTOCOL}${HOST}`,
   COMPANY_ADDRESS,
   COMPANY_EMAIL,
   COMPANY_NAME,
   COMPANY_PHONE,
+  CONFIRM_SIGN_UP_TOKEN_EXP: Number(CONFIRM_SIGN_UP_TOKEN_EXP),
   HOST,
   NODE_ENV,
   PORT: Number(PORT),
@@ -36,7 +44,9 @@ const environment = {
   REFRESH_PUBLIC_KEY,
   REFRESH_TOKEN_EXP: Number(REFRESH_TOKEN_EXP),
   SENDER_EMAIL,
-  SENDGRID_API_KEY
+  SENDGRID_API_KEY,
+  TOKEN_PRIVATE_KEY,
+  TOKEN_PUBLIC_KEY
 };
 
 export default environment;

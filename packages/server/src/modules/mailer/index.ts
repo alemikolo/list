@@ -33,7 +33,6 @@ const sendMessage = (send: Send) => <T extends Mail>(template: T[0]) => (
 
 const send = async (messageData: MessageData): SendMailResult => {
   const { recipient, subject, html } = messageData;
-
   const message = {
     from: SENDER_EMAIL,
     html,

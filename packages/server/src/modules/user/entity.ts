@@ -19,6 +19,7 @@ import Organization from '@modules/organization/entity';
 import Project from '@modules/project/entity';
 import Lock from '@modules/lock/entity';
 import Settings from '@modules/settings/entity';
+import Token from '@modules/auth/entity';
 import { AccountStatus } from '@shared/enums';
 
 @ObjectType()
@@ -123,6 +124,10 @@ export default class User extends BaseEntity {
   @Field(() => Activity)
   @OneToMany(() => Activity, activity => activity.performer)
   activity!: Activity[];
+
+  @Field(() => Token)
+  @OneToMany(() => Token, token => token.user)
+  token!: Token[];
 
   @Field(() => Project)
   @ManyToMany(() => Project, project => project.isFavorite)

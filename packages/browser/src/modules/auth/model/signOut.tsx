@@ -28,7 +28,6 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  refreshToken: Scalars['String'];
   hello: Scalars['String'];
   bye: Scalars['String'];
   users: Array<User>;
@@ -60,6 +59,7 @@ export type User = {
   locks: Lock;
   change: Activity;
   activity: Activity;
+  token: Token;
   favorites: Project;
   projectOwner: Project;
   projectAdmin: Project;
@@ -266,12 +266,22 @@ export type Label = {
   modifier: User;
 };
 
+export type Token = {
+  __typename?: 'Token';
+  id: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   forgotPassword: Scalars['Boolean'];
   signOut: Scalars['Boolean'];
   signIn: SignInResponse;
   signUp: Scalars['Boolean'];
+  confirmSignUp: Scalars['Boolean'];
+  resendSignUpConfirmation: Scalars['Boolean'];
+  retrySendingConfirmation: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -285,6 +295,18 @@ export type MutationSignInArgs = {
 
 export type MutationSignUpArgs = {
   password: Scalars['String'];
+  email: Scalars['String'];
+};
+
+export type MutationConfirmSignUpArgs = {
+  tokenId: Scalars['String'];
+};
+
+export type MutationResendSignUpConfirmationArgs = {
+  tokenId: Scalars['String'];
+};
+
+export type MutationRetrySendingConfirmationArgs = {
   email: Scalars['String'];
 };
 

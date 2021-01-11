@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Switch } from 'react-router-dom';
 
 import Dashboard from 'modules/dashboard';
-import { SignIn, SignUp } from 'modules/auth';
+import { SignIn, SignUp, SignUpConfirmation } from 'modules/auth';
 import { Bye } from 'modules/user';
 import Home from 'modules/home';
 import { Path, PrivateRoute, PublicRoute } from 'router';
@@ -22,6 +22,11 @@ export const Layout: FC = () => (
       <PublicRoute component={Home} exact path={Path.Home} />
       <PublicRoute component={SignIn} exact path={Path.SignIn} />
       <PublicRoute component={SignUp} exact path={Path.SignUp} />
+      <PublicRoute
+        component={SignUpConfirmation}
+        exact
+        path={Path.SignUpConfirmation}
+      />
       <PublicRoute component={() => <div>404</div>} noFallback />
     </Switch>
     <Switch>

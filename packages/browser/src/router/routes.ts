@@ -15,6 +15,7 @@ import Route, {
   ProjectsRoute,
   SettingsRoute,
   SignInRoute,
+  SignUpConfirmationRoute,
   SignUpRoute,
   TaskRoute
 } from './types';
@@ -73,6 +74,10 @@ export const createProjectsRoute = createPath<ProjectsRoute>(Path.Projects);
 export const createSettingsRoute = createPath<SettingsRoute>(Path.Settings);
 
 export const createSignInRoute = createPath<SignInRoute>(Path.SignIn);
+
+export const createSignUpConfirmationRoute = createPath<SignUpConfirmationRoute>(
+  Path.SignUpConfirmation
+);
 
 export const createSignUpRoute = createPath<SignUpRoute>(Path.SignUp);
 

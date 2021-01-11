@@ -1,10 +1,10 @@
 import { Response } from 'express';
 import { MiddlewareFn } from 'type-graphql';
-import { sign, verify } from 'jsonwebtoken';
+import { sign, verify, VerifyOptions } from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 
 import environment from '@env/env';
-import { Context, JwtPayload } from '@shared/types';
+import { Context } from '@shared/types';
 
 const {
   ACCESS_PRIVATE_KEY,
@@ -12,13 +12,24 @@ const {
   ACCESS_TOKEN_EXP,
   REFRESH_PRIVATE_KEY,
   REFRESH_PUBLIC_KEY,
-  REFRESH_TOKEN_EXP
+  REFRESH_TOKEN_EXP,
+  TOKEN_PRIVATE_KEY,
+  TOKEN_PUBLIC_KEY
 } = environment;
 
-type Signer = (id: string, tokenVersion?: number) => string;
-type Verifier = (token: string) => JwtPayload;
+export interface JwtPayload {
+  exp: number;
+  iat: number;
+  jwtid: string;
+  userId: string;
+  tokenVersion?: number;
+}
 
-const createSigner = (expiration: number, key: string): Signer => (
+type Signer = (id: string, tokenVersion?: number) => string;
+
+type Verifier = (token: string, options?: VerifyOptions) => JwtPayload;
+
+const createSigner = (key: string) => (expiration: number): Signer => (
   id: string,
   tokenVersion?: number
 ) => {
@@ -36,27 +47,32 @@ const createSigner = (expiration: number, key: string): Signer => (
   return sign(payload, privateKey, { algorithm: 'RS256', jwtid });
 };
 
-const createVerifier = (key: string): Verifier => (token: string) => {
+const createVerifier = (key: string): Verifier => (
+  token: string,
+  options?: VerifyOptions
+) => {
   const publicKey = Buffer.from(key, 'base64').toString('utf-8');
 
-  const payload = verify(token, publicKey);
+  const payload = verify(token, publicKey, options);
 
   return payload as JwtPayload;
 };
 
-export const createAccessToken = createSigner(
-  ACCESS_TOKEN_EXP,
-  ACCESS_PRIVATE_KEY
+export const createAccessToken = createSigner(ACCESS_PRIVATE_KEY)(
+  ACCESS_TOKEN_EXP
 );
 
-export const createRefreshToken = createSigner(
-  REFRESH_TOKEN_EXP,
-  REFRESH_PRIVATE_KEY
+export const createRefreshToken = createSigner(REFRESH_PRIVATE_KEY)(
+  REFRESH_TOKEN_EXP
 );
+
+export const createToken = createSigner(TOKEN_PRIVATE_KEY);
 
 export const verifyAccessToken = createVerifier(ACCESS_PUBLIC_KEY);
 
 export const verifyRefreshToken = createVerifier(REFRESH_PUBLIC_KEY);
+
+export const verifyToken = createVerifier(TOKEN_PUBLIC_KEY);
 
 export const isAuth: MiddlewareFn<Context> = ({ context }, next) => {
   const {
@@ -88,3 +104,11 @@ export const sendRefreshToken = (res: Response, token: string) =>
     httpOnly: true,
     path: '/api/auth/refresh-token'
   });
+
+export const checkIsTokenExpired = (token: string): Boolean => {
+  const { exp } = createVerifier(TOKEN_PUBLIC_KEY)(token, {
+    ignoreExpiration: true
+  });
+
+  return Date.now() >= exp * 1000;
+};

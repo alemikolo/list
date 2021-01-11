@@ -42,6 +42,7 @@ const useFetch = <T extends unknown>(url: string, options?: any): State<T> => {
         }
       }
     };
+
     doFetch();
   }, [url, options]);
 

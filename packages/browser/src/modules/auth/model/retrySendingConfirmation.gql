@@ -1,0 +1,3 @@
+mutation retrySendingConfirmation($email: String!) {
+  retrySendingConfirmation(email: $email)
+}

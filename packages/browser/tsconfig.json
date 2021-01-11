@@ -37,6 +37,7 @@
       "src/app/*": ["src/app/*"],
       "src/constants/*": ["src/constants/*"],
       "src/env/*": ["src/env/*"],
+      "src/errors/*": ["src/errors/*"],
       "src/hooks/*": ["src/hooks/*"],
       "src/model/*": ["src/model/*"],
       "src/modules/*": ["src/modules/*"],
