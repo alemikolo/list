@@ -3,7 +3,6 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 
@@ -56,10 +55,7 @@ const config: WebpackConfiguration = {
     minimizer: [
       new TerserPlugin({
         parallel: true
-      }),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      new OptimizeCssAssetsPlugin()
+      })
     ]
   },
   output: {
@@ -68,7 +64,7 @@ const config: WebpackConfiguration = {
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin({ verbose: true }),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css'
     }),
