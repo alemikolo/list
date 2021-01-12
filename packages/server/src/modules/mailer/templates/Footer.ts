@@ -25,9 +25,12 @@ const Footer = (props: ComponentProps) =>
       ),
       Paragraph({ key: 'Address' })(`Address: ${address}.`),
       Paragraph({ key: 'Contact' })(
-        `Contact: ${Link({ href: `tel:${phone}` })(phone)} | ${Link({
+        'Contact: ',
+        Link({ href: `tel:${phone}` })(phone),
+        ' | ',
+        Link({
           href: `mailto:${COMPANY_EMAIL}`
-        })(COMPANY_EMAIL)}`
+        })(COMPANY_EMAIL)
       )
     )
   );
