@@ -5,6 +5,7 @@ import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
+import { AsyncButton, Button } from 'ui/Button';
 
 import './SignUp.scss';
 
@@ -38,6 +39,12 @@ export const SignUp: FC = () => {
     }
   };
 
+  const handleReset = () => {
+    setRegistered(false);
+    setEmail('');
+    setPassword('');
+  };
+
   const [specificErrors = {}, OtherError] = error
     ? checkErrors([
         ErrorReason.AlreadyExistsError,
@@ -45,12 +52,6 @@ export const SignUp: FC = () => {
       ])(error)
     : [];
   const { AlreadyExistsError, SendingFailedError } = specificErrors;
-
-  const handleReset = () => {
-    setRegistered(false);
-    setEmail('');
-    setPassword('');
-  };
 
   const success = !error && !loading && registered;
 
@@ -63,7 +64,7 @@ export const SignUp: FC = () => {
             use the link from the email message to confirm your registration{' '}
           </p>
           <p>
-            <button onClick={handleReset}>Sign up again</button>
+            <Button onClick={handleReset}>Sign up again</Button>
           </p>
         </div>
       ) : (
@@ -85,7 +86,9 @@ export const SignUp: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">Sign Up</button>
+            <AsyncButton loading={loading} type="submit">
+              Sign Up
+            </AsyncButton>
           </div>
           {AlreadyExistsError && <div>User already exists</div>}
           {OtherError && <div>Something went wrong</div>}
