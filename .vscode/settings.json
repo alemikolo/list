@@ -15,6 +15,14 @@
       "changeProcessCWD": true
     },
     {
+      "directory": "./packages/desktop",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "./packages/mobile",
+      "changeProcessCWD": true
+    },
+    {
       "directory": "./scripts",
       "changeProcessCWD": true
     }

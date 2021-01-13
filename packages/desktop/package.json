@@ -1,0 +1,33 @@
+{
+  "name": "handle-it-desktop",
+  "version": "0.3.0",
+  "description": "Handle It - Desktop",
+  "type": "module",
+  "main": "src/index.tsx",
+  "author": {
+    "name": "Aleksander Fret",
+    "email": "olekfret80@gmail.com",
+    "url": "https://github.com/aleksanderfret/"
+  },
+  "homepage": "https://github.com/aleksanderfret/handle-it#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aleksanderfret/handle-it"
+  },
+  "bugs": {
+    "url": "https://github.com/aleksanderfret/handle-it/issues"
+  },
+  "scripts": {},
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,scss,css,md}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint -c .eslintrc --fix",
+      "echo test"
+    ],
+    "**/*.scss": [
+      "stylelint --syntax scss"
+    ]
+  }
+}
