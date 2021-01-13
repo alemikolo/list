@@ -1,2 +1,9 @@
 @use 'reset';
 @use 'global';
+
+root {
+  --primary-color: #007bff;
+  --active-blue: #00448c;
+  --contrast-color: #ffffff;
+  --danger-color: #860c0c;
+}

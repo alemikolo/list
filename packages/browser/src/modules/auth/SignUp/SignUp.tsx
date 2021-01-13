@@ -22,11 +22,11 @@ export const SignUp: FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSignUp = async (event: FormEvent): Promise<Boolean> => {
+  const handleSignUp = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
 
     if (!email || !password) {
-      return false;
+      return;
     }
 
     const response = await signUp({
@@ -35,11 +35,7 @@ export const SignUp: FC = () => {
 
     if (response) {
       setRegistered(true);
-
-      return true;
     }
-
-    return false;
   };
 
   const [specificErrors = {}, OtherError] = error
@@ -50,14 +46,25 @@ export const SignUp: FC = () => {
     : [];
   const { AlreadyExistsError, SendingFailedError } = specificErrors;
 
+  const handleReset = () => {
+    setRegistered(false);
+    setEmail('');
+    setPassword('');
+  };
+
   const success = !error && !loading && registered;
 
   return (
     <Page>
       {success ? (
         <div>
-          We have sent an email on address {email}. To finish sign up process
-          use the link from the email message to confirm your registration{' '}
+          <p>
+            We have sent an email on address {email}. To finish sign up process
+            use the link from the email message to confirm your registration{' '}
+          </p>
+          <p>
+            <button onClick={handleReset}>Sign up again</button>
+          </p>
         </div>
       ) : (
         <form onSubmit={handleSignUp}>
@@ -78,7 +85,7 @@ export const SignUp: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">{loading ? '...' : 'Sign Up'}</button>
+            <button type="submit">Sign Up</button>
           </div>
           {AlreadyExistsError && <div>User already exists</div>}
           {OtherError && <div>Something went wrong</div>}
