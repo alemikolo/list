@@ -6,8 +6,8 @@ import useFetch from 'hooks/useFetch';
 import Layout from './Layout';
 import {
   appReducer,
-  initialState,
   AppStateProvider,
+  initialState,
   setIsAuthenticated
 } from 'state';
 

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import {
-  Route,
   Redirect,
-  RouteProps as SourceRouteProps,
-  RouteComponentProps
+  Route,
+  RouteComponentProps,
+  RouteProps as SourceRouteProps
 } from 'react-router-dom';
 
 import Path from './enums';
