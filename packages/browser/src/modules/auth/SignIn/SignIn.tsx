@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useSignInMutation } from '../model/signIn';

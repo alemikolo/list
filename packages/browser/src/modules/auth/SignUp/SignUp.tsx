@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';

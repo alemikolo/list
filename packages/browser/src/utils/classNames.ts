@@ -1,6 +1,7 @@
 const classNames = (
   ...args: Array<
     | string
+    | undefined
     | Array<string>
     | {
         [key: string]: boolean | undefined | null;
@@ -14,12 +15,12 @@ const classNames = (
         return arg;
       } else if (Array.isArray(arg)) {
         return arg.join(' ');
+      } else if (arg) {
+        return Object.entries(arg)
+          .filter(([, value]) => value)
+          .map(([key]) => key)
+          .join(' ');
       }
-
-      return Object.entries(arg)
-        .filter(([, value]) => value)
-        .map(([key]) => key)
-        .join(' ');
     })
     .join(' ')
     .replace(/  +/g, ' ');
