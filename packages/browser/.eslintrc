@@ -136,7 +136,15 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": 0,
     "semi": ["warn", "always"],
-    "sort-keys": ["error", "asc", { "natural": true }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
     "space-before-blocks": "error",
     "space-before-function-paren": [
       "error",
@@ -150,6 +158,7 @@
     "space-infix-ops": "error"
   },
   "settings": {
+    "import/external-module-folders": ["node_modules"],
     "import/resolver": {
       "node": {},
       "webpack": {
