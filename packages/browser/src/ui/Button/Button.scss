@@ -1,0 +1,28 @@
+@use 'partials' as *;
+
+.button {
+  -webkit-appearance: none;
+  font-family: inherit;
+  font-size: $fontS;
+  background: none;
+  outline: 0;
+  border: 0;
+  color: $contrastColor;
+  background-color: $primaryColor;
+  height: $distanceXL;
+  max-height: $distanceXL;
+  border-radius: $distanceXXS;
+  padding: 0 $distanceS;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primaryHover;
+  }
+
+  &:active {
+    background-color: $primaryActive;
+  }
+}

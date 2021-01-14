@@ -1,5 +1,8 @@
 // colors
-$themeBlue: #006eb4;
+$primaryColor: var(--primary-color);
+$primaryHover: var(--primary-hover);
+$primaryActive: var(--primary-active);
+$contrastColor: var(--contrast-color);
 
 $backgroundColor: #ffffff;
 

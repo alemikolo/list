@@ -1,10 +1,16 @@
-import React, { forwardRef, ComponentPropsWithoutRef } from 'react';
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
+
+import { classNames } from 'utils';
+
+import './Button.scss';
 
 export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   className?: string;
   disabled?: boolean;
+  error?: boolean;
   label?: string;
   loading?: boolean;
+  success?: boolean;
   title?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -15,9 +21,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       className,
       disabled: sourceDisabled,
+      error,
       label,
       loading,
       onClick,
+      success,
       title,
       type = 'button',
       ...rest
@@ -36,11 +44,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick(event);
     };
 
+    const buttonClassNames = classNames('button', {
+      loading,
+      disabled,
+      error,
+      success
+    });
+
     return (
       <button
         {...rest}
         aria-label={label}
-        className={`button ${className ? className : ''}`}
+        className={buttonClassNames}
         disabled={disabled}
         onClick={handleClick}
         ref={ref}
