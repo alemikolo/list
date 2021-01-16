@@ -132,7 +132,9 @@ export class AuthResolver {
         redirectUrl,
         user: { email }
       });
-    } catch {
+    } catch (error) {
+      console.error(error);
+
       throw new BadRequestError(
         'Sending confirmation failed',
         ErrorReason.SendingFailedError

@@ -1,4 +1,4 @@
-import SendGridMail from '@sendgrid/mail';
+import SendGridMail, { MailDataRequired } from '@sendgrid/mail';
 
 import environment from '@env/env';
 import {
@@ -33,7 +33,7 @@ const sendMessage = (send: Send) => <T extends Mail>(template: T[0]) => (
 
 const send = async (messageData: MessageData): SendMailResult => {
   const { recipient, subject, html } = messageData;
-  const message = {
+  const message: MailDataRequired = {
     from: SENDER_EMAIL,
     html,
     subject,
