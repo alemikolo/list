@@ -4,9 +4,14 @@
 
 ## Version
 
-0.3.0. - 2020.10.26
+0.3.0
 
 ## Main Tech Stack
+
+### Project root
+
+- [Lerna](https://github.com/lerna/lerna)
+- [Husky](https://github.com/typicode/husky)
 
 ### Browser package
 
@@ -25,6 +30,7 @@
 - [PostgreSQL](https://nodejs.org)
 - [TypeOrm](https://typeorm.io/#/)
 - [TypeScript](https://www.typescriptlang.org)
+- [TypeGraphql](https://github.com/MichalLytek/type-graphql)
 
 ---
 
@@ -32,53 +38,63 @@
 
 ### Installation
 
-#### 1. Instal node.js 15.0.1
+#### 1. Install node.js 14.15.1
 
-#### 2. Install PostgreSQL 13
+#### 2. Install npm 7.0.15
 
-#### 3. Run SQL Shell (psql) or launch **pgAdmin** to create Database ([creating database tutorial](https://www.postgresqltutorial.com/postgresql-create-database/))
+#### 3. Install PostgreSQL 13
+
+#### 4. Run SQL Shell (psql) or launch **pgAdmin** to create Database ([creating database tutorial](https://www.postgresqltutorial.com/postgresql-create-database/))
 
 ```bash
 CREATE DATABASE handle-it
 ```
 
-#### 4. Clone the repository
+#### 5. Clone the repository
 
 ```bash
 git clone https://github.com/aleksanderfret/handle-it.git
 ```
 
-#### 5. Go to the directory
+#### 6. Go to the directory
 
 ```bash
 cd handle-it
 ```
 
-#### 6. Install dependencies
+#### 7. Install dependencies
 
 ```bash
-npm i
+npm run ci:all
 ```
 
-#### 7. Go to the server package directory
+#### 8. Go to the server package directory
 
 ```bash
 cd packages/server
 ```
 
-#### 8. Create .env file in server package directory and add necessary `.env` keys that you can find in the `.env.example` file
+#### 9. Create .env file in server package directory and add necessary `.env` keys that you can find in the `.env.example` file
 
 ```bash
 touch .env
 ```
 
-#### 9. Start development (in the root directory)
+#### 10. Create Sendgrid API Key
+
+Create an account on [sendgrid.com](https://sendgrid.com/) and get the Sendgrid API Key to make the app be able to send email messages. Save the key in your `.env` file as `SENDGRID_API_KEY`.
+
+#### 11. Generate RSA keys
+
+Generate three paris of keys: private and public ([you can do it here](https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/)). Encode them ([you can do it here](https://www.base64encode.org/)). Save encoded keys in your `.env` file as: `ACCESS_PRIVATE_KEY`, `ACCESS_PUBLIC_KEY`, `REFRESH_PRIVATE_KEY`, `REFRESH_PUBLIC_KEY`, `TOKEN_PRIVATE_KE`, `TOKEN_PUBLIC_KEY`.
+
+#### 12. Start development (in the root directory)
 
 ```bash
 npm run dev
 ```
 
-#### 10. Build for production
+#### 13. Build for production
 
 ```bash
 npm run build
@@ -88,12 +104,29 @@ npm run build
 
 ### Available scripts
 
----
-
-## TODO
-
-- improve auth flow
-- revoking tokens
-- internationalization
-
----
+```bash
+ "audit": runs npm audit in root and for all packages
+ "bootstrap": install all packages dependencies and links any cross dependencies
+ "build": build project for production
+ "check": runs lint, format and stylelint, test and compile scripts together,
+ "ci" runs npm ci for all packages directories
+ "ci:all": installs all project dependencies and runs bootstrap and hooks scripts
+ "clean": removes node_modules from al packages
+ "compile": runs typescript compiler for all packages,
+ "create": creates a new lerna-managed package
+ "dev": runs project for development,
+ "format": formats all the files using Prettier,
+ "format:fix": formats and fix all the files using Prettier,
+ "gen": generates query and mutation hooks for all .gql files,
+ "hooks": updates git hooks,
+ "lint": lint all the files using eslint,
+ "lint:fix": lint and fix all files using eslint,
+ "outdated": runs npm outdated for root and for all packages,
+ "postinstall": runs bootstrap and hooks scripts,
+ "pre-commit": runs pre-commit hook,
+ "pre-push": runs pre-push hook,
+ "reset": runs clean script and runs npm ci,
+ "stylelint": lint all style files,
+ "stylelint:fix": lint and fix all style files,
+ "test": run tests or all packages
+```
