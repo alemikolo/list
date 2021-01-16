@@ -10,8 +10,8 @@ const SignUpConfirmation: MailDataCreator<AuthMailData> = mailData => {
   const subject = 'Confirm registration in Handle It';
   const title = 'Confirm registration in Handle It';
   const content = Paragraph()(
-    `Hello ${email}. Welcome on board. Use the link below to confirm your registration: 
-    ${Link({ href: redirectUrl })('Confirm registration.')}`
+    `Hello ${email}. Welcome on board. Use the following link to confirm your registration: `,
+    Link({ href: redirectUrl })('Confirm registration.')
   );
   const data = { content, title };
 
