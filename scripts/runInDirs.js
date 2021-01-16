@@ -64,8 +64,7 @@ const npmRun = (dir, command) => {
 };
 
 const npmRunInDirs = dir => {
-  const hasPackageJson = fs.existsSync(path.join(dir, 'package.json'));
-
+  const hasPackageJson = fs.existsSync(path.join(dir, 'package-lock.json'));
   if (hasPackageJson) {
     npmRun(dir, npmCommand);
   }
