@@ -1,0 +1,15 @@
+@use 'partials' as *;
+
+.button {
+  &__box {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.loading {
+      visibility: collapse;
+      user-select: none;
+    }
+  }
+}
