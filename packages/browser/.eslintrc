@@ -53,7 +53,6 @@
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
     "comma-dangle": ["warn", "never"],
     "comma-spacing": ["warn"],
-    "complexity": ["error", 10],
     "computed-property-spacing": ["error", "never"],
     "eqeqeq": ["error", "smart"],
     "func-call-spacing": ["error", "never"],
