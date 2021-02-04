@@ -1,13 +1,30 @@
 // colors
-$primaryColor: var(--primary-color);
-$primaryHover: var(--primary-hover);
-$primaryActive: var(--primary-active);
+$dangerColor: var(--danger-color);
+$dangerGradient: var(--danger-gradient);
+$dangerHoverColor: var(--danger-hover-color);
+$dangerActiveColor: var(--danger-active-color);
+$dangerHoverGradient: var(--danger-hover-gradient);
+$dangerActiveGradient: var(--danger-active-gradient);
+$dangerLightHoverGradient: var(--danger-light-hover-gradient);
+$dangerLightActiveGradient: var(--danger-light-active-gradient);
+$dangerFocusShadowColor: var(--danger-focus-shadow-color);
+$themeColor: var(--theme-color);
+$themeHoverColor: var(--theme-hover-color);
+$themeActiveColor: var(--theme-active-color);
+$themeGradient: var(--theme-gradient);
+$themeHoverGradient: var(--theme-hover-gradient);
+$themeActiveGradient: var(--theme-active-gradient);
+$themeLightHoverGradient: var(--theme-light-hover-gradient);
+$themeLightActiveGradient: var(--theme-light-active-gradient);
+$themeFocusShadowColor: var(--theme-focus-shadow-color);
+$themeTextColor: var(--gray-dark);
 $contrastColor: var(--contrast-color);
-
-$backgroundColor: #ffffff;
+$backgroundColor: var(--background-color);
+$pageBackgroundColor: var(--page-background);
+$disabledColor: var(--gray-normal);
 
 $fontFamily: 'Montserrat';
-$fontLine: 1.25;
+$fontLine: 1.45;
 
 //font-weights
 $fontLight: 300;
