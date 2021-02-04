@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
+import React, { ComponentPropsWithoutRef, FC, forwardRef } from 'react';
 
 import { classNames } from 'utils';
 
@@ -6,25 +6,38 @@ import './Button.scss';
 
 export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   className?: string;
+  danger?: boolean;
   disabled?: boolean;
   error?: boolean;
   label?: string;
   loading?: boolean;
+  primary?: boolean;
+  secondary?: boolean;
   success?: boolean;
   title?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
+export const AnimatedGradient: FC = ({ children }) => (
+  <div className="animated-gradient">
+    <div className="animated-gradient__active"></div>
+    <div className="animated-gradient__hover"></div>
+    <div className="animated-gradient__content">{children}</div>
+  </div>
+);
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
       className,
+      danger,
       disabled: sourceDisabled,
       error,
       label,
       loading,
       onClick,
+      primary: sourcePrimary,
+      secondary: sourceSecondary,
       success,
       title,
       type = 'button',
@@ -33,6 +46,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const disabled = sourceDisabled || loading;
+    const secondary = sourceSecondary && !sourcePrimary;
+    const primary = sourcePrimary || !secondary;
 
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -44,8 +59,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick(event);
     };
 
-    const buttonClassNames = classNames('button', {
+    const buttonClassNames = classNames('button', className, {
+      primary,
+      secondary,
       loading,
+      danger,
       disabled,
       error,
       success
@@ -62,7 +80,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         title={title}
         type={type}
       >
-        {children}
+        <div className="button__content">{children}</div>
       </button>
     );
   }
