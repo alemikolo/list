@@ -34,7 +34,7 @@ const AsyncButton = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Button
-        danger
+        danger={danger}
         loading={loading}
         onClick={handleClick}
         ref={ref}
