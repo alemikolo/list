@@ -25,7 +25,7 @@
     "clean": "lerna clean",
     "compile": "lerna run compile",
     "create": "lerna create",
-    "dev": "lerna run dev --stream",
+    "start": "lerna run dev --stream",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",
     "gen": "lerna run gen",

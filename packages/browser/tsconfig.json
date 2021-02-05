@@ -43,7 +43,8 @@
       "src/modules/*": ["src/modules/*"],
       "src/router/*": ["src/router/*"],
       "src/state/*": ["src/state/*"],
-      "src/ui/*": ["src/ui/*"]
+      "src/ui/*": ["src/ui/*"],
+      "src/utils/*": ["src/utils*"]
     },
     "preserveConstEnums": true,
     "pretty": true,

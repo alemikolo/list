@@ -1,6 +1,6 @@
 import { Reducer } from 'react';
 
-import { AppState, AppAction, ActionTypes } from './types';
+import { ActionTypes, AppAction, AppState } from './types';
 
 const appReducer: Reducer<AppState, AppAction> = (state, action): AppState => {
   switch (action.type) {

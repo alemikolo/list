@@ -1,7 +1,7 @@
 @use 'partials' as *;
 
 .layout {
-  background-color: #ececec;
+  background-color: $pageBackgroundColor;
   width: 100vw;
   min-height: 100vh;
   display: grid;

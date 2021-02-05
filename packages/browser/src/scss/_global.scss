@@ -1,4 +1,4 @@
-@use 'partials' as p;
+@use 'partials' as *;
 
 html,
 body {
@@ -10,8 +10,30 @@ body {
 body {
   font-style: normal;
   font-variant: normal;
-  font-weight: p.$fontLight;
-  font-size: p.$fontM;
-  font-family: p.$fontFamily, sans-serif;
-  line-height: p.$fontLine;
+  font-weight: $fontLight;
+  font-size: $fontM;
+  font-family: $fontFamily, sans-serif;
+  line-height: $fontLine;
+  color: $themeTextColor;
+  letter-spacing: 0.005rem;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: $themeColor;
+}
+
+a:hover {
+  color: $themeHoverColor;
+}
+
+a:active {
+  color: $themeActiveColor;
+}
+
+a:focus {
+  box-shadow: 0 0 0 2px $themeColor;
 }

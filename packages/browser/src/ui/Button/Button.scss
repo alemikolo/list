@@ -1,0 +1,237 @@
+@use 'partials' as *;
+
+.button {
+  -webkit-appearance: none;
+  position: relative;
+  font-family: inherit;
+  letter-spacing: inherit;
+  font-size: $fontS;
+  background: $themeColor;
+  box-sizing: border-box;
+  outline: 0;
+  border: 0;
+  white-space: nowrap;
+  height: $sizeXL;
+  max-height: $sizeXL;
+  border-radius: $sizeXXS;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+
+  @include transition(
+    opacity,
+    background-color,
+    border-color,
+    box-shadow,
+    color
+  );
+
+  &::after,
+  &::before {
+    position: absolute;
+    display: block;
+    border-radius: $sizeXXS;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+
+    @include transition(opacity);
+  }
+
+  &:focus {
+    box-shadow: 0 0 $sizeXXS $sizeXXXS $themeFocusShadowColor;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    &::after,
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    border-radius: $sizeXXS;
+    z-index: 1;
+
+    @include transition(border-color);
+  }
+
+  &.primary {
+    color: $contrastColor;
+    background: $themeGradient;
+
+    .button__content {
+      padding: 0 $sizeS;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 0 $sizeXXXS $themeFocusShadowColor;
+    }
+
+    &::before {
+      background: $themeHoverGradient;
+    }
+
+    &::after {
+      background: $themeActiveGradient;
+    }
+  }
+
+  &.secondary {
+    background: $contrastColor;
+    color: $themeColor;
+    box-sizing: border-box;
+    padding: 0;
+
+    &::after,
+    &::before {
+      box-sizing: inherit;
+      border: 1px solid $themeColor;
+    }
+
+    &::before {
+      background: $themeLightHoverGradient;
+    }
+
+    &::after {
+      background: $themeLightActiveGradient;
+    }
+
+    &:hover:not(.loading) {
+      color: $themeHoverColor;
+
+      .button__content {
+        border: 1px solid $themeHoverColor;
+      }
+    }
+
+    &:active:not(.loading) {
+      color: $themeActiveColor;
+
+      .button__content {
+        border: 1px solid $themeActiveColor;
+      }
+    }
+
+    .button__content {
+      display: flex;
+      box-sizing: inherit;
+      border: 1px solid $themeColor;
+      border-radius: $sizeXXS;
+      width: 100%;
+      height: 100%;
+      padding: 0 $sizeS;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &.danger {
+    &:focus {
+      box-shadow: 0 0 $sizeXXS $sizeXXXS $dangerFocusShadowColor;
+    }
+
+    &.primary {
+      background: $dangerGradient;
+
+      .button__content {
+        text-shadow: 0 0 $sizeXXXS $dangerFocusShadowColor;
+      }
+
+      &::before {
+        background: $dangerHoverGradient;
+      }
+
+      &::after {
+        background: $dangerGradient;
+      }
+    }
+
+    &.secondary {
+      color: $dangerColor;
+
+      &::after,
+      &::before {
+        border-color: $dangerColor;
+      }
+
+      &::before {
+        background: $dangerLightHoverGradient;
+      }
+
+      &::after {
+        background: $dangerLightActiveGradient;
+      }
+
+      &:hover:not(.loading) {
+        color: $dangerHoverColor;
+
+        .button__content {
+          border-color: $dangerHoverColor;
+        }
+      }
+
+      &:active:not(.loading) {
+        color: $dangerActiveColor;
+
+        .button__content {
+          border-color: $dangerActiveColor;
+        }
+      }
+
+      .button__content {
+        border-color: $dangerColor;
+      }
+    }
+  }
+
+  &.disabled:not(.loading) {
+    cursor: not-allowed;
+
+    &::after,
+    &::before {
+      display: none;
+    }
+
+    .button__content {
+      text-shadow: none;
+    }
+
+    &.primary {
+      background: none;
+      background-color: $disabledColor;
+    }
+
+    &.secondary,
+    &.secondary:hover,
+    &.secondary:active {
+      .button__content {
+        color: $disabledColor;
+        border-color: $disabledColor;
+      }
+    }
+  }
+
+  &.loading {
+    cursor: wait;
+
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
+}

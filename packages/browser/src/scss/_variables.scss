@@ -1,10 +1,30 @@
 // colors
-$themeBlue: #006eb4;
-
-$backgroundColor: #ffffff;
+$dangerColor: var(--danger-color);
+$dangerGradient: var(--danger-gradient);
+$dangerHoverColor: var(--danger-hover-color);
+$dangerActiveColor: var(--danger-active-color);
+$dangerHoverGradient: var(--danger-hover-gradient);
+$dangerActiveGradient: var(--danger-active-gradient);
+$dangerLightHoverGradient: var(--danger-light-hover-gradient);
+$dangerLightActiveGradient: var(--danger-light-active-gradient);
+$dangerFocusShadowColor: var(--danger-focus-shadow-color);
+$themeColor: var(--theme-color);
+$themeHoverColor: var(--theme-hover-color);
+$themeActiveColor: var(--theme-active-color);
+$themeGradient: var(--theme-gradient);
+$themeHoverGradient: var(--theme-hover-gradient);
+$themeActiveGradient: var(--theme-active-gradient);
+$themeLightHoverGradient: var(--theme-light-hover-gradient);
+$themeLightActiveGradient: var(--theme-light-active-gradient);
+$themeFocusShadowColor: var(--theme-focus-shadow-color);
+$themeTextColor: var(--gray-dark);
+$contrastColor: var(--contrast-color);
+$backgroundColor: var(--background-color);
+$pageBackgroundColor: var(--page-background);
+$disabledColor: var(--gray-normal);
 
 $fontFamily: 'Montserrat';
-$fontLine: 1.25;
+$fontLine: 1.45;
 
 //font-weights
 $fontLight: 300;
@@ -20,13 +40,14 @@ $fontXL: 2rem; // 32px
 $fontXXL: 3rem; // 48px
 
 // distances
-$distanceXXS: 0.25rem; // 4px
-$distanceXS: 0.5rem; // 8px
-$distanceS: 1rem; // 16px
-$distanceM: 1.5rem; // 24x
-$distanceL: 2rem; // 32px
-$distanceXL: 3rem; // 48px
-$distanceXXL: 4rem; // 64px
+$sizeXXXS: 0.125rem; // 2px
+$sizeXXS: 0.25rem; // 4px
+$sizeXS: 0.5rem; // 8px
+$sizeS: 1rem; // 16px
+$sizeM: 1.5rem; // 24x
+$sizeL: 2rem; // 32px
+$sizeXL: 3rem; // 48px
+$sizeXXL: 4rem; // 64px
 
 //  breakpoints
 $screenXXS: 320px;

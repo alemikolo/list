@@ -16,7 +16,7 @@ const startServer = async () => {
 
   server.listen(PORT);
 
-  console.info(`"Handel it" server is running on port ${PORT}`);
+  console.info(`"Handle it" server is running on port ${PORT}`);
 };
 
 export default startServer;

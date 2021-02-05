@@ -1,10 +1,11 @@
-import React, { FC, useState, FormEvent } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 
 import { useSignUpMutation } from '../model/signUp';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
+import { AsyncButton, Button } from 'ui/Button';
 
 import './SignUp.scss';
 
@@ -22,11 +23,11 @@ export const SignUp: FC = () => {
     setPassword(event.target.value);
   };
 
-  const handleSignUp = async (event: FormEvent): Promise<Boolean> => {
+  const handleSignUp = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
 
     if (!email || !password) {
-      return false;
+      return;
     }
 
     const response = await signUp({
@@ -35,11 +36,13 @@ export const SignUp: FC = () => {
 
     if (response) {
       setRegistered(true);
-
-      return true;
     }
+  };
 
-    return false;
+  const handleReset = () => {
+    setRegistered(false);
+    setEmail('');
+    setPassword('');
   };
 
   const [specificErrors = {}, OtherError] = error
@@ -56,8 +59,13 @@ export const SignUp: FC = () => {
     <Page>
       {success ? (
         <div>
-          We have sent an email on address {email}. To finish sign up process
-          use the link from the email message to confirm your registration{' '}
+          <p>
+            We have sent an email on address {email}. To finish sign up process
+            use the link from the email message to confirm your registration{' '}
+          </p>
+          <p>
+            <Button onClick={handleReset}>Sign up again</Button>
+          </p>
         </div>
       ) : (
         <form onSubmit={handleSignUp}>
@@ -78,7 +86,9 @@ export const SignUp: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">{loading ? '...' : 'Sign Up'}</button>
+            <AsyncButton loading={loading} type="submit">
+              Sign Up
+            </AsyncButton>
           </div>
           {AlreadyExistsError && <div>User already exists</div>}
           {OtherError && <div>Something went wrong</div>}

@@ -1,6 +1,6 @@
 import React, { createContext, FC } from 'react';
 
-import { AppStore as AS, AppState, Locale, Theme } from './types';
+import { AppState, AppStore as AS, Locale, Theme } from './types';
 
 export const initialState: AppState = {
   isAuthenticated: false,
