@@ -1,7 +1,14 @@
 import { ApolloError } from '@apollo/client';
+import { GraphQLError } from 'graphql';
 
 import { ErrorReason } from './enums';
 import { CheckErrors, Error, Errors, SpecificErrors } from './types';
+
+const mapErrors = ({ message, extensions = {} }: GraphQLError): Error => {
+  const { exception } = extensions;
+
+  return { message, ...exception };
+};
 
 export const checkErrors: CheckErrors = (reason?: any) => (
   error: ApolloError
@@ -11,11 +18,7 @@ export const checkErrors: CheckErrors = (reason?: any) => (
   const someGraphQLErrors = graphQLErrors && graphQLErrors.length > 0;
 
   const parsedErrors: Error[] = someGraphQLErrors
-    ? graphQLErrors.map(({ message, extensions = {} }) => {
-        const { exception } = extensions;
-
-        return { message, ...exception };
-      })
+    ? graphQLErrors.map(mapErrors)
     : [];
 
   if (Array.isArray(reason)) {
