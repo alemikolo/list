@@ -1,5 +1,5 @@
 import autoprefixer from 'autoprefixer';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
@@ -76,7 +76,7 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {
