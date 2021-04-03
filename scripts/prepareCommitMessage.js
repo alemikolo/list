@@ -6,7 +6,7 @@ const util = require('util');
 
 const cliArguments = process.argv.slice(2);
 const messageFile = cliArguments[0];
-const branchesToSkip = ['master', 'test', '(no branch)'];
+const branchesToSkip = ['test', '(no branch)'];
 
 const exec = util.promisify(childProcessExec);
 
