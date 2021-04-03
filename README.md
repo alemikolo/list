@@ -38,9 +38,9 @@
 
 ### Installation
 
-#### 1. Install node.js 14.15.1
+#### 1. Install node.js 14.16.0
 
-#### 2. Install npm 7.0.15
+#### 2. Install npm 7.8
 
 #### 3. Install PostgreSQL 13
 
@@ -91,7 +91,7 @@ Generate three paris of keys: private and public ([you can do it here](https://w
 #### 12. Start development (in the root directory)
 
 ```bash
-npm run dev
+npm start
 ```
 
 #### 13. Build for production
@@ -114,18 +114,19 @@ npm run build
  "clean": removes node_modules from al packages
  "compile": runs typescript compiler for all packages,
  "create": creates a new lerna-managed package
- "dev": runs project for development,
  "format": formats all the files using Prettier,
  "format:fix": formats and fix all the files using Prettier,
  "gen": generates query and mutation hooks for all .gql files,
- "hooks": updates git hooks,
  "lint": lint all the files using eslint,
  "lint:fix": lint and fix all files using eslint,
  "outdated": runs npm outdated for root and for all packages,
  "postinstall": runs bootstrap and hooks scripts,
+ "prepare": install git hooks,
+ "prepare-commit-msg": runs prepare-commit-msg hook,
  "pre-commit": runs pre-commit hook,
  "pre-push": runs pre-push hook,
  "reset": runs clean script and runs npm ci,
+ "start": runs project for development,
  "stylelint": lint all style files,
  "stylelint:fix": lint and fix all style files,
  "test": run tests or all packages

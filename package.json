@@ -21,22 +21,23 @@
     "build": "lerna run build",
     "check": "lerna run check",
     "ci": "lerna run ci",
-    "ci:all": "npm ci && npm-run-all ci bootstrap hooks",
+    "ci:all": "npm ci && npm-run-all ci bootstrap",
     "clean": "lerna clean",
     "compile": "lerna run compile",
     "create": "lerna create",
-    "start": "lerna run dev --stream",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",
     "gen": "lerna run gen",
-    "hooks": "node scripts/enhancePrepareCommitMessage.js",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
     "outdated": "node scripts/runInDirs.js outdated",
-    "postinstall": "npm-run-all bootstrap hooks",
+    "postinstall": "npm-run-all bootstrap",
+    "prepare": "husky install",
+    "prepare-commit-msg": "node scripts/prepareCommitMessage.js",
     "pre-commit": "lerna run pre-commit --concurrency 1 --stream",
     "pre-push": "lerna run pre-push --concurrency 1 --stream",
     "reset": "lerna clean --yes && npm ci",
+    "start": "lerna run dev --stream",
     "stylelint": "lerna run stylelint",
     "stylelint:fix": "lerna run stylelint:fix",
     "test": "lerna run test"
@@ -48,14 +49,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "husky": "4.3.8",
-    "lerna": "3.22.1",
+    "husky": "6.0.0",
+    "lerna": "4.0.0",
     "npm-run-all": "4.1.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit",
-      "pre-push": "npm run pre-push"
-    }
   }
 }

@@ -1,5 +1,4 @@
 import autoprefixer from 'autoprefixer';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
@@ -71,12 +70,12 @@ const config: IConfiguration = {
     ]
   },
   output: {
+    clean: true,
     filename: 'bundle.js',
-    path: path.join(__dirname, '../../dist/public'),
+    path: path.resolve(__dirname, '../../dist/public'),
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {

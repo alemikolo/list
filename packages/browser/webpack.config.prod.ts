@@ -1,5 +1,4 @@
 import autoprefixer from 'autoprefixer';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -59,12 +58,12 @@ const config: WebpackConfiguration = {
     ]
   },
   output: {
+    clean: true,
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../../dist/public'),
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[hash].css'
     }),
