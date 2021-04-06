@@ -17,7 +17,7 @@ enum Path {
   SignUp = '/sign-up',
   SignUpConfirmation = '/sign-up-confirmation/:tokenId',
   Task = '/projects/:projectId/task/:taskId',
-  UpdatePassword = '/reset-password/:tokenId'
+  UpdatePassword = '/update-password/:tokenId'
 }
 
 export default Path;

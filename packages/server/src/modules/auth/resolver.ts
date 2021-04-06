@@ -13,12 +13,19 @@ import {
 } from './auth';
 import Token from './entity';
 import User from '@modules/user/entity';
-import { sendSignUpConfirmation } from '@modules/mailer';
+import {
+  sendResetPasswordConfirmation,
+  sendSignUpConfirmation
+} from '@modules/mailer';
 import { BadRequestError, ValidationError } from '@errors/index';
 import { ErrorReason } from '@errors/enums';
 import environment from '@env/env';
 
-const { APP_URL, CONFIRM_SIGN_UP_TOKEN_EXP } = environment;
+const {
+  APP_URL,
+  CONFIRM_SIGN_UP_TOKEN_EXP,
+  RESET_PASSWORD_TOKEN_EXP
+} = environment;
 @ObjectType()
 class SignInResponse {
   @Field(() => User)
@@ -238,6 +245,49 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
+  async resetPassword(@Arg('email') email: string) {
+    const user = await User.findOne({
+      email,
+      status: AccountStatus.Active
+    });
+
+    if (!user) {
+      throw new BadRequestError();
+    }
+
+    await Token.delete({ user });
+
+    const { id } = user;
+
+    const token = createToken(RESET_PASSWORD_TOKEN_EXP)(id);
+
+    const {
+      identifiers: [{ id: tokenId }]
+    } = await Token.insert({
+      token,
+      type: TokenType.SignUpConfirmToken,
+      user
+    });
+
+    const redirectUrl = `${APP_URL}/update-password/${tokenId}`;
+
+    try {
+      await sendResetPasswordConfirmation({
+        recipient: email,
+        redirectUrl,
+        user: { email }
+      });
+    } catch {
+      throw new BadRequestError(
+        'Sending confirmation failed',
+        ErrorReason.SendingFailedError
+      );
+    }
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
   async retrySendingConfirmation(@Arg('email') email: string) {
     const user = await User.findOne({
       email,
@@ -279,6 +329,43 @@ export class AuthResolver {
         ErrorReason.SendingFailedError
       );
     }
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async updatePassword(@Arg('tokenId') tokenId: string) {
+    const token = await Token.findOne({ id: tokenId });
+
+    if (!token) {
+      // TODO If there is no token and there is no user also
+      // this account was deleted due to email not being
+      // confirmed for 30 days
+      throw new BadRequestError();
+    }
+
+    const { token: jwtToken } = token;
+
+    const payload = verifyToken(jwtToken, {
+      ignoreExpiration: true
+    });
+
+    const { exp, userId: id } = payload;
+
+    if (Date.now() >= exp * 1000) {
+      throw new ValidationError(
+        'Link has expired',
+        ErrorReason.ExpiredLinkError
+      );
+    }
+
+    await getManager().update(
+      User,
+      { id, status: AccountStatus.Registered },
+      { activeAt: new Date(), status: AccountStatus.Active }
+    );
+
+    await Token.delete({ id: tokenId });
 
     return true;
   }
