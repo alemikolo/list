@@ -2,7 +2,13 @@ import React, { FC } from 'react';
 import { Switch } from 'react-router-dom';
 
 import Dashboard from 'modules/dashboard';
-import { SignIn, SignUp, SignUpConfirmation } from 'modules/auth';
+import {
+  ResetPassword,
+  SignIn,
+  SignUp,
+  SignUpConfirmation,
+  UpdatePassword
+} from 'modules/auth';
 import { Bye } from 'modules/user';
 import Home from 'modules/home';
 import { Path, PrivateRoute, PublicRoute } from 'router';
@@ -26,6 +32,12 @@ export const Layout: FC = () => (
         component={SignUpConfirmation}
         exact
         path={Path.SignUpConfirmation}
+      />
+      <PublicRoute component={ResetPassword} exact path={Path.ResetPassword} />
+      <PublicRoute
+        component={UpdatePassword}
+        exact
+        path={Path.UpdatePassword}
       />
       <PublicRoute component={() => <div>404</div>} noFallback />
     </Switch>
