@@ -11,11 +11,13 @@ enum Path {
   Organizations = '/organizations',
   Project = '/projects/:projectId',
   Projects = '/projects',
+  ResetPassword = '/reset-password',
   Settings = '/settings',
   SignIn = '/sign-in',
   SignUp = '/sign-up',
   SignUpConfirmation = '/sign-up-confirmation/:tokenId',
-  Task = '/projects/:projectId/task/:taskId'
+  Task = '/projects/:projectId/task/:taskId',
+  UpdatePassword = '/reset-password/:tokenId'
 }
 
 export default Path;

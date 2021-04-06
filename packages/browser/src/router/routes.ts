@@ -13,11 +13,13 @@ import Route, {
   OrganizationsRoute,
   ProjectRoute,
   ProjectsRoute,
+  ResetPasswordRoute,
   SettingsRoute,
   SignInRoute,
   SignUpConfirmationRoute,
   SignUpRoute,
-  TaskRoute
+  TaskRoute,
+  UpdatePasswordRoute
 } from './types';
 
 const createPath = <T extends Route>(path: T[0]) => {
@@ -71,12 +73,20 @@ export const createProjectRoute = createPath<ProjectRoute>(Path.Project);
 
 export const createProjectsRoute = createPath<ProjectsRoute>(Path.Projects);
 
+export const createResetPasswordRoute = createPath<ResetPasswordRoute>(
+  Path.ResetPassword
+);
+
 export const createSettingsRoute = createPath<SettingsRoute>(Path.Settings);
 
 export const createSignInRoute = createPath<SignInRoute>(Path.SignIn);
 
 export const createSignUpConfirmationRoute = createPath<SignUpConfirmationRoute>(
   Path.SignUpConfirmation
+);
+
+export const createUpdatePasswordRoute = createPath<UpdatePasswordRoute>(
+  Path.UpdatePassword
 );
 
 export const createSignUpRoute = createPath<SignUpRoute>(Path.SignUp);
