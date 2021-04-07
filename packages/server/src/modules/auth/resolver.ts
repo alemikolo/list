@@ -36,21 +36,6 @@ class SignInResponse {
 @Resolver()
 export class AuthResolver {
   @Mutation(() => Boolean)
-  async forgotPassword(@Arg('email') email: string): Promise<Boolean> {
-    try {
-      await getManager().increment(User, { email }, 'tokenVersion', 1);
-
-      // send email with link
-    } catch (error) {
-      console.error(error);
-
-      return false;
-    }
-
-    return true;
-  }
-
-  @Mutation(() => Boolean)
   async signOut(@Ctx() { res }: Context) {
     res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
 
@@ -255,9 +240,11 @@ export class AuthResolver {
       throw new BadRequestError();
     }
 
+    const { id } = user;
+
     await Token.delete({ user });
 
-    const { id } = user;
+    await getManager().increment(User, { id }, 'tokenVersion', 1);
 
     const token = createToken(RESET_PASSWORD_TOKEN_EXP)(id);
 
@@ -334,13 +321,20 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async updatePassword(@Arg('tokenId') tokenId: string) {
+  async updatePassword(
+    @Arg('tokenId') tokenId: string,
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('passwordConfirmation') passwordConfirmation: string
+  ) {
+    if (password !== passwordConfirmation) {
+      // TODO throw ValidationError
+      throw new BadRequestError();
+    }
+
     const token = await Token.findOne({ id: tokenId });
 
     if (!token) {
-      // TODO If there is no token and there is no user also
-      // this account was deleted due to email not being
-      // confirmed for 30 days
       throw new BadRequestError();
     }
 
@@ -359,10 +353,21 @@ export class AuthResolver {
       );
     }
 
+    const user = await User.findOne({
+      email,
+      status: AccountStatus.Active
+    });
+
+    if (!user) {
+      throw new BadRequestError();
+    }
+
+    const hashedPassword = await hash(password, 12);
+
     await getManager().update(
       User,
-      { id, status: AccountStatus.Registered },
-      { activeAt: new Date(), status: AccountStatus.Active }
+      { email, id, status: AccountStatus.Active },
+      { password: hashedPassword }
     );
 
     await Token.delete({ id: tokenId });

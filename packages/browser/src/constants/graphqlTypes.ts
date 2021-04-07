@@ -148,6 +148,9 @@ export type MutationRetrySendingConfirmationArgs = {
 };
 
 export type MutationUpdatePasswordArgs = {
+  passwordConfirmation: Scalars['String'];
+  password: Scalars['String'];
+  email: Scalars['String'];
   tokenId: Scalars['String'];
 };
 

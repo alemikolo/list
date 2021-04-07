@@ -11,6 +11,7 @@ import {
 } from 'modules/auth';
 import { Bye } from 'modules/user';
 import Home from 'modules/home';
+import { ContentNotFound, PageNotFound } from 'modules/notFound';
 import { Path, PrivateRoute, PublicRoute } from 'router';
 import Header from './Header';
 import LeftBar from './LeftBar';
@@ -39,7 +40,7 @@ export const Layout: FC = () => (
         exact
         path={Path.UpdatePassword}
       />
-      <PublicRoute component={() => <div>404</div>} noFallback />
+      <PublicRoute component={PageNotFound} noFallback />
     </Switch>
     <Switch>
       <PrivateRoute component={TopBar} noFallback />
@@ -50,7 +51,7 @@ export const Layout: FC = () => (
     <Switch>
       <PrivateRoute component={Bye} exact path={Path.Organizations} />
       <PrivateRoute component={Dashboard} exact path={Path.Dashboard} />
-      <PrivateRoute component={() => <div>404</div>} noFallback />
+      <PrivateRoute component={ContentNotFound} noFallback />
     </Switch>
     <Switch>
       <PrivateRoute component={RightBar} noFallback />
