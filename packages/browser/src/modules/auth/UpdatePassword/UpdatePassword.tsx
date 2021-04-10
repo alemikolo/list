@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useUpdatePasswordMutation } from '../model/updatePassword';
 import { InputChangeHandler } from 'constants/types';
+import { checkErrors } from 'errors';
+import { ErrorReason } from 'errors/enums';
 import { Path } from 'router';
 import Page from 'ui/Page';
 import { AsyncButton } from 'ui/Button';
@@ -46,12 +48,18 @@ const UpdatePassword: FC = () => {
     const response = await updatePassword({
       variables: { tokenId, email, password, passwordConfirmation }
     });
-    // eslint-disable-next-line no-console
-    console.log(response);
+
     if (response) {
       setUpdated(true);
     }
   };
+
+  const [specificErrors = {}, OtherError] = error
+    ? checkErrors([ErrorReason.ExpiredLinkError, ErrorReason.PasswordMismatch])(
+        error
+      )
+    : [];
+  const { ExpiredLinkError, PasswordMismatch } = specificErrors;
 
   const success = !error && !loading && updated;
 
@@ -91,12 +99,20 @@ const UpdatePassword: FC = () => {
                 value={passwordConfirmation}
               />
             </label>
+            {PasswordMismatch && <div>Passwords does not match</div>}
           </div>
           <div>
             <AsyncButton loading={loading} type="submit">
               Save
             </AsyncButton>
           </div>
+          {OtherError && <div>Something went wrong</div>}
+          {ExpiredLinkError && (
+            <div>
+              Sending confirmation email failed. Please try to send request
+              again. <Link to={Path.ResetPassword}>Reset password</Link>
+            </div>
+          )}
         </form>
       )}
     </Page>

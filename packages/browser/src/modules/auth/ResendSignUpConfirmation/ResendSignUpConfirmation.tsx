@@ -29,11 +29,14 @@ const ResendSignUpConfirmation: FC = () => {
   };
 
   return (
-    <ResendConfirmationView
-      error={error}
-      loading={loading}
-      onClick={handleResendConfirmationLink}
-    />
+    <div>
+      <div>Your confirmation link has expired. Please try again.</div>
+      <ResendConfirmationView
+        error={error}
+        loading={loading}
+        onClick={handleResendConfirmationLink}
+      />
+    </div>
   );
 };
 

@@ -78,7 +78,7 @@ export class AuthResolver {
     sendRefreshToken(res, createRefreshToken(id, tokenVersion));
 
     return {
-      accessToken: createAccessToken(id),
+      accessToken: createAccessToken(id, tokenVersion),
       user
     };
   }
@@ -143,7 +143,7 @@ export class AuthResolver {
     if (!token) {
       // TODO If there is no token and there is no user also
       // this account was deleted due to email not being
-      // confirmed for 30 days
+      // confirmed for n days
       throw new BadRequestError();
     }
 
@@ -236,39 +236,37 @@ export class AuthResolver {
       status: AccountStatus.Active
     });
 
-    if (!user) {
-      throw new BadRequestError();
-    }
+    if (user) {
+      const { id } = user;
 
-    const { id } = user;
+      await Token.delete({ type: TokenType.ResetPasswordToken, user });
 
-    await Token.delete({ user });
+      await getManager().increment(User, { id }, 'tokenVersion', 1);
 
-    await getManager().increment(User, { id }, 'tokenVersion', 1);
+      const token = createToken(RESET_PASSWORD_TOKEN_EXP)(id);
 
-    const token = createToken(RESET_PASSWORD_TOKEN_EXP)(id);
-
-    const {
-      identifiers: [{ id: tokenId }]
-    } = await Token.insert({
-      token,
-      type: TokenType.SignUpConfirmToken,
-      user
-    });
-
-    const redirectUrl = `${APP_URL}/update-password/${tokenId}`;
-
-    try {
-      await sendResetPasswordConfirmation({
-        recipient: email,
-        redirectUrl,
-        user: { email }
+      const {
+        identifiers: [{ id: tokenId }]
+      } = await Token.insert({
+        token,
+        type: TokenType.ResetPasswordToken,
+        user
       });
-    } catch {
-      throw new BadRequestError(
-        'Sending confirmation failed',
-        ErrorReason.SendingFailedError
-      );
+
+      const redirectUrl = `${APP_URL}/update-password/${tokenId}`;
+
+      try {
+        await sendResetPasswordConfirmation({
+          recipient: email,
+          redirectUrl,
+          user: { email }
+        });
+      } catch {
+        throw new BadRequestError(
+          'Sending confirmation failed',
+          ErrorReason.SendingFailedError
+        );
+      }
     }
 
     return true;
@@ -328,8 +326,11 @@ export class AuthResolver {
     @Arg('passwordConfirmation') passwordConfirmation: string
   ) {
     if (password !== passwordConfirmation) {
-      // TODO throw ValidationError
-      throw new BadRequestError();
+      // TODO throw new ValidationError
+      throw new ValidationError(
+        'Password mismatch',
+        ErrorReason.PasswordMismatch
+      );
     }
 
     const token = await Token.findOne({ id: tokenId });
@@ -376,4 +377,4 @@ export class AuthResolver {
   }
 }
 
-//TODO validate userId, email, password, token
+//TODO validate userId, email, password, tokenId

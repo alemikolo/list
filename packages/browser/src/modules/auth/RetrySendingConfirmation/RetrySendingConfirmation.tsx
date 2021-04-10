@@ -28,11 +28,18 @@ const RetrySendingConfirmation: FC<RetrySendingConfirmationProps> = ({
   };
 
   return (
-    <ResendConfirmationView
-      error={error}
-      loading={loading}
-      onClick={handleRetrySendingConfirmation}
-    />
+    <div>
+      <div>
+        Your account was created but sending confirmation email failed. If the
+        email you entered: {email} is correct please use retry button. Otherwise
+        try to sign up again.
+      </div>
+      <ResendConfirmationView
+        error={error}
+        loading={loading}
+        onClick={handleRetrySendingConfirmation}
+      />
+    </div>
   );
 };
 

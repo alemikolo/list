@@ -2,6 +2,8 @@ import React, { FC, FormEvent, useState } from 'react';
 
 import { useResetPasswordMutation } from '../model/resetPassword';
 import { InputChangeHandler } from 'constants/types';
+import { checkErrors } from 'errors';
+import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
 import { AsyncButton } from 'ui/Button';
 
@@ -32,6 +34,12 @@ const ResetPassword: FC = () => {
   if (error) {
     console.error(error);
   }
+
+  const [specificErrors = {}, OtherError] = error
+    ? checkErrors([ErrorReason.SendingFailedError])(error)
+    : [];
+  const { SendingFailedError } = specificErrors;
+
   const success = !error && !loading && resetEmailSent;
 
   return (
@@ -56,6 +64,13 @@ const ResetPassword: FC = () => {
               Reset password
             </AsyncButton>
           </div>
+          {OtherError && <div>Something went wrong</div>}
+          {SendingFailedError && (
+            <div>
+              Sending confirmation email failed. Check if the entered email:{' '}
+              {email} is correct and try to send request again.
+            </div>
+          )}
         </form>
       )}
     </Page>

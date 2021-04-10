@@ -3,6 +3,7 @@ import { ApolloError } from '@apollo/client';
 
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
+import { AsyncButton } from 'ui/Button';
 
 import './ResendConfirmationView.scss';
 
@@ -26,9 +27,9 @@ const ResendConfirmationView: FC<ResendConfirmationViewProps> = ({
       {SendingFailedError && (
         <div>Sending confirmation email failed. Please try again.</div>
       )}
-      <button onClick={onClick}>
-        {loading ? '...' : 'resend confirmation link'}
-      </button>
+      <AsyncButton loading={loading} onClick={onClick}>
+        resend confirmation link
+      </AsyncButton>
       {OtherError && <div>Something went wrong</div>}
     </div>
   );
