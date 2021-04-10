@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useSignInMutation } from '../model/signIn';
 import { InputChangeHandler } from 'constants/types';
@@ -82,6 +82,9 @@ export const SignIn: FC = () => {
           </div>
           <div>
             <button type="submit">Sign in</button>
+          </div>
+          <div>
+            <Link to={Path.ResetPassword}>Forgot password?</Link>
           </div>
         </form>
       )}

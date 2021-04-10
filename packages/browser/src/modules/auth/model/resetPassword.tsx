@@ -334,107 +334,110 @@ export type User = {
   organizationViewer: Organization;
 };
 
-export type SignUpMutationVariables = Types.Exact<{
+export type ResetPasswordMutationVariables = Types.Exact<{
   email: Types.Scalars['String'];
-  password: Types.Scalars['String'];
 }>;
 
-export type SignUpMutation = { __typename?: 'Mutation' } & Pick<
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<
   Types.Mutation,
-  'signUp'
+  'resetPassword'
 >;
 
-export const SignUpDocument = gql`
-  mutation signUp($email: String!, $password: String!) {
-    signUp(email: $email, password: $password)
+export const ResetPasswordDocument = gql`
+  mutation resetPassword($email: String!) {
+    resetPassword(email: $email)
   }
 `;
-export type SignUpMutationFn = Apollo.MutationFunction<
-  SignUpMutation,
-  SignUpMutationVariables
+export type ResetPasswordMutationFn = Apollo.MutationFunction<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
 >;
-export type SignUpComponentProps = Omit<
+export type ResetPasswordComponentProps = Omit<
   ApolloReactComponents.MutationComponentOptions<
-    SignUpMutation,
-    SignUpMutationVariables
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
   >,
   'mutation'
 >;
 
-export const SignUpComponent = (props: SignUpComponentProps) => (
-  <ApolloReactComponents.Mutation<SignUpMutation, SignUpMutationVariables>
-    mutation={SignUpDocument}
+export const ResetPasswordComponent = (props: ResetPasswordComponentProps) => (
+  <ApolloReactComponents.Mutation<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+  >
+    mutation={ResetPasswordDocument}
     {...props}
   />
 );
 
-export type SignUpProps<
+export type ResetPasswordProps<
   TChildProps = {},
   TDataName extends string = 'mutate'
 > = {
   [key in TDataName]: Apollo.MutationFunction<
-    SignUpMutation,
-    SignUpMutationVariables
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
   >;
 } &
   TChildProps;
-export function withSignUp<
+export function withResetPassword<
   TProps,
   TChildProps = {},
   TDataName extends string = 'mutate'
 >(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    SignUpMutation,
-    SignUpMutationVariables,
-    SignUpProps<TChildProps, TDataName>
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables,
+    ResetPasswordProps<TChildProps, TDataName>
   >
 ) {
   return ApolloReactHoc.withMutation<
     TProps,
-    SignUpMutation,
-    SignUpMutationVariables,
-    SignUpProps<TChildProps, TDataName>
-  >(SignUpDocument, {
-    alias: 'signUp',
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables,
+    ResetPasswordProps<TChildProps, TDataName>
+  >(ResetPasswordDocument, {
+    alias: 'resetPassword',
     ...operationOptions
   });
 }
 
 /**
- * __useSignUpMutation__
+ * __useResetPasswordMutation__
  *
- * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useResetPasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetPasswordMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
+ * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
  *   variables: {
  *      email: // value for 'email'
- *      password: // value for 'password'
  *   },
  * });
  */
-export function useSignUpMutation(
+export function useResetPasswordMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    SignUpMutation,
-    SignUpMutationVariables
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
 
-  return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(
-    SignUpDocument,
-    options
-  );
+  return Apollo.useMutation<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+  >(ResetPasswordDocument, options);
 }
-export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
-export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
-export type SignUpMutationOptions = Apollo.BaseMutationOptions<
-  SignUpMutation,
-  SignUpMutationVariables
+export type ResetPasswordMutationHookResult = ReturnType<
+  typeof useResetPasswordMutation
+>;
+export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
+export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
 >;

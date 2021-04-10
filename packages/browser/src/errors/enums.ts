@@ -11,5 +11,6 @@ export enum ErrorReason {
   AlreadyExistsError = 'AlreadyExistsError',
   InvalidCredentialsError = 'InvalidCredentialsError',
   ExpiredLinkError = 'ExpiredLinkError',
+  PasswordMismatch = 'PasswordMismatch',
   SendingFailedError = 'SendingFailedError'
 }

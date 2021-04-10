@@ -112,7 +112,9 @@ export type Mutation = {
   signUp: Scalars['Boolean'];
   confirmSignUp: Scalars['Boolean'];
   resendSignUpConfirmation: Scalars['Boolean'];
+  resetPassword: Scalars['Boolean'];
   retrySendingConfirmation: Scalars['Boolean'];
+  updatePassword: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -137,8 +139,19 @@ export type MutationResendSignUpConfirmationArgs = {
   tokenId: Scalars['String'];
 };
 
+export type MutationResetPasswordArgs = {
+  email: Scalars['String'];
+};
+
 export type MutationRetrySendingConfirmationArgs = {
   email: Scalars['String'];
+};
+
+export type MutationUpdatePasswordArgs = {
+  passwordConfirmation: Scalars['String'];
+  password: Scalars['String'];
+  email: Scalars['String'];
+  tokenId: Scalars['String'];
 };
 
 export type Organization = {

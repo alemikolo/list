@@ -13,12 +13,19 @@ import {
 } from './auth';
 import Token from './entity';
 import User from '@modules/user/entity';
-import { sendSignUpConfirmation } from '@modules/mailer';
+import {
+  sendResetPasswordConfirmation,
+  sendSignUpConfirmation
+} from '@modules/mailer';
 import { BadRequestError, ValidationError } from '@errors/index';
 import { ErrorReason } from '@errors/enums';
 import environment from '@env/env';
 
-const { APP_URL, CONFIRM_SIGN_UP_TOKEN_EXP } = environment;
+const {
+  APP_URL,
+  CONFIRM_SIGN_UP_TOKEN_EXP,
+  RESET_PASSWORD_TOKEN_EXP
+} = environment;
 @ObjectType()
 class SignInResponse {
   @Field(() => User)
@@ -28,21 +35,6 @@ class SignInResponse {
 }
 @Resolver()
 export class AuthResolver {
-  @Mutation(() => Boolean)
-  async forgotPassword(@Arg('email') email: string): Promise<Boolean> {
-    try {
-      await getManager().increment(User, { email }, 'tokenVersion', 1);
-
-      // send email with link
-    } catch (error) {
-      console.error(error);
-
-      return false;
-    }
-
-    return true;
-  }
-
   @Mutation(() => Boolean)
   async signOut(@Ctx() { res }: Context) {
     res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
@@ -86,7 +78,7 @@ export class AuthResolver {
     sendRefreshToken(res, createRefreshToken(id, tokenVersion));
 
     return {
-      accessToken: createAccessToken(id),
+      accessToken: createAccessToken(id, tokenVersion),
       user
     };
   }
@@ -151,7 +143,7 @@ export class AuthResolver {
     if (!token) {
       // TODO If there is no token and there is no user also
       // this account was deleted due to email not being
-      // confirmed for 30 days
+      // confirmed for n days
       throw new BadRequestError();
     }
 
@@ -238,6 +230,49 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
+  async resetPassword(@Arg('email') email: string) {
+    const user = await User.findOne({
+      email,
+      status: AccountStatus.Active
+    });
+
+    if (user) {
+      const { id } = user;
+
+      await Token.delete({ type: TokenType.ResetPasswordToken, user });
+
+      await getManager().increment(User, { id }, 'tokenVersion', 1);
+
+      const token = createToken(RESET_PASSWORD_TOKEN_EXP)(id);
+
+      const {
+        identifiers: [{ id: tokenId }]
+      } = await Token.insert({
+        token,
+        type: TokenType.ResetPasswordToken,
+        user
+      });
+
+      const redirectUrl = `${APP_URL}/update-password/${tokenId}`;
+
+      try {
+        await sendResetPasswordConfirmation({
+          recipient: email,
+          redirectUrl,
+          user: { email }
+        });
+      } catch {
+        throw new BadRequestError(
+          'Sending confirmation failed',
+          ErrorReason.SendingFailedError
+        );
+      }
+    }
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
   async retrySendingConfirmation(@Arg('email') email: string) {
     const user = await User.findOne({
       email,
@@ -282,6 +317,64 @@ export class AuthResolver {
 
     return true;
   }
+
+  @Mutation(() => Boolean)
+  async updatePassword(
+    @Arg('tokenId') tokenId: string,
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('passwordConfirmation') passwordConfirmation: string
+  ) {
+    if (password !== passwordConfirmation) {
+      // TODO throw new ValidationError
+      throw new ValidationError(
+        'Password mismatch',
+        ErrorReason.PasswordMismatch
+      );
+    }
+
+    const token = await Token.findOne({ id: tokenId });
+
+    if (!token) {
+      throw new BadRequestError();
+    }
+
+    const { token: jwtToken } = token;
+
+    const payload = verifyToken(jwtToken, {
+      ignoreExpiration: true
+    });
+
+    const { exp, userId: id } = payload;
+
+    if (Date.now() >= exp * 1000) {
+      throw new ValidationError(
+        'Link has expired',
+        ErrorReason.ExpiredLinkError
+      );
+    }
+
+    const user = await User.findOne({
+      email,
+      status: AccountStatus.Active
+    });
+
+    if (!user) {
+      throw new BadRequestError();
+    }
+
+    const hashedPassword = await hash(password, 12);
+
+    await getManager().update(
+      User,
+      { email, id, status: AccountStatus.Active },
+      { password: hashedPassword }
+    );
+
+    await Token.delete({ id: tokenId });
+
+    return true;
+  }
 }
 
-//TODO validate userId, email, password, token
+//TODO validate userId, email, password, tokenId

@@ -28,6 +28,7 @@ export type OrganizationRoute = [Path.Organization, { organizationId: string }];
 export type OrganizationsRoute = [Path.Organizations, NoParams];
 export type ProjectRoute = [Path.Project, { projectId: string }];
 export type ProjectsRoute = [Path.Projects, NoParams];
+export type ResetPasswordRoute = [Path.ResetPassword, NoParams];
 export type SettingsRoute = [Path.Settings, NoParams];
 export type SignInRoute = [Path.SignIn, NoParams];
 export type SignUpRoute = [Path.SignUp, NoParams];
@@ -36,6 +37,7 @@ export type SignUpConfirmationRoute = [
   { tokenId: string }
 ];
 export type TaskRoute = [Path.Task, { projectId: string; taskId: string }];
+export type UpdatePasswordRoute = [Path.UpdatePassword, { tokenId: string }];
 
 type Route =
   | AccountRoute
@@ -50,10 +52,12 @@ type Route =
   | OrganizationsRoute
   | ProjectRoute
   | ProjectsRoute
+  | ResetPasswordRoute
   | SettingsRoute
   | SignInRoute
   | SignUpConfirmationRoute
   | SignUpRoute
-  | TaskRoute;
+  | TaskRoute
+  | UpdatePasswordRoute;
 
 export default Route;

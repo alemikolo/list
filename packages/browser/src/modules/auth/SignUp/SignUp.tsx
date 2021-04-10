@@ -1,6 +1,7 @@
 import React, { FC, FormEvent, useState } from 'react';
 
 import { useSignUpMutation } from '../model/signUp';
+import RetrySendingConfirmation from 'modules/auth/RetrySendingConfirmation';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
@@ -67,6 +68,8 @@ export const SignUp: FC = () => {
             <Button onClick={handleReset}>Sign up again</Button>
           </p>
         </div>
+      ) : SendingFailedError ? (
+        <RetrySendingConfirmation email={email} />
       ) : (
         <form onSubmit={handleSignUp}>
           <div>
@@ -92,16 +95,9 @@ export const SignUp: FC = () => {
           </div>
           {AlreadyExistsError && <div>User already exists</div>}
           {OtherError && <div>Something went wrong</div>}
-          {SendingFailedError && (
-            <div>
-              Your account was created but sending confirmation email failed. If
-              the email you entered: {email} is correct please use retry button.
-              Otherwise try to sign up again.
-              <button>Send</button>
-            </div>
-          )}
         </form>
       )}
+      )
     </Page>
   );
 };
