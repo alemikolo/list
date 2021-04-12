@@ -35,7 +35,6 @@
     "@sendgrid/mail": "7.4.2",
     "apollo-server-express": "2.22.2",
     "bcryptjs": "2.4.3",
-    "body-parser": "1.19.0",
     "cookie-parser": "1.4.5",
     "cors": "2.8.5",
     "express": "4.17.1",
@@ -44,13 +43,13 @@
     "pg": "8.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-intl": "5.15.7",
     "reflect-metadata": "0.1.13",
     "type-graphql": "1.1.1",
     "typeorm": "0.2.32"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
-    "@types/body-parser": "1.19.0",
     "@types/cookie-parser": "1.4.2",
     "@types/cors": "2.8.10",
     "@types/express": "4.17.11",
@@ -79,7 +78,8 @@
     "@env": "src/env",
     "@errors": "src/errors",
     "@modules": "src/modules",
-    "@shared": "src/shared"
+    "@shared": "src/shared",
+    "@translations": "src/translations"
   },
   "lint-staged": {
     "*.{ts,js,json,md}": [

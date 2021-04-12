@@ -1,6 +1,7 @@
 import SendGridMail from '@sendgrid/mail';
 import { ReactNode } from 'react';
 
+import { Locale } from '@shared/types';
 import EmailTemplate from './enums';
 
 export type SendMailResult = ReturnType<typeof SendGridMail.send>;
@@ -33,6 +34,7 @@ interface Organization {
 
 export interface MailContent {
   content: ReactNode;
+  locale: Locale;
   title: string;
 }
 
@@ -49,6 +51,7 @@ export interface MessageData {
 }
 export interface Data {
   doer: User;
+  locale: Locale;
   organization: Organization;
   project: Project;
   recipient: string;
@@ -57,7 +60,10 @@ export interface Data {
   user: User;
 }
 
-export type AuthMailData = Pick<Data, 'recipient' | 'redirectUrl' | 'user'>;
+export type AuthMailData = Pick<
+  Data,
+  'locale' | 'recipient' | 'redirectUrl' | 'user'
+>;
 
 export type MailDataCreator<T> = (data: T) => MailData;
 
@@ -65,16 +71,17 @@ export type Send = (messageData: MessageData) => SendMailResult;
 
 export type SignUpMail = [
   EmailTemplate.SignUp,
-  { recipient: string; redirectUrl: string; user: User }
+  { locale: Locale; recipient: string; redirectUrl: string; user: User }
 ];
 
 export type ResetPasswordMail = [
   EmailTemplate.ResetPassword,
-  { recipient: string; redirectUrl: string; user: User }
+  { locale: Locale; recipient: string; redirectUrl: string; user: User }
 ];
 
 export type Mail = SignUpMail | ResetPasswordMail;
 
 export interface ComponentProps {
   key: string;
+  locale?: Locale;
 }

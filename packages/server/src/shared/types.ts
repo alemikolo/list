@@ -14,6 +14,8 @@ export interface UserContext {
   userId: string;
 }
 
+export type Locale = 'en' | 'pl';
+
 export interface Context {
   req: Request;
   res: Response;

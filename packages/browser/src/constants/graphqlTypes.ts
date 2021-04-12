@@ -106,7 +106,6 @@ export type Lock = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  forgotPassword: Scalars['Boolean'];
   signOut: Scalars['Boolean'];
   signIn: SignInResponse;
   signUp: Scalars['Boolean'];
@@ -115,10 +114,6 @@ export type Mutation = {
   resetPassword: Scalars['Boolean'];
   retrySendingConfirmation: Scalars['Boolean'];
   updatePassword: Scalars['Boolean'];
-};
-
-export type MutationForgotPasswordArgs = {
-  email: Scalars['String'];
 };
 
 export type MutationSignInArgs = {

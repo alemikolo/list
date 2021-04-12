@@ -1,0 +1,11 @@
+{
+  "mail.footer.address-label": "Address",
+  "mail.footer.contact-label": "Contact",
+  "mail.footer.service-provider": "{app} is a service provided by {COMPANY}",
+  "mail.register.title": "Confirm registration in Handle It",
+  "mail.register.confirm-link": "Confirm registration",
+  "mail.register.message": "Hello {email}. Welcome on board. Use the following link to confirm your registration:",
+  "mail.reset-password.title": "Reset your password in Handle It",
+  "mail.reset-password.confirm-link": "Reset password",
+  "mail.reset-password.message": "Hello {email}. You told us that you forgot your password. If that sounds right use the following link to set the new one: "
+}

@@ -97,7 +97,6 @@ export const SignUp: FC = () => {
           {OtherError && <div>Something went wrong</div>}
         </form>
       )}
-      )
     </Page>
   );
 };

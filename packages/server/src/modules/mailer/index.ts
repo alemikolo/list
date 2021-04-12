@@ -6,7 +6,7 @@ import {
   MessageData,
   ResetPasswordMail,
   Send,
-  SendMailResult,
+  // SendMailResult,
   SignUpMail
 } from './types';
 import EmailTemplate from './enums';
@@ -31,7 +31,7 @@ const sendMessage = (send: Send) => <T extends Mail>(template: T[0]) => (
   return send(createMessage(mailTemplate(data)));
 };
 
-const send = async (messageData: MessageData): SendMailResult => {
+const send = async (messageData: MessageData): Promise<any> => {
   const { recipient, subject, html } = messageData;
   const message: MailDataRequired = {
     from: SENDER_EMAIL,
@@ -39,8 +39,9 @@ const send = async (messageData: MessageData): SendMailResult => {
     subject,
     to: recipient
   };
-
-  return SendGridMail.send(message);
+  // eslint-disable-next-line no-console
+  console.log(message);
+  //return SendGridMail.send(message);
 };
 
 const sendMail = sendMessage(send);

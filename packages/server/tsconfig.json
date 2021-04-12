@@ -39,17 +39,20 @@
       "@env/*": ["src/env/*"],
       "@errors/*": ["src/errors/*"],
       "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@translations/*": ["src/translations/*"]
     },
     "preserveConstEnums": true,
     "pretty": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "ES6"
+    "target": "ES6",
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.ts"]
