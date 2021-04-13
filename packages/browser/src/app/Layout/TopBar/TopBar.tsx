@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { useCurrentUserQuery } from 'modules/user/model/currentUser';
 import { useSignOutMutation } from 'modules/auth/model/signOut';
 import { setAccessToken } from 'modules/auth/token';
-import { useAppState } from 'hooks';
+import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 
 import './TopBar.scss';
@@ -11,7 +11,7 @@ import './TopBar.scss';
 const TopBar: FC = () => {
   const { data, loading } = useCurrentUserQuery();
   const [signout, { client }] = useSignOutMutation();
-  const { dispatch } = useAppState();
+  const dispatch = useAppDispatch();
 
   const body = loading ? (
     <div>loading...</div>

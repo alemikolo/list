@@ -5,15 +5,12 @@ export enum Theme {
   Light = 'Light'
 }
 
+export type Locale = 'en' | 'pl';
+
 export enum ActionTypes {
   SetIsAuthenticated = 'APP/UPDATE_IS_AUTHENTICATED',
   SetLocale = 'APP/UPDATE_LOCALE',
   SetTheme = 'APP/UPDATE_THEME'
-}
-
-export enum Locale {
-  En = 'En',
-  Pl = 'Pl'
 }
 
 export interface ThemeAction {
@@ -41,7 +38,4 @@ export type AppAction = LocaleAction | ThemeAction | IsAuthenticatedAction;
 
 export type ActionCreator = (payload: any) => AppAction;
 
-export interface AppStore {
-  dispatch: Dispatch<AppAction>;
-  state: AppState;
-}
+export type AppDispatch = Dispatch<AppAction>;

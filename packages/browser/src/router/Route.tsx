@@ -46,9 +46,7 @@ const BaseRoute: FC<BaseRouteProps> = ({
 );
 
 export const PrivateRoute: FC<RouteProps> = props => {
-  const {
-    state: { isAuthenticated }
-  } = useAppState();
+  const { isAuthenticated } = useAppState();
 
   return (
     <BaseRoute
@@ -60,9 +58,7 @@ export const PrivateRoute: FC<RouteProps> = props => {
 };
 
 export const PublicRoute: FC<RouteProps> = props => {
-  const {
-    state: { isAuthenticated }
-  } = useAppState();
+  const { isAuthenticated } = useAppState();
 
   return (
     <BaseRoute

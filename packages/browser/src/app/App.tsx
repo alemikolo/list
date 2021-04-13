@@ -1,13 +1,14 @@
-import React, { FC, useMemo, useReducer } from 'react';
+import React, { FC, useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { setAccessToken } from 'modules/auth/token';
 import useFetch from 'hooks/useFetch';
 import Layout from './Layout';
 import {
+  AppDispatchProvider,
   appReducer,
   AppStateProvider,
-  initialState,
+  initialAppState,
   setIsAuthenticated
 } from 'state';
 
@@ -16,21 +17,15 @@ interface AT {
 }
 
 const App: FC = () => {
-  //TODO set separate dispatch context
-  const [state, dispatch] = useReducer(appReducer, initialState);
-
-  const contextValue = useMemo(() => {
-    return { dispatch, state };
-  }, [state, dispatch]);
+  const [state, dispatch] = useReducer(appReducer, initialAppState);
 
   const { data, loading, error } = useFetch<AT | null>(
     '/api/auth/refresh-token'
   );
 
-  const { isAuthenticated } = state;
-
   if (data) {
     const { accessToken } = data;
+    const { isAuthenticated } = state;
 
     setAccessToken(accessToken);
 
@@ -48,11 +43,13 @@ const App: FC = () => {
   }
 
   return (
-    <AppStateProvider value={contextValue}>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </AppStateProvider>
+    <AppDispatchProvider value={dispatch}>
+      <AppStateProvider value={state}>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </AppStateProvider>
+    </AppDispatchProvider>
   );
 };
 

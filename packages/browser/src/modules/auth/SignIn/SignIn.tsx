@@ -8,7 +8,7 @@ import {
   CurrentUserDocument,
   CurrentUserQuery
 } from 'modules/user/model/currentUser';
-import { useAppState } from 'hooks';
+import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
 import Page from 'ui/Page';
@@ -18,7 +18,7 @@ export const SignIn: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signIn, { loading }] = useSignInMutation();
-  const { dispatch } = useAppState();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const handleEmailChange: InputChangeHandler = event => {

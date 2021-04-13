@@ -1,11 +1,18 @@
-import { AppContext, AppStateProvider, initialState } from './AppContext';
+import {
+  AppStateContext,
+  AppStateProvider,
+  initialAppState
+} from './AppStateContext';
+import { AppDispatchContext, AppDispatchProvider } from './AppDispatchContext';
 import appReducer from './reducer';
 import { setIsAuthenticated } from './actions';
 
 export {
-  AppContext,
+  AppDispatchContext,
+  AppDispatchProvider,
   appReducer,
+  AppStateContext,
   AppStateProvider,
-  initialState,
+  initialAppState,
   setIsAuthenticated
 };
