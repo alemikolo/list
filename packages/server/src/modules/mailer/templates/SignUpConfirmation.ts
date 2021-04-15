@@ -1,21 +1,25 @@
+import getIntl from '@translations/intl';
 import { AuthMailData, MailDataCreator } from '../types';
 import { Link, Paragraph } from './components';
 
 const SignUpConfirmation: MailDataCreator<AuthMailData> = mailData => {
   const {
+    locale,
     recipient,
     redirectUrl,
     user: { email }
   } = mailData;
-  const subject = 'Confirm registration in Handle It';
-  const title = 'Confirm registration in Handle It';
-  const content = Paragraph()(
-    `Hello ${email}. Welcome on board. Use the following link to confirm your registration: `,
-    Link({ href: redirectUrl })('Confirm registration.')
-  );
-  const data = { content, title };
 
-  return { data, recipient, subject };
+  const { formatMessage: f } = getIntl(locale);
+
+  const title = f({ id: 'mail.register.title' });
+  const content = Paragraph()(
+    f({ id: 'mail.register.message' }, { email }),
+    Link({ href: redirectUrl })(f({ id: 'mail.register.confirm-link' }))
+  );
+  const data = { content, locale, title };
+
+  return { data, recipient, subject: title };
 };
 
 export default SignUpConfirmation;

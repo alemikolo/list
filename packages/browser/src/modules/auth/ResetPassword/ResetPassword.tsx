@@ -1,4 +1,5 @@
 import React, { FC, FormEvent, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useResetPasswordMutation } from '../model/resetPassword';
 import { InputChangeHandler } from 'constants/types';
@@ -47,28 +48,31 @@ const ResetPassword: FC = () => {
       {success ? (
         <div>
           <p>
-            We have sent an email on address {email}. To reset your password use
-            the link from the email message.
+            <FormattedMessage id="password.reset.success" values={{ email }} />
           </p>
         </div>
       ) : (
         <form onSubmit={handleResetPassword}>
           <div>
             <label>
-              Email
+              <FormattedMessage id="email" />
               <input onChange={handleEmailChange} type="text" value={email} />
             </label>
           </div>
           <div>
             <AsyncButton loading={loading} type="submit">
-              Reset password
+              <FormattedMessage id="password.reset" />
             </AsyncButton>
           </div>
-          {OtherError && <div>Something went wrong</div>}
+          {OtherError && (
+            <div>
+              <FormattedMessage id="error.general" />
+            </div>
+          )}
           {SendingFailedError && (
             <div>
-              Sending confirmation email failed. Check if the entered email:{' '}
-              {email} is correct and try to send request again.
+              <FormattedMessage id="error.sending-confirmation-failed" />{' '}
+              <FormattedMessage id="try again" />
             </div>
           )}
         </form>

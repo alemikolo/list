@@ -3,7 +3,7 @@ import { MailContent } from '../types';
 import Footer from './Footer';
 import Header from './Header';
 
-const Template = ({ title, content }: MailContent) =>
+const Template = ({ content, locale, title }: MailContent) =>
   Body()(
     Table()(
       Header({ key: 'Header' }),
@@ -11,7 +11,7 @@ const Template = ({ title, content }: MailContent) =>
         Row({ key: 'Title' })(Cell()(Heading()(title))),
         Row({ key: 'Content' })(Cell()(content))
       ),
-      Footer({ key: 'footer' })
+      Footer({ key: 'footer', locale })
     )
   );
 

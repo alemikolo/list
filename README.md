@@ -18,6 +18,7 @@
 - [Apollo Client](https://www.apollographql.com/docs/react/)
 - [GraphQL](https://graphql.org/)
 - [React](https://reactjs.org/)
+- [React-Intl](https://formatjs.io/docs/react-intl/)
 - [Sass](https://sass-lang.com/)
 - [TypeScript](https://www.typescriptlang.org)
 
@@ -28,6 +29,7 @@
 - [GraphQL](https://graphql.org/)
 - [node.js](https://nodejs.org)
 - [PostgreSQL](https://nodejs.org)
+- [React-Intl](https://formatjs.io/docs/react-intl/)
 - [TypeOrm](https://typeorm.io/#/)
 - [TypeScript](https://www.typescriptlang.org)
 - [TypeGraphql](https://github.com/MichalLytek/type-graphql)
@@ -65,7 +67,7 @@ cd handle-it
 #### 7. Install dependencies
 
 ```bash
-npm run ci:all
+npm run ci
 ```
 
 #### 8. Go to the server package directory

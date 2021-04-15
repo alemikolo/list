@@ -1,4 +1,5 @@
+import useAppDispatch from './useAppDispatch';
 import useAppState from './useAppState';
 import useFetch from './useFetch';
 
-export { useAppState, useFetch };
+export { useAppDispatch, useAppState, useFetch };

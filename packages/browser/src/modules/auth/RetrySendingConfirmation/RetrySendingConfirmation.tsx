@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useRetrySendingConfirmationMutation } from 'modules/auth/model/retrySendingConfirmation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
@@ -30,9 +31,7 @@ const RetrySendingConfirmation: FC<RetrySendingConfirmationProps> = ({
   return (
     <div>
       <div>
-        Your account was created but sending confirmation email failed. If the
-        email you entered: {email} is correct please use retry button. Otherwise
-        try to sign up again.
+        <FormattedMessage id="sign-up.confirmation.retry" values={{ email }} />
       </div>
       <ResendConfirmationView
         error={error}

@@ -1,0 +1,11 @@
+{
+  "mail.footer.address-label": "Adres",
+  "mail.footer.contact-label": "Kontakt",
+  "mail.footer.service-provider": "{app} jest usługą dostarczaną przez {company}",
+  "mail.register.title": "Potwierdź rejestrację w aplikacji Handle It",
+  "mail.register.confirm-link": "Potwierdź rejestrację",
+  "mail.register.message": "Dzień dobry {email}. Witamy na pokładzie. Użyj linku by potwierdzić rejestraję w Handle It: ",
+  "mail.reset-password.title": "Zresetuj swoje hasło do Handle It",
+  "mail.reset-password.confirm-link": "Zresetuj hasło",
+  "mail.reset-password.message": "Dzień dobry {email}. Zgłosiłeś nam, że zapomniałeś hasła. Jeśli to ty i chcesz zresetować hasło użyj linku by zresetować swoje hasło: "
+}

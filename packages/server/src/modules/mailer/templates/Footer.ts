@@ -1,4 +1,5 @@
 import environment from '@env/env';
+import getIntl from '@translations/intl';
 import { ComponentProps } from '@modules/mailer/types';
 import {
   Cell,
@@ -17,15 +18,22 @@ const {
 const address = COMPANY_ADDRESS.replace(/_/g, ' ');
 const phone = COMPANY_PHONE.replace(/_/g, ' ');
 
-const Footer = (props: ComponentProps) =>
-  Row(props)(
+const Footer = ({ locale = 'en', ...rest }: ComponentProps) => {
+  const { formatMessage: f } = getIntl(locale);
+
+  return Row(rest)(
     Cell()(
       Paragraph({ key: 'App Info' })(
-        `${APP_NAME} is a service provided by ${COMPANY_NAME}`
+        f(
+          { id: 'mail.footer.service-provider' },
+          { app: APP_NAME, company: COMPANY_NAME }
+        )
       ),
-      Paragraph({ key: 'Address' })(`Address: ${address}.`),
+      Paragraph({ key: 'Address' })(
+        `${f({ id: 'mail.footer.address-label' })}: ${address}.`
+      ),
       Paragraph({ key: 'Contact' })(
-        'Contact: ',
+        `${f({ id: 'mail.footer.contact-label' })}: `,
         Link({ href: `tel:${phone}` })(phone),
         ' | ',
         Link({
@@ -34,5 +42,6 @@ const Footer = (props: ComponentProps) =>
       )
     )
   );
+};
 
 export default Footer;

@@ -1,4 +1,5 @@
 import React, { FC, FormEvent, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useSignUpMutation } from '../model/signUp';
 import RetrySendingConfirmation from 'modules/auth/RetrySendingConfirmation';
@@ -61,11 +62,17 @@ export const SignUp: FC = () => {
       {success ? (
         <div>
           <p>
-            We have sent an email on address {email}. To finish sign up process
-            use the link from the email message to confirm your registration{' '}
+            <FormattedMessage
+              id="sign-up.success.message"
+              values={{
+                email
+              }}
+            />
           </p>
           <p>
-            <Button onClick={handleReset}>Sign up again</Button>
+            <Button onClick={handleReset}>
+              <FormattedMessage id="sign-up.again" />
+            </Button>
           </p>
         </div>
       ) : SendingFailedError ? (
@@ -74,13 +81,13 @@ export const SignUp: FC = () => {
         <form onSubmit={handleSignUp}>
           <div>
             <label>
-              Email
+              <FormattedMessage id="email" />
               <input onChange={handleEmailChange} type="text" value={email} />
             </label>
           </div>
           <div>
             <label>
-              Password
+              <FormattedMessage id="password" />
               <input
                 onChange={handlePasswordChange}
                 type="password"
@@ -90,14 +97,21 @@ export const SignUp: FC = () => {
           </div>
           <div>
             <AsyncButton loading={loading} type="submit">
-              Sign Up
+              <FormattedMessage id="sign-up" />
             </AsyncButton>
           </div>
-          {AlreadyExistsError && <div>User already exists</div>}
-          {OtherError && <div>Something went wrong</div>}
+          {AlreadyExistsError && (
+            <div>
+              <FormattedMessage id="error.user-exist" />
+            </div>
+          )}
+          {OtherError && (
+            <div>
+              <FormattedMessage id="error.general" />
+            </div>
+          )}
         </form>
       )}
-      )
     </Page>
   );
 };

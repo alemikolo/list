@@ -1,13 +1,13 @@
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { Application, Router } from 'express';
+import express, { Application, Router } from 'express';
 import path from 'path';
 
 import { startApollo } from '@app/apollo';
 import { Routes } from '@shared/types';
 import projectRoutes from '@modules/project/routes';
 import authRoutes from '@modules/auth/routes';
+import { localeMiddleware } from '@app/middlewares/localeMiddleware';
 
 type RoutesCreator = (routes: Routes) => Router;
 type RouterCreator = (router: Router) => RoutesCreator;
@@ -26,9 +26,10 @@ const useRoutes = createRouter(Router());
 
 const startApp = async (app: Application): Promise<Application> => {
   app.use(cors({ credentials: true, origin: 'http://localhost:4000' }));
-  app.use(bodyParser.json());
+  app.use(express.json());
   app.use(cookieParser());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: false }));
+  app.use(localeMiddleware);
 
   app.use(useRoutes([...authRoutes, ...projectRoutes]));
 

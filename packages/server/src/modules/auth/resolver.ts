@@ -84,7 +84,11 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async signUp(@Arg('email') email: string, @Arg('password') password: string) {
+  async signUp(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Ctx() { req: { locale } }: Context
+  ) {
     const user = await User.findOne({ email });
 
     if (user) {
@@ -120,6 +124,7 @@ export class AuthResolver {
 
     try {
       await sendSignUpConfirmation({
+        locale,
         recipient: email,
         redirectUrl,
         user: { email }
@@ -174,7 +179,10 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async resendSignUpConfirmation(@Arg('tokenId') tokenId: string) {
+  async resendSignUpConfirmation(
+    @Arg('tokenId') tokenId: string,
+    @Ctx() { req: { locale } }: Context
+  ) {
     if (!tokenId) {
       throw new BadRequestError();
     }
@@ -215,6 +223,7 @@ export class AuthResolver {
 
     try {
       await sendSignUpConfirmation({
+        locale,
         recipient: email,
         redirectUrl,
         user: { email }
@@ -230,7 +239,10 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async resetPassword(@Arg('email') email: string) {
+  async resetPassword(
+    @Arg('email') email: string,
+    @Ctx() { req: { locale } }: Context
+  ) {
     const user = await User.findOne({
       email,
       status: AccountStatus.Active
@@ -257,6 +269,7 @@ export class AuthResolver {
 
       try {
         await sendResetPasswordConfirmation({
+          locale,
           recipient: email,
           redirectUrl,
           user: { email }
@@ -273,7 +286,10 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async retrySendingConfirmation(@Arg('email') email: string) {
+  async retrySendingConfirmation(
+    @Arg('email') email: string,
+    @Ctx() { req: { locale } }: Context
+  ) {
     const user = await User.findOne({
       email,
       status: AccountStatus.Registered
@@ -304,6 +320,7 @@ export class AuthResolver {
 
     try {
       await sendSignUpConfirmation({
+        locale,
         recipient: email,
         redirectUrl,
         user: { email }

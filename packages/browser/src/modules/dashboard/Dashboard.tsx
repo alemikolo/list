@@ -1,23 +1,16 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import Content from 'ui/Content';
 import './Dashboard.scss';
-
-const getEvents = (): void => {
-  fetch('/api/projects/get', { method: 'GET' })
-    .then(res => res.json())
-    .then(json => console.error(json))
-    .catch(err => console.error(err));
-};
 
 const Dashboard: FC = () => {
   return (
     <Content>
       <div className="dashboard">
-        <h2>Dashboard page</h2>
-        <button onClick={getEvents} type="button">
-          server test
-        </button>
+        <h2>
+          <FormattedMessage id="dashboard" />
+        </h2>
         <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin

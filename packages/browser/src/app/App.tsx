@@ -1,36 +1,45 @@
-import React, { FC, useMemo, useReducer } from 'react';
+import React, { FC, useEffect, useReducer } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
 
 import { setAccessToken } from 'modules/auth/token';
 import useFetch from 'hooks/useFetch';
 import Layout from './Layout';
 import {
+  AppDispatchProvider,
   appReducer,
   AppStateProvider,
-  initialState,
-  setIsAuthenticated
+  initialAppState,
+  setIsAuthenticated,
+  setLocale
 } from 'state';
+import messages from 'translations';
 
 interface AT {
   accessToken: string;
 }
 
-const App: FC = () => {
-  //TODO set separate dispatch context
-  const [state, dispatch] = useReducer(appReducer, initialState);
+const locales = new Set(['en', 'pl']);
 
-  const contextValue = useMemo(() => {
-    return { dispatch, state };
-  }, [state, dispatch]);
+const App: FC = () => {
+  const [state, dispatch] = useReducer(appReducer, initialAppState);
+
+  useEffect(() => {
+    const locale = navigator.language;
+
+    if (locale && locales.has(locale)) {
+      // TODO check user preferences ccokies or localstorage or token
+      dispatch(setLocale(locale));
+    }
+  }, []);
 
   const { data, loading, error } = useFetch<AT | null>(
     '/api/auth/refresh-token'
   );
 
-  const { isAuthenticated } = state;
-
   if (data) {
     const { accessToken } = data;
+    const { isAuthenticated } = state;
 
     setAccessToken(accessToken);
 
@@ -47,12 +56,18 @@ const App: FC = () => {
     console.error('useFetch', error);
   }
 
+  const { locale } = state;
+
   return (
-    <AppStateProvider value={contextValue}>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </AppStateProvider>
+    <AppDispatchProvider value={dispatch}>
+      <AppStateProvider value={state}>
+        <IntlProvider locale={locale} messages={messages[locale]}>
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </IntlProvider>
+      </AppStateProvider>
+    </AppDispatchProvider>
   );
 };
 

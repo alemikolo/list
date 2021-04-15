@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { useResendSignUpConfirmationMutation } from 'modules/auth/model/resendSignUpConfirmation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
@@ -30,7 +31,10 @@ const ResendSignUpConfirmation: FC = () => {
 
   return (
     <div>
-      <div>Your confirmation link has expired. Please try again.</div>
+      <div>
+        <FormattedMessage id="error.link-has-expired" />{' '}
+        <FormattedMessage id="try-again" />.
+      </div>
       <ResendConfirmationView
         error={error}
         loading={loading}

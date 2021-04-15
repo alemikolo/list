@@ -1,24 +1,31 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { useCurrentUserQuery } from 'modules/user/model/currentUser';
 import { useSignOutMutation } from 'modules/auth/model/signOut';
 import { setAccessToken } from 'modules/auth/token';
-import { useAppState } from 'hooks';
+import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
+import Loader, { LoaderSize } from 'ui/Loader';
 
 import './TopBar.scss';
 
 const TopBar: FC = () => {
   const { data, loading } = useCurrentUserQuery();
   const [signout, { client }] = useSignOutMutation();
-  const { dispatch } = useAppState();
+  const dispatch = useAppDispatch();
 
   const body = loading ? (
-    <div>loading...</div>
+    <div>
+      <Loader size={LoaderSize.Big} />
+    </div>
   ) : data && data.currentUser ? (
     <div>{data.currentUser.email}</div>
   ) : (
-    <div>Not logged in</div>
+    <div>
+      {' '}
+      <FormattedMessage id="not-signed-in" />
+    </div>
   );
 
   const handleSignOut = async () => {
@@ -36,11 +43,15 @@ const TopBar: FC = () => {
   return (
     <div className="top-bar">
       <div className="top-bar__logo">
-        <h1>Handle It</h1>
+        <h1>
+          <FormattedMessage id="app-name" />
+        </h1>
       </div>
       <div className="top-bar__user">
         {data?.currentUser?.email && (
-          <button onClick={handleSignOut}>sign out</button>
+          <button onClick={handleSignOut}>
+            <FormattedMessage id="sign-out" />
+          </button>
         )}
         <div>{body}</div>
       </div>

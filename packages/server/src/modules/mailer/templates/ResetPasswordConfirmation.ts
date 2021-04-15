@@ -1,22 +1,25 @@
+import getIntl from '@translations/intl';
 import { AuthMailData, MailDataCreator } from '../types';
 import { Link, Paragraph } from './components';
 
 const ResetPasswordConfirmation: MailDataCreator<AuthMailData> = mailData => {
   const {
+    locale,
     recipient,
     redirectUrl,
     user: { email }
   } = mailData;
-  const subject = 'Reset your password in Handle It';
-  const title = 'Reset your password in Handle It';
+  const { formatMessage: f } = getIntl(locale);
+
+  const title = f({ id: 'mail.reset-password.title' });
   const content = Paragraph()(
-    `Hello ${email}. You told us that you forgot your password. If that sounds right use the following link to set the new one: `,
-    Link({ href: redirectUrl })('Reset password.')
+    f({ id: 'mail.reset-password.message' }, { email }),
+    Link({ href: redirectUrl })(f({ id: 'mail.reset-password.message' }))
   );
 
-  const data = { content, title };
+  const data = { content, locale, title };
 
-  return { data, recipient, subject };
+  return { data, recipient, subject: title };
 };
 
 export default ResetPasswordConfirmation;
