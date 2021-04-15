@@ -11,7 +11,7 @@ const RightBar: FC = () => {
 
   return (
     <div className={`right-bar ${expanded ? 'right-bar--expanded' : ''}`}>
-      Right bar<button onClick={toggleBar}>{'<<'}</button>
+      <button onClick={toggleBar}>{'<<'}</button>
     </div>
   );
 };

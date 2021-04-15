@@ -2,15 +2,21 @@ import React, { FC } from 'react';
 
 import { useByeQuery } from '../model/bye';
 import Content from 'ui/Content';
+import Loader, { LoaderSize } from 'ui/Loader';
+import { ContentNotFound } from 'modules/notFound';
 
 export const Bye: FC = () => {
   const { data, loading } = useByeQuery();
 
   if (loading) {
-    return <Content>loading...</Content>;
+    return (
+      <Content>
+        <Loader size={LoaderSize.Big} />
+      </Content>
+    );
   }
   if (!data) {
-    return <Content>no data</Content>;
+    return <ContentNotFound />;
   }
 
   return <Content>{data.bye}</Content>;

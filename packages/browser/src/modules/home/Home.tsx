@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import Page from 'ui/Page';
 import './Home.scss';
@@ -6,7 +7,9 @@ import './Home.scss';
 const Home: FC = () => {
   return (
     <Page>
-      <h2>Home page</h2>
+      <h2>
+        <FormattedMessage id="home" />
+      </h2>
       <div>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere

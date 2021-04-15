@@ -9,7 +9,9 @@ const Header: FC = () => {
   return (
     <header className="header">
       <div className="header__logo">
-        <h1>Handle It</h1>
+        <h1>
+          <FormattedMessage id="app-name" />
+        </h1>
       </div>
       <nav className="header__navigation">
         <ul className="header__navigation-links">

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { ApolloError } from '@apollo/client';
+import { FormattedMessage } from 'react-intl';
 
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
@@ -25,12 +26,19 @@ const ResendConfirmationView: FC<ResendConfirmationViewProps> = ({
   return (
     <div>
       {SendingFailedError && (
-        <div>Sending confirmation email failed. Please try again.</div>
+        <div>
+          <FormattedMessage id="error.sending-confirmation-failed" />{' '}
+          <FormattedMessage id="try again" />
+        </div>
       )}
       <AsyncButton loading={loading} onClick={onClick}>
-        resend confirmation link
+        <FormattedMessage id="resend-link" />
       </AsyncButton>
-      {OtherError && <div>Something went wrong</div>}
+      {OtherError && (
+        <div>
+          <FormattedMessage id="error.general" />
+        </div>
+      )}
     </div>
   );
 };

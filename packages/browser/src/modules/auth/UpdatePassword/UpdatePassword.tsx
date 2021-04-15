@@ -1,5 +1,6 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { useUpdatePasswordMutation } from '../model/updatePassword';
 import { InputChangeHandler } from 'constants/types';
@@ -67,22 +68,26 @@ const UpdatePassword: FC = () => {
     <Page>
       {success ? (
         <div>
-          <p>Your password has been updated.</p>
           <p>
-            <Link to={Path.SignIn}>Sign in</Link>
+            <FormattedMessage id="auth.password-updated" />
+          </p>
+          <p>
+            <Link to={Path.SignIn}>
+              <FormattedMessage id="sign-in" />
+            </Link>
           </p>
         </div>
       ) : (
         <form onSubmit={handleUpdatePassword}>
           <div>
             <label>
-              Email
+              <FormattedMessage id="email" />
               <input onChange={handleEmailChange} type="text" value={email} />
             </label>
           </div>
           <div>
             <label>
-              Password
+              <FormattedMessage id="password" />
               <input
                 onChange={handlePasswordChange}
                 type="password"
@@ -92,25 +97,36 @@ const UpdatePassword: FC = () => {
           </div>
           <div>
             <label>
-              Password
+              <FormattedMessage id="password.confirm" />
               <input
                 onChange={handlePasswordConfirmationChange}
                 type="password"
                 value={passwordConfirmation}
               />
             </label>
-            {PasswordMismatch && <div>Passwords does not match</div>}
+            {PasswordMismatch && (
+              <div>
+                <FormattedMessage id="error.password.mismatch" />
+              </div>
+            )}
           </div>
           <div>
             <AsyncButton loading={loading} type="submit">
-              Save
+              <FormattedMessage id="save" />
             </AsyncButton>
           </div>
-          {OtherError && <div>Something went wrong</div>}
+          {OtherError && (
+            <div>
+              <FormattedMessage id="error.general" />
+            </div>
+          )}
           {ExpiredLinkError && (
             <div>
-              Sending confirmation email failed. Please try to send request
-              again. <Link to={Path.ResetPassword}>Reset password</Link>
+              <FormattedMessage id="error.sending-confirmation-failed" />{' '}
+              <FormattedMessage id="try again" />{' '}
+              <Link to={Path.ResetPassword}>
+                <FormattedMessage id="password.reset" />
+              </Link>
             </div>
           )}
         </form>

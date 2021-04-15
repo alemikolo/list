@@ -1,10 +1,15 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const NotFound: FC = () => (
   <>
-    <h2>Not Found</h2>
+    <h2>
+      <FormattedMessage id="not-found" />
+    </h2>
     <div>
-      <p>Content you were looking for does not exist.</p>
+      <p>
+        <FormattedMessage id="not-found.message" />
+      </p>
     </div>
   </>
 );

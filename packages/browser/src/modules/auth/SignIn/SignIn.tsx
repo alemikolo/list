@@ -1,5 +1,6 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { useSignInMutation } from '../model/signIn';
 import { InputChangeHandler } from 'constants/types';
@@ -12,6 +13,7 @@ import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
 import Page from 'ui/Page';
+import Loader, { LoaderSize } from 'ui/Loader';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
@@ -61,18 +63,18 @@ export const SignIn: FC = () => {
   return (
     <Page>
       {loading ? (
-        <div>loading...</div>
+        <Loader size={LoaderSize.Big} />
       ) : (
         <form onSubmit={handleSignIn}>
           <div>
             <label>
-              Email
+              <FormattedMessage id="email" />
               <input onChange={handleEmailChange} type="text" value={email} />
             </label>
           </div>
           <div>
             <label>
-              Password
+              <FormattedMessage id="password" />
               <input
                 onChange={handlePasswordChange}
                 type="password"
@@ -81,10 +83,14 @@ export const SignIn: FC = () => {
             </label>
           </div>
           <div>
-            <button type="submit">Sign in</button>
+            <button type="submit">
+              <FormattedMessage id="sign-in" />
+            </button>
           </div>
           <div>
-            <Link to={Path.ResetPassword}>Forgot password?</Link>
+            <Link to={Path.ResetPassword}>
+              <FormattedMessage id="password.forgot" />
+            </Link>
           </div>
         </form>
       )}
