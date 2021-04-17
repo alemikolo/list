@@ -79,7 +79,7 @@ const config: IConfiguration = {
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.generated.tsx', '.tsx', '.js', '.jsx', '.json'],
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
   },
   target: 'web'
