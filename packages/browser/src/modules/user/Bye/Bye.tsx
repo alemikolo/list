@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { useByeQuery } from '../model/bye';
+import { useByeQuery } from '../model/bye.generated';
 import Content from 'ui/Content';
 import Loader, { LoaderSize } from 'ui/Loader';
 import { ContentNotFound } from 'modules/notFound';

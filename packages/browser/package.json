@@ -20,6 +20,7 @@
   "scripts": {
     "build": "webpack --progress --config ./webpack.config.prod.ts",
     "check": "npm-run-all lint format stylelint",
+    "compile": "tsc -p ./tsconfig.prod.json",
     "ci": "npm ci",
     "dev": "concurrently \"webpack serve --mode development --config ./webpack.config.dev.ts\" \"npm run gen:watch\"",
     "format": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
