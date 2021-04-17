@@ -87,8 +87,17 @@ export class AuthResolver {
   async signUp(
     @Arg('email') email: string,
     @Arg('password') password: string,
+    @Arg('passwordConfirmation') passwordConfirmation: string,
     @Ctx() { req: { locale } }: Context
   ) {
+    if (password !== passwordConfirmation) {
+      // TODO throw new ValidationError
+      throw new ValidationError(
+        'Password mismatch',
+        ErrorReason.PasswordMismatch
+      );
+    }
+
     const user = await User.findOne({ email });
 
     if (user) {

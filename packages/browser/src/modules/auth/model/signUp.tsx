@@ -133,6 +133,7 @@ export type MutationSignInArgs = {
 };
 
 export type MutationSignUpArgs = {
+  passwordConfirmation: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
 };
@@ -332,6 +333,7 @@ export type User = {
 export type SignUpMutationVariables = Types.Exact<{
   email: Types.Scalars['String'];
   password: Types.Scalars['String'];
+  passwordConfirmation: Types.Scalars['String'];
 }>;
 
 export type SignUpMutation = { __typename?: 'Mutation' } & Pick<
@@ -340,8 +342,16 @@ export type SignUpMutation = { __typename?: 'Mutation' } & Pick<
 >;
 
 export const SignUpDocument = gql`
-  mutation signUp($email: String!, $password: String!) {
-    signUp(email: $email, password: $password)
+  mutation signUp(
+    $email: String!
+    $password: String!
+    $passwordConfirmation: String!
+  ) {
+    signUp(
+      email: $email
+      password: $password
+      passwordConfirmation: $passwordConfirmation
+    )
   }
 `;
 export type SignUpMutationFn = Apollo.MutationFunction<
@@ -411,6 +421,7 @@ export function withSignUp<
  *   variables: {
  *      email: // value for 'email'
  *      password: // value for 'password'
+ *      passwordConfirmation: // value for 'passwordConfirmation'
  *   },
  * });
  */

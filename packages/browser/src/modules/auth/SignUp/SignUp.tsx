@@ -14,6 +14,7 @@ import './SignUp.scss';
 export const SignUp: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [registered, setRegistered] = useState(false);
   const [signUp, { error, loading }] = useSignUpMutation();
 
@@ -25,15 +26,24 @@ export const SignUp: FC = () => {
     setPassword(event.target.value);
   };
 
+  const handlePasswordConfirmationChange: InputChangeHandler = event => {
+    setPasswordConfirmation(event.target.value);
+  };
+
   const handleSignUp = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
 
-    if (!email || !password) {
+    if (
+      !email ||
+      !password ||
+      !passwordConfirmation ||
+      password !== passwordConfirmation
+    ) {
       return;
     }
 
     const response = await signUp({
-      variables: { email, password }
+      variables: { email, password, passwordConfirmation }
     });
 
     if (response) {
@@ -50,10 +60,15 @@ export const SignUp: FC = () => {
   const [specificErrors = {}, OtherError] = error
     ? checkErrors([
         ErrorReason.AlreadyExistsError,
+        ErrorReason.PasswordMismatch,
         ErrorReason.SendingFailedError
       ])(error)
     : [];
-  const { AlreadyExistsError, SendingFailedError } = specificErrors;
+  const {
+    AlreadyExistsError,
+    PasswordMismatch,
+    SendingFailedError
+  } = specificErrors;
 
   const success = !error && !loading && registered;
 
@@ -94,6 +109,21 @@ export const SignUp: FC = () => {
                 value={password}
               />
             </label>
+          </div>
+          <div>
+            <label>
+              <FormattedMessage id="password.confirm" />
+              <input
+                onChange={handlePasswordConfirmationChange}
+                type="password"
+                value={passwordConfirmation}
+              />
+            </label>
+            {PasswordMismatch && (
+              <div>
+                <FormattedMessage id="error.password.mismatch" />
+              </div>
+            )}
           </div>
           <div>
             <AsyncButton loading={loading} type="submit">

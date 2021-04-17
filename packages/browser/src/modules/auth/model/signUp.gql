@@ -1,3 +1,11 @@
-mutation signUp($email: String!, $password: String!) {
-  signUp(email: $email, password: $password)
+mutation signUp(
+  $email: String!
+  $password: String!
+  $passwordConfirmation: String!
+) {
+  signUp(
+    email: $email
+    password: $password
+    passwordConfirmation: $passwordConfirmation
+  )
 }

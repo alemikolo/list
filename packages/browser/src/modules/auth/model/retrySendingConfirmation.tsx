@@ -133,6 +133,7 @@ export type MutationSignInArgs = {
 };
 
 export type MutationSignUpArgs = {
+  passwordConfirmation: Scalars['String'];
   password: Scalars['String'];
   email: Scalars['String'];
 };
