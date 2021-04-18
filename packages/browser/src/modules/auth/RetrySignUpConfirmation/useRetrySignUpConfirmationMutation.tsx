@@ -6,9 +6,9 @@ interface RetrySignUpConfirmationArgs {
   email: string;
 }
 
-const RETRY_SIGN_UP_CONFIRM = gql`
-  mutation retrySendingConfirmation($email: String!) {
-    retrySendingConfirmation(email: $email)
+const RETRY_SIGN_UP_CONFIRMATION = gql`
+  mutation retrySignUpConfirmation($email: String!) {
+    retrySignUpConfirmation(email: $email)
   }
 `;
 
@@ -23,5 +23,5 @@ export function useRetrySignUpConfirmationMutation(
   return useMutation<
     RetrySignUpConfirmationResponse,
     RetrySignUpConfirmationArgs
-  >(RETRY_SIGN_UP_CONFIRM, options);
+  >(RETRY_SIGN_UP_CONFIRMATION, options);
 }

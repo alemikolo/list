@@ -4,20 +4,20 @@ import { FormattedMessage } from 'react-intl';
 import { useRetrySignUpConfirmationMutation } from './useRetrySignUpConfirmationMutation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
 
-interface RetrySendingConfirmationProps {
+interface RetrySignUpConfirmationProps {
   email: string;
 }
 
-const RetrySendingConfirmation: FC<RetrySendingConfirmationProps> = ({
+const RetrySignUpConfirmation: FC<RetrySignUpConfirmationProps> = ({
   email
 }) => {
   const [
-    retrySendingConfirmation,
+    retrySignUpConfirmation,
     { error, loading }
   ] = useRetrySignUpConfirmationMutation();
 
-  const handleRetrySendingConfirmation = async (): Promise<Boolean> => {
-    const response = await retrySendingConfirmation({
+  const handleRetrySignUpConfirmation = async (): Promise<Boolean> => {
+    const response = await retrySignUpConfirmation({
       variables: { email }
     });
 
@@ -36,10 +36,10 @@ const RetrySendingConfirmation: FC<RetrySendingConfirmationProps> = ({
       <ResendConfirmationView
         error={error}
         loading={loading}
-        onClick={handleRetrySendingConfirmation}
+        onClick={handleRetrySignUpConfirmation}
       />
     </div>
   );
 };
 
-export default RetrySendingConfirmation;
+export default RetrySignUpConfirmation;

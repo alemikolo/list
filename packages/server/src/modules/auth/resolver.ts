@@ -295,7 +295,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async retrySendingConfirmation(
+  async retrySignUpConfirmation(
     @Arg('email') email: string,
     @Ctx() { req: { locale } }: Context
   ) {
