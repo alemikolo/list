@@ -2,13 +2,13 @@ import React, { FC, FormEvent, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useSignInMutation } from '../model/signIn.generated';
+import { useSignInMutation } from './signIn.generated';
 import { InputChangeHandler } from 'constants/types';
 import { setAccessToken } from '../token';
 import {
   CurrentUserDocument,
   CurrentUserQuery
-} from 'modules/user/model/currentUser.generated';
+} from 'modules/user/CurrentUser/currentUser.generated';
 import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
