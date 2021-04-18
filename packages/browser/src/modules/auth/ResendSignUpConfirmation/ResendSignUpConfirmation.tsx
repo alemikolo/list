@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useResendSignUpConfirmationMutation } from 'modules/auth/ResendSignUpConfirmation/resendSignUpConfirmationMutation';
+import { useResendSignUpConfirmationMutation } from './useResendSignUpConfirmationMutation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
 
 interface RouteParams {

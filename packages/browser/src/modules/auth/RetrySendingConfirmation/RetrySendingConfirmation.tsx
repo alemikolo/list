@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useRetrySendingConfirmationMutation } from 'modules/auth/RetrySendingConfirmation/retrySendingConfirmationMutation';
+import { useRetrySignUpConfirmationMutation } from './useRetrySignUpConfirmationMutation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
 
 interface RetrySendingConfirmationProps {
@@ -14,7 +14,7 @@ const RetrySendingConfirmation: FC<RetrySendingConfirmationProps> = ({
   const [
     retrySendingConfirmation,
     { error, loading }
-  ] = useRetrySendingConfirmationMutation();
+  ] = useRetrySignUpConfirmationMutation();
 
   const handleRetrySendingConfirmation = async (): Promise<Boolean> => {
     const response = await retrySendingConfirmation({

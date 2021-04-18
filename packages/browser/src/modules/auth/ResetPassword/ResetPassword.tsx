@@ -1,7 +1,7 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useResetPasswordMutation } from './resetPasswordMutation';
+import { useResetPasswordMutation } from './useResetPasswordMutation';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';

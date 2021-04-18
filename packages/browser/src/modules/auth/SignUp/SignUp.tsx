@@ -1,7 +1,8 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useSignUpMutation } from './signUpMutation';
+// import { useSignUpMutation } from './signUpMutation';
+import { useSignUpMutation } from './useSignUpMutation';
 import RetrySendingConfirmation from 'modules/auth/RetrySendingConfirmation';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
