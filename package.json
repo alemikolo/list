@@ -27,7 +27,6 @@
     "create": "lerna create",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",
-    "gen": "lerna run gen",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
     "outdated": "node scripts/runInDirs.js outdated",
@@ -45,7 +44,7 @@
   "browserslist": [
     ">0.2%",
     "not dead",
-    "not ie <= 10",
+    "not ie <= 11",
     "not op_mini all"
   ],
   "devDependencies": {

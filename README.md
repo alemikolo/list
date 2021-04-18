@@ -118,7 +118,6 @@ npm run build
  "create": creates a new lerna-managed package
  "format": formats all the files using Prettier,
  "format:fix": formats and fix all the files using Prettier,
- "gen": generates query and mutation hooks for all .gql files,
  "lint": lint all the files using eslint,
  "lint:fix": lint and fix all files using eslint,
  "outdated": runs npm outdated for root and for all packages,
