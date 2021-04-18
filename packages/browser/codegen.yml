@@ -13,7 +13,7 @@ generates:
   src/:
     preset: near-operation-file
     presetConfig:
-      extension: .generated.tsx
+      extension: .tsx
       baseTypesPath: constants/graphqlTypes.ts
     plugins:
       - add:

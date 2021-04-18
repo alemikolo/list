@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useRetrySendingConfirmationMutation } from 'modules/auth/RetrySendingConfirmation/retrySendingConfirmation.generated';
+import { useRetrySendingConfirmationMutation } from 'modules/auth/RetrySendingConfirmation/retrySendingConfirmationMutation';
 import ResendConfirmationView from 'modules/auth/ResendConfirmationView';
 
 interface RetrySendingConfirmationProps {

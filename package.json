@@ -23,6 +23,7 @@
     "ci": "lerna run ci",
     "ci:all": "npm ci && npm-run-all ci bootstrap",
     "clean": "lerna clean",
+    "compile": "lerna run compile",
     "create": "lerna create",
     "format": "lerna run format",
     "format:fix": "lerna run format:fix",

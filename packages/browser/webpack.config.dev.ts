@@ -1,4 +1,5 @@
 import autoprefixer from 'autoprefixer';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
@@ -76,6 +77,7 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {

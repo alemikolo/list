@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useCurrentUserQuery } from 'modules/user/CurrentUser/currentUser.generated';
-import { useSignOutMutation } from 'modules/auth/SignOut/signOut.generated';
+import { useCurrentUserQuery } from 'modules/user/CurrentUser/currentUserQuery';
+import { useSignOutMutation } from 'modules/auth/SignOut/signOutMutation';
 import { setAccessToken } from 'modules/auth/token';
 import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';

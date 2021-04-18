@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "webpack --progress --config ./webpack.config.prod.ts",
-    "check": "npm-run-all lint format stylelint",
+    "check": "npm-run-all lint format stylelint test compile",
     "compile": "tsc -p ./tsconfig.prod.json",
     "ci": "npm ci",
     "dev": "concurrently \"webpack serve --mode development --config ./webpack.config.dev.ts\" \"npm run gen:watch\"",
@@ -39,6 +39,7 @@
     "@apollo/client": "3.3.13",
     "@formatjs/intl-pluralrules": "4.0.14",
     "@formatjs/intl-relativetimeformat": "8.1.5",
+    "@types/compression-webpack-plugin": "6.0.5",
     "apollo-link-token-refresh": "0.3.2",
     "graphql": "15.5.0",
     "jwt-decode": "3.1.2",
@@ -46,7 +47,8 @@
     "react-dom": "17.0.2",
     "react-intl": "5.15.8",
     "react-router-dom": "5.2.0",
-    "ts-polyfill": "3.8.2"
+    "ts-polyfill": "3.8.2",
+    "tslib": "1.14.1"
   },
   "devDependencies": {
     "@graphql-codegen/add": "2.0.2",
@@ -62,10 +64,12 @@
     "@types/react-dom": "17.0.3",
     "@types/react-router-dom": "5.1.7",
     "@types/terser-webpack-plugin": "5.0.3",
+    "@types/webpack-bundle-analyzer": "4.4.0",
     "@types/webpack-dev-server": "3.11.3",
     "@typescript-eslint/eslint-plugin": "4.20.0",
     "@typescript-eslint/parser": "4.20.0",
     "autoprefixer": "10.2.5",
+    "compression-webpack-plugin": "7.1.2",
     "concurrently": "6.0.0",
     "css-loader": "5.2.0",
     "eslint": "7.23.0",
@@ -99,13 +103,14 @@
     "tsconfig-paths": "3.9.0",
     "typescript": "4.2.3",
     "webpack": "5.30.0",
+    "webpack-bundle-analyzer": "4.4.1",
     "webpack-cli": "4.6.0",
     "webpack-dev-server": "3.11.2"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
-    "not ie <= 9",
+    "not ie <= 11",
     "not op_mini all"
   ],
   "lint-staged": {

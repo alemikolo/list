@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "tsc --build tsconfig.prod.json",
-    "check": "npm-run-all lint format test",
+    "check": "npm-run-all lint format test compile",
+    "compile": "tsc -p ./tsconfig.prod.json",
     "ci": "npm ci",
     "dev": "ts-node-dev --project ./tsconfig.json --watch --respawn --transpile-only ./src/index.ts",
     "format": "prettier --check \"src/**/*.{js,ts}\"",

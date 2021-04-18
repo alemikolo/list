@@ -110,10 +110,11 @@ npm run build
  "audit": runs npm audit in root and for all packages
  "bootstrap": install all packages dependencies and links any cross dependencies
  "build": build project for production
- "check": runs lint, format and stylelint and test scripts together,
+ "check": runs lint, format and stylelint, test and compile scripts together,
  "ci" runs npm ci for all packages directories
  "ci:all": installs all project dependencies and runs bootstrap and hooks scripts
  "clean": removes node_modules from al packages
+ "compile": runs TypeScript for all packages
  "create": creates a new lerna-managed package
  "format": formats all the files using Prettier,
  "format:fix": formats and fix all the files using Prettier,
