@@ -2,11 +2,11 @@ import { gql, QueryHookOptions, useQuery } from '@apollo/client';
 
 import { User } from '../types';
 
-type CurrentUserResponse = { currentUser: User };
+export type CurrentUserResponse = { currentUser: User };
 
 type CurrentUserArgs = {};
 
-const CURRENT_USER = gql`
+export const CURRENT_USER = gql`
   query CurrentUser {
     currentUser {
       email

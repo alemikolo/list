@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useCurrentUserQuery } from 'modules/user/CurrentUser/currentUserQuery';
+import { useCurrentUserQuery } from 'modules/user/CurrentUser/useCurrentUserQuery';
 import { useSignOutMutation } from 'modules/auth/SignOut/useSignOutMutation';
 import { setAccessToken } from 'modules/auth/token';
 import { useAppDispatch } from 'hooks';

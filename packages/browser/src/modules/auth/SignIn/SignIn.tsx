@@ -7,9 +7,9 @@ import { useSignInMutation } from './useSignInMutation';
 import { InputChangeHandler } from 'constants/types';
 import { setAccessToken } from '../token';
 import {
-  CurrentUserDocument,
-  CurrentUserQuery
-} from 'modules/user/CurrentUser/currentUserQuery';
+  CURRENT_USER,
+  CurrentUserResponse
+} from 'modules/user/CurrentUser/useCurrentUserQuery';
 import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
@@ -44,9 +44,9 @@ export const SignIn: FC = () => {
         if (!data) {
           return null;
         }
-        store.writeQuery<CurrentUserQuery>({
+        store.writeQuery<CurrentUserResponse>({
           data: { currentUser: data.signIn.user },
-          query: CurrentUserDocument
+          query: CURRENT_USER
         });
       },
       variables: { email, password }
