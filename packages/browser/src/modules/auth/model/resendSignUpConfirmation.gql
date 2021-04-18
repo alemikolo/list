@@ -1,3 +1,0 @@
-mutation resendSignUpConfirmation($tokenId: String!) {
-  resendSignUpConfirmation(tokenId: $tokenId)
-}

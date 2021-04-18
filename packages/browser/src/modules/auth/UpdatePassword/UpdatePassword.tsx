@@ -2,7 +2,7 @@ import React, { FC, FormEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useUpdatePasswordMutation } from '../model/updatePassword';
+import { useUpdatePasswordMutation } from './useUpdatePasswordMutation';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';

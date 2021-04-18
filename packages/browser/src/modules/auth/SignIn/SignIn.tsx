@@ -2,13 +2,14 @@ import React, { FC, FormEvent, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useSignInMutation } from '../model/signIn';
+// import { useSignInMutation } from './signInMutation';
+import { useSignInMutation } from './useSignInMutation';
 import { InputChangeHandler } from 'constants/types';
 import { setAccessToken } from '../token';
 import {
-  CurrentUserDocument,
-  CurrentUserQuery
-} from 'modules/user/model/currentUser';
+  CURRENT_USER,
+  CurrentUserResponse
+} from 'modules/user/CurrentUser/useCurrentUserQuery';
 import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import { Path } from 'router';
@@ -43,9 +44,9 @@ export const SignIn: FC = () => {
         if (!data) {
           return null;
         }
-        store.writeQuery<CurrentUserQuery>({
+        store.writeQuery<CurrentUserResponse>({
           data: { currentUser: data.signIn.user },
-          query: CurrentUserDocument
+          query: CURRENT_USER
         });
       },
       variables: { email, password }

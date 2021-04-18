@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useConfirmSignUpMutation } from 'modules/auth/model/confirmSigUp';
+import { useConfirmSignUpMutation } from './useConfirmSignUpMutation';
 import ResendSignUpConfirmation from 'modules/auth/ResendSignUpConfirmation';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';

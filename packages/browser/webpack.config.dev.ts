@@ -1,4 +1,5 @@
 import autoprefixer from 'autoprefixer';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
@@ -76,10 +77,11 @@ const config: IConfiguration = {
     publicPath: '/'
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.generated.tsx', '.tsx', '.js', '.jsx', '.json'],
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
   },
   target: 'web'

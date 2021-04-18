@@ -1,8 +1,8 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useSignUpMutation } from '../model/signUp';
-import RetrySendingConfirmation from 'modules/auth/RetrySendingConfirmation';
+import { useSignUpMutation } from './useSignUpMutation';
+import RetrySignUpConfirmation from 'modules/auth/RetrySignUpConfirmation';
 import { InputChangeHandler } from 'constants/types';
 import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
@@ -91,7 +91,7 @@ export const SignUp: FC = () => {
           </p>
         </div>
       ) : SendingFailedError ? (
-        <RetrySendingConfirmation email={email} />
+        <RetrySignUpConfirmation email={email} />
       ) : (
         <form onSubmit={handleSignUp}>
           <div>

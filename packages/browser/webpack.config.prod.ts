@@ -1,5 +1,7 @@
 import autoprefixer from 'autoprefixer';
 import { Configuration as WebpackConfiguration } from 'webpack';
+import CompressionWebpackPlugin from 'compression-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import HtmlWebPackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
@@ -52,6 +54,8 @@ const config: WebpackConfiguration = {
   optimization: {
     minimize: true,
     minimizer: [
+      new BundleAnalyzerPlugin(),
+      new CompressionWebpackPlugin(),
       new TerserPlugin({
         parallel: true
       })
@@ -59,7 +63,7 @@ const config: WebpackConfiguration = {
   },
   output: {
     clean: true,
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
     path: path.resolve(__dirname, '../../dist/public'),
     publicPath: '/'
   },
@@ -70,7 +74,7 @@ const config: WebpackConfiguration = {
     new HtmlWebPackPlugin({ template: path.resolve('public/index.html') })
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.generated.tsx', '.tsx', '.js', '.jsx', '.json'],
     modules: [path.resolve(__dirname, 'src'), 'tests', 'node_modules']
   }
 };
