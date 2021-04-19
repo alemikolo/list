@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
 import { useCurrentUserQuery } from 'modules/user/CurrentUser/useCurrentUserQuery';
 import { useSignOutMutation } from 'modules/auth/SignOut/useSignOutMutation';
 import { setAccessToken } from 'modules/auth/token';
+import { Path } from 'router';
 import { useAppDispatch } from 'hooks';
 import { setIsAuthenticated } from 'state';
 import Loader, { LoaderSize } from 'ui/Loader';
@@ -20,7 +22,12 @@ const TopBar: FC = () => {
       <Loader size={LoaderSize.Big} />
     </div>
   ) : data && data.currentUser ? (
-    <div>{data.currentUser.email}</div>
+    <div>
+      {data.currentUser.email}{' '}
+      <Link to={Path.Account}>
+        <FormattedMessage id="account" />
+      </Link>
+    </div>
   ) : (
     <div>
       {' '}

@@ -1,3 +1,3 @@
 import Bye from './Bye';
 
-export { Bye };
+export default Bye;

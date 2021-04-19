@@ -1,16 +1,25 @@
-import { Arg, Ctx, Field, Mutation, ObjectType, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  Field,
+  Mutation,
+  ObjectType,
+  Resolver,
+  UseMiddleware
+} from 'type-graphql';
 import { getManager } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
 
 import { AccountStatus, TokenType } from '@shared/enums';
 import { Context } from '@shared/types';
 import {
+  isAuth,
   createAccessToken,
   createRefreshToken,
   createToken,
   sendRefreshToken,
   verifyToken
-} from './auth';
+} from '@modules/auth/auth';
 import Token from './entity';
 import User from '@modules/user/entity';
 import {
@@ -33,62 +42,22 @@ class SignInResponse {
   @Field()
   accessToken!: string;
 }
+
+@ObjectType()
+class ChangePasswordResponse {
+  @Field()
+  accessToken!: string;
+}
 @Resolver()
 export class AuthResolver {
-  @Mutation(() => Boolean)
-  async signOut(@Ctx() { res }: Context) {
-    res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
-
-    return true;
-  }
-
-  @Mutation(() => SignInResponse)
-  async signIn(
+  @UseMiddleware(isAuth)
+  @Mutation(() => ChangePasswordResponse)
+  async changePassword(
     @Arg('email') email: string,
-    @Arg('password') password: string,
-    @Ctx() { res }: Context
-  ): Promise<SignInResponse> {
-    const user = await User.findOne({ where: { email } });
-
-    if (!user) {
-      throw new ValidationError(
-        'Invalid credentials',
-        ErrorReason.InvalidCredentialsError
-      );
-    }
-
-    const valid = await compare(password, user.password);
-
-    if (!valid) {
-      throw new ValidationError(
-        'Invalid credentials',
-        ErrorReason.InvalidCredentialsError
-      );
-    }
-
-    const { id, status, tokenVersion } = user;
-
-    if (status !== AccountStatus.Active) {
-      throw new BadRequestError(
-        'Account Not Active',
-        ErrorReason.AccountNotConfirmedError
-      );
-    }
-
-    sendRefreshToken(res, createRefreshToken(id, tokenVersion));
-
-    return {
-      accessToken: createAccessToken(id, tokenVersion),
-      user
-    };
-  }
-
-  @Mutation(() => Boolean)
-  async signUp(
-    @Arg('email') email: string,
+    @Arg('oldPassword') oldPassword: string,
     @Arg('password') password: string,
     @Arg('passwordConfirmation') passwordConfirmation: string,
-    @Ctx() { req: { locale } }: Context
+    @Ctx() { res }: Context
   ) {
     if (password !== passwordConfirmation) {
       // TODO throw new ValidationError
@@ -98,56 +67,42 @@ export class AuthResolver {
       );
     }
 
-    const user = await User.findOne({ email });
-
-    if (user) {
-      throw new BadRequestError(
-        'User already exists',
-        ErrorReason.AlreadyExistsError
-      );
-    }
-
-    const hashedPassword = await hash(password, 12);
-
-    const newUser = await User.insert({
+    const user = await User.findOne({
       email,
-      password: hashedPassword,
-      status: AccountStatus.Registered
+      status: AccountStatus.Active
     });
 
-    const { identifiers } = newUser;
-
-    const [{ id }] = identifiers;
-
-    const token = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
-
-    const {
-      identifiers: [{ id: tokenId }]
-    } = await Token.insert({
-      token,
-      type: TokenType.SignUpConfirmToken,
-      user: id
-    });
-
-    const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
-
-    try {
-      await sendSignUpConfirmation({
-        locale,
-        recipient: email,
-        redirectUrl,
-        user: { email }
-      });
-    } catch (error) {
-      console.error(error);
-
-      throw new BadRequestError(
-        'Sending confirmation failed',
-        ErrorReason.SendingFailedError
+    if (!user) {
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentialsError
       );
     }
 
-    return true;
+    const valid = await compare(oldPassword, user.password);
+
+    if (!valid) {
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentialsError
+      );
+    }
+
+    // TODO revoke tokens
+    const hashedPassword = await hash(password, 12);
+    const tokenVersion = user.tokenVersion + 1;
+    user.password = hashedPassword;
+    user.tokenVersion = tokenVersion;
+
+    await user.save();
+
+    res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
+
+    sendRefreshToken(res, createRefreshToken(user.id, tokenVersion));
+
+    return {
+      accessToken: createAccessToken(user.id, tokenVersion)
+    };
   }
 
   @Mutation(() => Boolean)
@@ -344,12 +299,128 @@ export class AuthResolver {
     return true;
   }
 
+  @Mutation(() => SignInResponse)
+  async signIn(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Ctx() { res }: Context
+  ): Promise<SignInResponse> {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentialsError
+      );
+    }
+
+    const valid = await compare(password, user.password);
+
+    if (!valid) {
+      throw new ValidationError(
+        'Invalid credentials',
+        ErrorReason.InvalidCredentialsError
+      );
+    }
+
+    const { id, status, tokenVersion } = user;
+
+    if (status !== AccountStatus.Active) {
+      throw new BadRequestError(
+        'Account Not Active',
+        ErrorReason.AccountNotConfirmedError
+      );
+    }
+
+    sendRefreshToken(res, createRefreshToken(id, tokenVersion));
+
+    return {
+      accessToken: createAccessToken(id, tokenVersion),
+      user
+    };
+  }
+
+  @Mutation(() => Boolean)
+  async signOut(@Ctx() { res }: Context) {
+    res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
+
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async signUp(
+    @Arg('email') email: string,
+    @Arg('password') password: string,
+    @Arg('passwordConfirmation') passwordConfirmation: string,
+    @Ctx() { req: { locale } }: Context
+  ) {
+    if (password !== passwordConfirmation) {
+      // TODO throw new ValidationError
+      throw new ValidationError(
+        'Password mismatch',
+        ErrorReason.PasswordMismatch
+      );
+    }
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      throw new BadRequestError(
+        'User already exists',
+        ErrorReason.AlreadyExistsError
+      );
+    }
+
+    const hashedPassword = await hash(password, 12);
+
+    const newUser = await User.insert({
+      email,
+      password: hashedPassword,
+      status: AccountStatus.Registered
+    });
+
+    const { identifiers } = newUser;
+
+    const [{ id }] = identifiers;
+
+    const token = createToken(CONFIRM_SIGN_UP_TOKEN_EXP)(id);
+
+    const {
+      identifiers: [{ id: tokenId }]
+    } = await Token.insert({
+      token,
+      type: TokenType.SignUpConfirmToken,
+      user: id
+    });
+
+    const redirectUrl = `${APP_URL}/sign-up-confirmation/${tokenId}`;
+
+    try {
+      await sendSignUpConfirmation({
+        locale,
+        recipient: email,
+        redirectUrl,
+        user: { email }
+      });
+    } catch (error) {
+      console.error(error);
+
+      throw new BadRequestError(
+        'Sending confirmation failed',
+        ErrorReason.SendingFailedError
+      );
+    }
+
+    return true;
+  }
+
   @Mutation(() => Boolean)
   async updatePassword(
     @Arg('tokenId') tokenId: string,
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Arg('passwordConfirmation') passwordConfirmation: string
+    @Arg('passwordConfirmation') passwordConfirmation: string,
+    @Ctx() { res }: Context
   ) {
     if (password !== passwordConfirmation) {
       // TODO throw new ValidationError
@@ -390,12 +461,15 @@ export class AuthResolver {
     }
 
     const hashedPassword = await hash(password, 12);
-
+    const tokenVersion = user.tokenVersion + 1;
+    // TODO revoke tokens
     await getManager().update(
       User,
       { email, id, status: AccountStatus.Active },
-      { password: hashedPassword }
+      { password: hashedPassword, tokenVersion }
     );
+
+    res.clearCookie('refreshToken', { path: '/api/auth/refresh-token' });
 
     await Token.delete({ id: tokenId });
 
