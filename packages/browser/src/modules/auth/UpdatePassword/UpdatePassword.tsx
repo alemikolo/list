@@ -52,6 +52,9 @@ const UpdatePassword: FC = () => {
 
     if (response) {
       setUpdated(true);
+      setEmail('');
+      setPassword('');
+      setPasswordConfirmation('');
     }
   };
 
@@ -69,7 +72,7 @@ const UpdatePassword: FC = () => {
       {success ? (
         <div>
           <p>
-            <FormattedMessage id="auth.password-updated" />
+            <FormattedMessage id="auth.password-changed" />
           </p>
           <p>
             <Link to={Path.SignIn}>

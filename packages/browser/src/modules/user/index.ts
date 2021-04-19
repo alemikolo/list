@@ -1,3 +1,4 @@
-import { Bye } from './Bye';
+import Account from './Account';
+import Bye from './Bye';
 
-export { Bye };
+export { Account, Bye };

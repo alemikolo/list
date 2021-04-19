@@ -9,7 +9,7 @@ import {
   SignUpConfirmation,
   UpdatePassword
 } from 'modules/auth';
-import { Bye } from 'modules/user';
+import { Account, Bye } from 'modules/user';
 import Home from 'modules/home';
 import { ContentNotFound, PageNotFound } from 'modules/notFound';
 import { Path, PrivateRoute, PublicRoute } from 'router';
@@ -51,6 +51,7 @@ export const Layout: FC = () => (
     <Switch>
       <PrivateRoute component={Bye} exact path={Path.Organizations} />
       <PrivateRoute component={Dashboard} exact path={Path.Dashboard} />
+      <PrivateRoute component={Account} exact path={Path.Account} />
       <PrivateRoute component={ContentNotFound} noFallback />
     </Switch>
     <Switch>

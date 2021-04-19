@@ -16,7 +16,6 @@ import { checkErrors } from 'errors';
 import { ErrorReason } from 'errors/enums';
 import Page from 'ui/Page';
 import { AsyncButton } from 'ui/Button';
-import Loader, { LoaderSize } from 'ui/Loader';
 import './SignIn.scss';
 
 export const SignIn: FC = () => {
@@ -82,43 +81,39 @@ export const SignIn: FC = () => {
 
   return (
     <Page>
-      {loading ? (
-        <Loader size={LoaderSize.Big} />
-      ) : (
-        <form onSubmit={handleSignIn}>
+      <form onSubmit={handleSignIn}>
+        <div>
+          <label>
+            <FormattedMessage id="email" />
+            <input onChange={handleEmailChange} type="text" value={email} />
+          </label>
+        </div>
+        <div>
+          <label>
+            <FormattedMessage id="password" />
+            <input
+              onChange={handlePasswordChange}
+              type="password"
+              value={password}
+            />
+          </label>
+        </div>
+        <div>
+          <AsyncButton loading={loading} type="submit">
+            <FormattedMessage id="sign-in" />
+          </AsyncButton>
+        </div>
+        <div>
+          <Link to={Path.ResetPassword}>
+            <FormattedMessage id="password.forgot" />
+          </Link>
+        </div>
+        {generalErrorMessage && (
           <div>
-            <label>
-              <FormattedMessage id="email" />
-              <input onChange={handleEmailChange} type="text" value={email} />
-            </label>
+            <FormattedMessage id={generalErrorMessage} />
           </div>
-          <div>
-            <label>
-              <FormattedMessage id="password" />
-              <input
-                onChange={handlePasswordChange}
-                type="password"
-                value={password}
-              />
-            </label>
-          </div>
-          <div>
-            <AsyncButton loading={loading} type="submit">
-              <FormattedMessage id="sign-in" />
-            </AsyncButton>
-          </div>
-          <div>
-            <Link to={Path.ResetPassword}>
-              <FormattedMessage id="password.forgot" />
-            </Link>
-          </div>
-          {generalErrorMessage && (
-            <div>
-              <FormattedMessage id={generalErrorMessage} />
-            </div>
-          )}
-        </form>
-      )}
+        )}
+      </form>
     </Page>
   );
 };

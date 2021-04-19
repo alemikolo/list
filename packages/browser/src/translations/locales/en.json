@@ -1,6 +1,7 @@
 {
+  "account": "Profile",
   "app-name": "Handle It",
-  "auth.password-updated": "Your password has been updated.",
+  "auth.password-changed": "Your password has been changed.",
   "dashboard": "Dashboard",
   "email": "Email",
   "error.account-not-confirmed": "Account not confirmed.",
@@ -18,6 +19,8 @@
   "password": "Password",
   "password.confirm": "Confirm password",
   "password.forgot": "Forgot password?",
+  "password.new": "New password",
+  "password.old": "Old password",
   "password.reset": "Reset password",
   "password.reset.success": "We have sent an email on address {email}. To reset your password use the link from the email message.",
   "resend-link": "Resend link",

@@ -1,6 +1,7 @@
 {
+  "account": "Profil",
   "app-name": "Handle It",
-  "auth.password-updated": "Twoje hasło zaktualizowane",
+  "auth.password-changed": "Twoje hasło zaktualizowane",
   "dashboard": "Pulpit",
   "email": "Email",
   "error.account-not-confirmed": "Konto nie potwierdzone",
@@ -18,6 +19,8 @@
   "password": "Hasło",
   "password.confirm": "Potwierdź hasło",
   "password.forgot": "Zapomniałeś hasła?",
+  "password.new": "Nowe hasło",
+  "password.old": "Stare hasło",
   "password.reset": "Zresetuj hasło",
   "password.reset.success": "Wysłaliśmy wiadomośc na adres {email}. Użyj linku z wiadomości by zresetować swoje hasło.",
   "resend-link": "Wyślij link",

@@ -2,11 +2,11 @@ import { onError } from '@apollo/client/link/error';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors && graphQLErrors.length > 0) {
-    //TODO
+    console.error(graphQLErrors);
   }
 
   if (networkError) {
-    // TODO
+    console.error(networkError);
   }
 });
 
