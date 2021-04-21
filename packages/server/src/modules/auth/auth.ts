@@ -3,6 +3,8 @@ import { MiddlewareFn } from 'type-graphql';
 import { sign, verify, VerifyOptions } from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 
+import User from '@modules/user/entity';
+import { AccountStatus } from '@shared/enums';
 import environment from '@env/env';
 import { Context } from '@shared/types';
 
@@ -74,7 +76,7 @@ export const verifyRefreshToken = createVerifier(REFRESH_PUBLIC_KEY);
 
 export const verifyToken = createVerifier(TOKEN_PUBLIC_KEY);
 
-export const isAuth: MiddlewareFn<Context> = ({ context }, next) => {
+export const isAuth: MiddlewareFn<Context> = async ({ context }, next) => {
   const {
     req: { headers }
   } = context;
@@ -91,7 +93,15 @@ export const isAuth: MiddlewareFn<Context> = ({ context }, next) => {
     const payload = verifyAccessToken(token);
 
     const { userId } = payload;
-    context.user = { userId };
+
+    const user = await User.findOne({
+      id: userId,
+      status: AccountStatus.Active
+    });
+
+    if (user) {
+      context.user = user;
+    }
   } catch (error) {
     throw new Error('not Authorized');
   }
