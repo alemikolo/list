@@ -13,6 +13,7 @@ import Route, {
   OrganizationsRoute,
   ProjectRoute,
   ProjectsRoute,
+  RemoveAccountRoute,
   ResetPasswordRoute,
   SettingsRoute,
   SignInRoute,
@@ -72,6 +73,10 @@ export const createOrganizationsRoute = createPath<OrganizationsRoute>(
 export const createProjectRoute = createPath<ProjectRoute>(Path.Project);
 
 export const createProjectsRoute = createPath<ProjectsRoute>(Path.Projects);
+
+export const createRemoveAccountRoute = createPath<RemoveAccountRoute>(
+  Path.RemoveAccount
+);
 
 export const createResetPasswordRoute = createPath<ResetPasswordRoute>(
   Path.ResetPassword
